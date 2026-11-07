@@ -1,0 +1,2331 @@
+{
+  "run_count": 1,
+  "runs": [
+    {
+      "costs": {
+        "completion_cost": 0.263886,
+        "prompt_cost": 0.4441074,
+        "total_cost": 0.7079934
+      },
+      "custom_metadata": {
+        "LANGGRAPH_API_URL": "http://localhost:8123",
+        "LANGSMITH_ENDPOINT": "https://api.smith.langchain.com",
+        "LANGSMITH_LANGGRAPH_API_REVISION": "5206f65",
+        "LANGSMITH_LANGGRAPH_API_VARIANT": "local",
+        "LANGSMITH_PROJECT": "trnsys-dck-generator",
+        "LANGSMITH_TRACING": "true",
+        "assistant_id": "9d9cb3f1-b4a2-5088-8c82-821b0979849b",
+        "created_by": "system",
+        "from_studio": true,
+        "graph_id": "dck_generator",
+        "langgraph_api_url": null,
+        "langgraph_api_version": "0.10.0",
+        "langgraph_auth_user_id": "",
+        "langgraph_host": "self-hosted",
+        "langgraph_plan": "enterprise",
+        "langgraph_request_id": "1ea053cd-c220-4c7e-af49-f3b2ddc76981",
+        "langgraph_version": "1.2.5",
+        "ls_integration": "langgraph",
+        "ls_run_depth": 0,
+        "run_attempt": 1,
+        "run_id": "019ecf6f-c069-7660-bb64-009eb4193e78",
+        "thread_id": "019ecf6f-bff2-7a10-bc0e-46c27ce76027",
+        "user_id": ""
+      },
+      "duration_ms": 646174,
+      "end_time": "2026-06-16T08:08:34.222037Z",
+      "error": null,
+      "feedback_stats": null,
+      "inputs": {
+        "task_description": "您是TRNSYS能源系统仿真领域的专家。请您建立一个基于TRNSYS的水-水热泵生活热水系统仿真模型，用于研究单级水-水热泵与分层蓄热水箱耦合系统在一周时间内的生活热水供应性能。\\n\\n仿真时间从第0小时运行至第168小时（共7天，对应一周），仿真步长为0.125小时（7.5分钟）。\\n\\n系统由一台单级水-水热泵（采用归一化性能数据文件方法）、一个分层蓄热水箱（固定入口、均匀热损失、3节点）、两台单速水泵（一台位于水箱回路，一台位于地源侧回路）、一个带迟滞的差温控制器用于热泵启停控制、一个提供恒定自来水温度的时间强制函数、以及一个定义每日生活热水用水时间表的时间强制函数组成。本仿真不需要天气文件。\\n\\n水-水热泵主要参数（归一化数据文件方法）：\\n- 源侧流体比热容：4.19 kJ/(kg·K)\\n- 负载侧流体比热容：4.19 kJ/(kg·K)\\n- 源侧流体密度：1000 kg/m³\\n- 负载侧流体密度：1000 kg/m³\\n- 制冷数据中源侧温度工况点数：6\\n- 制冷数据中负载侧温度工况点数：4\\n- 制热数据中源侧温度工况点数：5\\n- 制热数据中负载侧温度工况点数：4\\n- 源侧流量工况点数：3\\n- 负载侧流量工况点数：3\\n- 单台热泵额定制冷量：30000 kJ/h（约8.33 kW）\\n- 单台热泵额定制冷功率：6000 kJ/h（约1.67 kW）\\n- 单台热泵额定制热量：30000 kJ/h（约8.33 kW）\\n- 单台热泵额定制热功率：6000 kJ/h（约1.67 kW）\\n- 单台热泵额定源侧流量：0.4 L/s\\n- 单台热泵额定负载侧流量：0.4 L/s\\n- 相同热泵数量：1\\n- 制冷性能数据文件：\\\"d:\\\\TRNSYS18_03\\\\Tess Models\\\\SampleCatalogData\\\\Water-to-WaterHeatPump\\\\Normalized\\\\WWHP_Cooling-Normalized.dat\\\"\\n- 制热性能数据文件：\\\"d:\\\\TRNSYS18_03\\\\Tess Models\\\\SampleCatalogData\\\\Water-to-WaterHeatPump\\\\Normalized\\\\WWHP_Heating-Normalized.dat\\\"\\n\\n\\n分层蓄热水箱主要参数（3节点、固定入口、均匀热损失）：\\n- 水箱容积：0.3 m³\\n- 流体比热容：4.19 kJ/(kg·K)\\n- 流体密度：1000 kg/m³\\n- 水箱热损失系数：3 kJ/(h·m²·K)\\n- 水箱节点数：3\\n- 每个节点高度：0.5 m（水箱总高度：1.5 m）\\n- 辅助加热器模式：主从模式\\n- 辅助加热元件1：位于节点1，温控器位于节点1，设定温度55°C，死区5°C，最大加热功率0 kJ/h（已禁用）\\n- 辅助加热元件2：位于节点1，温控器位于节点1，设定温度55°C，死区5°C，最大加热功率0 kJ/h（已禁用）\\n- 沸点：100°C\\n- 3个节点初始温度均为：20°C\\n\\n水箱侧单速水泵主要参数：\\n- 最大流量：1440 kg/h\\n- 流体比热容：4.19 kJ/(kg·K)\\n- 最大功率：1342.281877 kJ/h（约0.37 kW）\\n- 转换系数（泵功率转化为流体热能的比例）：0\\n\\n地源侧单速水泵主要参数：\\n- 最大流量：1440 kg/h\\n- 流体比热容：4.19 kJ/(kg·K)\\n- 最大功率：1342.281877 kJ/h（约0.37 kW）\\n- 转换系数（泵功率转化为流体热能的比例）：0\\n\\n带迟滞的差温控制器（逐次替代法）：\\n- 上限输入温度（Th）：55°C（固定参考设定值）\\n- 下限输入温度（Tl）：连接至水箱平均温度\\n- 监测温度（Tin）：连接至水箱顶部温度（负载侧出水温度）\\n- 上死区：10°C\\n- 下死区：0°C\\n- 高温切断温度：100°C\\n- 允许振荡次数：5\\n当水箱平均温度降至45°C（55 - 10）以下时，控制器开启热泵和两台水泵；当水箱平均温度升至55°C时，控制器关闭热泵和两台水泵。\\n\\n自来水温度：\\n- 在整个仿真期间恒定为10°C（由时间强制温度函数提供）。\\n\\n生活热水用水时间表（每日重复模式，由时间强制水量函数提供）：\\n- 0:00–7:00：0 kg/h（无用水）\\n- 7:00–9:00：50 kg/h（早间用水）\\n- 9:00–12:00：0 kg/h（无用水）\\n- 12:00–13:00：100 kg/h（午间高峰用水）\\n- 13:00–17:00：0 kg/h（无用水）\\n- 17:00–21:00：50 kg/h（晚间用水）\\n- 21:00–24:00：0 kg/h（无用水）\\n\\n系统连接关系：\\n- 热泵仅在制热模式下运行（制冷控制信号固定为0，制热控制信号由差温控制器驱动）。\\n- 热泵负载侧从水箱底部（经水箱侧水泵）取水，加热后送回水箱热侧入口。\\n- 热泵源侧从地源侧水泵取水，该水泵以恒定的10°C自来水温度供水（模拟地源水供应）。\\n- 生活热水从水箱顶部（负载侧）取用，10°C的冷自来水从水箱底部补入以替换取用的热水。\\n- 两台水泵由同一个差温控制器输出信号控制。\\n\\n输出要求：\\n- 绘制温度曲线图，包括：自来水温度、水箱平均温度、热泵源侧出口温度、热泵负载侧出口温度、水箱顶部温度（负载侧出水）、水箱底部温度（热源侧出水），置于左轴（范围：-20至70°C）\\n- 绘制差温控制器输出控制信号，置于右轴（范围：0至2）\\n- 整个仿真周期（7天）绘制1张图",
+        "task_id": "task03"
+      },
+      "name": "dck_generator",
+      "outputs": {
+        "agent_execution_snapshot": {},
+        "agent_execution_snapshot_agent": "",
+        "agent_retry_counts": {},
+        "agent_validation_failed": false,
+        "component_plan": [
+          {
+            "category": "Water-to-Water Heat Pump",
+            "count": 1,
+            "description": "Single-stage water-to-water heat pump using normalized performance data files. Operates in heating mode only (cooling control signal fixed to 0). Rated heating capacity 30000 kJ/h, rated heating power 6000 kJ/h. Source and load side fluid: specific heat 4.19 kJ/(kg·K), density 1000 kg/m³. Rated source and load flow: 0.4 L/s each. Uses external cooling and heating performance data files."
+          },
+          {
+            "category": "Stratified Storage Tank",
+            "count": 1,
+            "description": "3-node stratified storage tank with fixed inlet positions and uniform heat losses. Volume 0.3 m³, total height 1.5 m (0.5 m per node). Fluid specific heat 4.19 kJ/(kg·K), density 1000 kg/m³. Tank loss coefficient 3 kJ/(h·m²·K). Two auxiliary heaters (both disabled, 0 kJ/h) at node 1 with thermostat setpoint 55°C and deadband 5°C. Initial temperature 20°C for all nodes. Boiling point 100°C."
+          },
+          {
+            "category": "Single-Speed Pump",
+            "count": 2,
+            "description": "Two single-speed pumps: one on the tank loop (between tank bottom and heat pump load side), one on the ground-source loop (supplying constant 10°C water to heat pump source side). Both have max flow 1440 kg/h, fluid specific heat 4.19 kJ/(kg·K), max power 1342.28 kJ/h (~0.37 kW), and power-to-fluid heat conversion coefficient of 0. Both controlled by the same differential controller output signal."
+          },
+          {
+            "category": "Differential Controller with Hysteresis",
+            "count": 1,
+            "description": "Differential temperature controller with hysteresis using successive substitution method. Upper input temperature Th fixed at 55°C (reference setpoint). Lower input temperature Tl connected to tank average temperature. Monitoring temperature Tin connected to tank top temperature. Upper deadband 10°C, lower deadband 0°C. High limit cut-out at 100°C. Allows 5 oscillations. Turns heat pump and both pumps ON when tank average temperature drops below 45°C (55-10), OFF when it rises to 55°C."
+          },
+          {
+            "category": "Time Forcing Function",
+            "count": 2,
+            "description": "Two time forcing functions: (1) Constant cold water temperature at 10°C for the entire simulation, representing mains water supply and ground-source water. (2) Daily repeating DHW draw schedule: 0 kg/h (0:00-7:00), 50 kg/h (7:00-9:00), 0 kg/h (9:00-12:00), 100 kg/h (12:00-13:00), 0 kg/h (13:00-17:00), 50 kg/h (17:00-21:00), 0 kg/h (21:00-24:00)."
+          },
+          {
+            "category": "Online Plotter",
+            "count": 1,
+            "description": "Single plot for the entire 7-day simulation period. Left axis (-20 to 70°C): cold water temperature, tank average temperature, heat pump source outlet temperature, heat pump load outlet temperature, tank top temperature (load-side outlet), tank bottom temperature (source-side outlet). Right axis (0 to 2): differential controller output control signal."
+          }
+        ],
+        "components": [
+          {
+            "category": "Time Forcing Function",
+            "initial_values": [],
+            "input_count": 0,
+            "inputs": [],
+            "layer": "Main",
+            "model_path": ".\\Utility\\Forcing Functions\\Temperature\\Type14e.tmf",
+            "parameter_count": 4,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Initial value of time",
+                "value": 0
+              },
+              {
+                "index": 2,
+                "name": "Initial temperature",
+                "value": 10
+              },
+              {
+                "index": 3,
+                "name": "Time at point",
+                "value": 168
+              },
+              {
+                "index": 4,
+                "name": "Temperature at point",
+                "value": 10
+              }
+            ],
+            "position_x": 140,
+            "position_y": 147,
+            "purpose": "Time-dependent forcing function providing constant 10°C cold water (mains/ground-source) temperature throughout the 7-day simulation",
+            "type_number": "Type14e",
+            "unit_name": "Cold_Water_Temperature",
+            "unit_number": 2
+          },
+          {
+            "category": "Time Forcing Function",
+            "initial_values": [],
+            "input_count": 0,
+            "inputs": [],
+            "layer": "Main",
+            "model_path": ".\\Utility\\Forcing Functions\\General\\Type14h.tmf",
+            "parameter_count": 28,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Initial value of time",
+                "value": 0
+              },
+              {
+                "index": 2,
+                "name": "Initial value of function",
+                "value": 0
+              },
+              {
+                "index": 3,
+                "name": "Time at point-1",
+                "value": 7
+              },
+              {
+                "index": 4,
+                "name": "Value at point-1",
+                "value": 0
+              },
+              {
+                "index": 5,
+                "name": "Time at point-2",
+                "value": 7
+              },
+              {
+                "index": 6,
+                "name": "Value at point-2",
+                "value": 50
+              },
+              {
+                "index": 7,
+                "name": "Time at point-3",
+                "value": 9
+              },
+              {
+                "index": 8,
+                "name": "Value at point-3",
+                "value": 50
+              },
+              {
+                "index": 9,
+                "name": "Time at point-4",
+                "value": 9
+              },
+              {
+                "index": 10,
+                "name": "Value at point-4",
+                "value": 0
+              },
+              {
+                "index": 11,
+                "name": "Time at point-5",
+                "value": 12
+              },
+              {
+                "index": 12,
+                "name": "Value at point-5",
+                "value": 0
+              },
+              {
+                "index": 13,
+                "name": "Time at point-6",
+                "value": 12
+              },
+              {
+                "index": 14,
+                "name": "Value at point-6",
+                "value": 100
+              },
+              {
+                "index": 15,
+                "name": "Time at point-7",
+                "value": 13
+              },
+              {
+                "index": 16,
+                "name": "Value at point-7",
+                "value": 100
+              },
+              {
+                "index": 17,
+                "name": "Time at point-8",
+                "value": 13
+              },
+              {
+                "index": 18,
+                "name": "Value at point-8",
+                "value": 0
+              },
+              {
+                "index": 19,
+                "name": "Time at point-9",
+                "value": 17
+              },
+              {
+                "index": 20,
+                "name": "Value at point-9",
+                "value": 0
+              },
+              {
+                "index": 21,
+                "name": "Time at point-10",
+                "value": 17
+              },
+              {
+                "index": 22,
+                "name": "Value at point-10",
+                "value": 50
+              },
+              {
+                "index": 23,
+                "name": "Time at point-11",
+                "value": 21
+              },
+              {
+                "index": 24,
+                "name": "Value at point-11",
+                "value": 50
+              },
+              {
+                "index": 25,
+                "name": "Time at point-12",
+                "value": 21
+              },
+              {
+                "index": 26,
+                "name": "Value at point-12",
+                "value": 0
+              },
+              {
+                "index": 27,
+                "name": "Time at point-13",
+                "value": 24
+              },
+              {
+                "index": 28,
+                "name": "Value at point-13",
+                "value": 0
+              }
+            ],
+            "position_x": 140,
+            "position_y": 483,
+            "purpose": "Time-dependent forcing function defining the daily domestic hot water draw schedule (0, 50, or 100 kg/h) repeating every 24 hours",
+            "type_number": "Type14h",
+            "unit_name": "DHW_Draw_Schedule",
+            "unit_number": 3
+          },
+          {
+            "category": "Differential Controller with Hysteresis",
+            "initial_values": [
+              55,
+              20,
+              20,
+              0,
+              10,
+              0
+            ],
+            "input_count": 6,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Control_Constants:T_Set_Th -\u003eUpper input temperature Th",
+                "source_output": 1,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "T_Set_Th"
+              },
+              {
+                "index": 2,
+                "name": "Stratified_Storage_Tank:Average tank temperature -\u003eLower input temperature Tl",
+                "source_output": 12,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 3,
+                "name": "Stratified_Storage_Tank:Temperature to load -\u003eMonitoring temperature Tin",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 4,
+                "name": "[unconnected] Input control function",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 5,
+                "name": "Control_Constants:dT_Upper -\u003eUpper dead band dT",
+                "source_output": 2,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "dT_Upper"
+              },
+              {
+                "index": 6,
+                "name": "Control_Constants:dT_Lower -\u003eLower dead band dT",
+                "source_output": 3,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "dT_Lower"
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Controllers\\Differential Controller w_ Hysteresis\\for Temperatures\\Complex Control Strategies\\Solver 0 (Successive Substitution) Control Strategy\\Type2b.tmf",
+            "parameter_count": 2,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "No. of oscillations",
+                "value": 5
+              },
+              {
+                "index": 2,
+                "name": "High limit cut-out",
+                "value": 100
+              }
+            ],
+            "position_x": 792,
+            "position_y": 147,
+            "purpose": "ON/OFF differential controller with hysteresis using successive substitution (Solver 0). Upper input Th fixed at 55°C, lower input Tl connected to tank average temperature, monitoring temperature Tin connected to tank top temperature. Upper deadband 10°C, lower deadband 0°C, high limit cut-out 100°C, 5 oscillations allowed. Controls heat pump and both pumps",
+            "type_number": "Type2b",
+            "unit_name": "Differential_Controller",
+            "unit_number": 4
+          },
+          {
+            "category": "Single-Speed Pump",
+            "initial_values": [
+              20,
+              0,
+              1,
+              0.6,
+              0.9
+            ],
+            "input_count": 5,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Stratified_Storage_Tank:Temperature to heat source -\u003eInlet fluid temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 2,
+                "name": "[unconnected] Inlet fluid flow rate",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 3,
+                "name": "Differential_Controller:Output control function -\u003eControl signal",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 4,
+                "name": "[unconnected] Overall pump efficiency",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 5,
+                "name": "[unconnected] Motor efficiency",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Hydronics\\Pumps\\Single Speed\\Type114.tmf",
+            "parameter_count": 4,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Rated flow rate",
+                "value": 1440
+              },
+              {
+                "index": 2,
+                "name": "Fluid specific heat",
+                "value": 4.19
+              },
+              {
+                "index": 3,
+                "name": "Rated power",
+                "value": 1342.281877
+              },
+              {
+                "index": 4,
+                "name": "Motor heat loss fraction",
+                "value": 0
+              }
+            ],
+            "position_x": 952,
+            "position_y": 339,
+            "purpose": "Single-speed pump on the tank loop, circulating fluid from tank bottom through the heat pump load side. Max flow 1440 kg/h, rated power 1342.28 kJ/h, motor heat loss fraction 0. Controlled by differential controller output signal",
+            "type_number": "Type114",
+            "unit_name": "Tank_Side_Pump",
+            "unit_number": 5
+          },
+          {
+            "category": "Single-Speed Pump",
+            "initial_values": [
+              10,
+              0,
+              1,
+              0.6,
+              0.9
+            ],
+            "input_count": 5,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Cold_Water_Temperature:Instantaneous temperature -\u003eInlet fluid temperature",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 2,
+                "name": "[unconnected] Inlet fluid flow rate",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 3,
+                "name": "Differential_Controller:Output control function -\u003eControl signal",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 4,
+                "name": "[unconnected] Overall pump efficiency",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 5,
+                "name": "[unconnected] Motor efficiency",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Hydronics\\Pumps\\Single Speed\\Type114.tmf",
+            "parameter_count": 4,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Rated flow rate",
+                "value": 1440
+              },
+              {
+                "index": 2,
+                "name": "Fluid specific heat",
+                "value": 4.19
+              },
+              {
+                "index": 3,
+                "name": "Rated power",
+                "value": 1342.281877
+              },
+              {
+                "index": 4,
+                "name": "Motor heat loss fraction",
+                "value": 0
+              }
+            ],
+            "position_x": 312,
+            "position_y": 147,
+            "purpose": "Single-speed pump on the ground-source loop, supplying constant 10°C water to the heat pump source side. Max flow 1440 kg/h, rated power 1342.28 kJ/h, motor heat loss fraction 0. Controlled by differential controller output signal",
+            "type_number": "Type114",
+            "unit_name": "Ground_Source_Pump",
+            "unit_number": 6
+          },
+          {
+            "category": "Water-to-Water Heat Pump",
+            "external_files": [
+              {
+                "description": "Which file contains the cooling performance data?",
+                "logical_unit": 57,
+                "path": "d:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\Water-to-WaterHeatPump\\Normalized\\WWHP_Cooling-Normalized.dat"
+              },
+              {
+                "description": "Which file contains the heating performance data?",
+                "logical_unit": 58,
+                "path": "d:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\Water-to-WaterHeatPump\\Normalized\\WWHP_Heating-Normalized.dat"
+              }
+            ],
+            "initial_values": [
+              10,
+              1440,
+              20,
+              1440,
+              0,
+              0,
+              1,
+              1
+            ],
+            "input_count": 8,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Ground_Source_Pump:Outlet fluid temperature -\u003eInlet Source Temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 6
+              },
+              {
+                "index": 2,
+                "name": "Ground_Source_Pump:Outlet flow rate -\u003eSource Flowrate",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 6
+              },
+              {
+                "index": 3,
+                "name": "Tank_Side_Pump:Outlet fluid temperature -\u003eInlet Load Temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 4,
+                "name": "Tank_Side_Pump:Outlet flow rate -\u003eLoad Flowrate",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 5,
+                "name": "Control_Constants:Cooling_Ctrl -\u003eCooling Control Signal",
+                "source_output": 4,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "Cooling_Ctrl"
+              },
+              {
+                "index": 6,
+                "name": "Differential_Controller:Output control function -\u003eHeating Control Signal",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 7,
+                "name": "Control_Constants:HP_Scale -\u003eScale Factor",
+                "source_output": 5,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "HP_Scale"
+              },
+              {
+                "index": 8,
+                "name": "Control_Constants:HP_Num_On -\u003eNumber of Heat Pumps On",
+                "source_output": 6,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "HP_Num_On"
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\GHP Library (TESS)\\Water-Water Heat Pump\\Single-Stage\\Type927.tmf",
+            "parameter_count": 19,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Source Fluid Specific Heat",
+                "value": 4.19
+              },
+              {
+                "index": 2,
+                "name": "Load Fluid Specific Heat",
+                "value": 4.19
+              },
+              {
+                "index": 3,
+                "name": "Source Fluid Density",
+                "value": 1000
+              },
+              {
+                "index": 4,
+                "name": "Load Fluid Density",
+                "value": 1000
+              },
+              {
+                "index": 5,
+                "name": "Logical Unit Number for Cooling Data File",
+                "value": 57
+              },
+              {
+                "index": 6,
+                "name": "Number of Source Temperatures - Cooling",
+                "value": 6
+              },
+              {
+                "index": 7,
+                "name": "Number of Load Temperatures - Cooling",
+                "value": 4
+              },
+              {
+                "index": 8,
+                "name": "Logical Unit for Heating Data",
+                "value": 58
+              },
+              {
+                "index": 9,
+                "name": "Number of Source Temperatures - Heating",
+                "value": 5
+              },
+              {
+                "index": 10,
+                "name": "Number of Load Temperatures - Heating",
+                "value": 4
+              },
+              {
+                "index": 11,
+                "name": "Number of Source Flowrates",
+                "value": 3
+              },
+              {
+                "index": 12,
+                "name": "Number of Load Flowrates",
+                "value": 3
+              },
+              {
+                "index": 13,
+                "name": "Rated Cooling Capacity per Heat Pump",
+                "value": 30000
+              },
+              {
+                "index": 14,
+                "name": "Rated Cooling Power per Heat Pump",
+                "value": 6000
+              },
+              {
+                "index": 15,
+                "name": "Rated Heating Capacity per Heat Pump",
+                "value": 30000
+              },
+              {
+                "index": 16,
+                "name": "Rated Heating Power per Heat Pump",
+                "value": 6000
+              },
+              {
+                "index": 17,
+                "name": "Rated Source Flowrate per Heat Pump",
+                "value": 0.4
+              },
+              {
+                "index": 18,
+                "name": "Rated Load Flowrate per Heat Pump",
+                "value": 0.4
+              },
+              {
+                "index": 19,
+                "name": "Number of Identical Heat Pumps",
+                "value": 1
+              }
+            ],
+            "position_x": 472,
+            "position_y": 147,
+            "purpose": "Single-stage water-to-water heat pump using normalized performance data files. Operates in heating mode only (cooling control signal fixed to 0). Rated heating capacity 30000 kJ/h, rated heating power 6000 kJ/h. Source/load fluid: Cp=4.19 kJ/(kg·K), density=1000 kg/m³. Uses external cooling and heating performance data files",
+            "type_number": "Type927",
+            "unit_name": "Water_to_Water_Heat_Pump",
+            "unit_number": 7
+          },
+          {
+            "category": "Stratified Storage Tank",
+            "initial_values": [
+              45,
+              100,
+              10,
+              0,
+              20,
+              0,
+              0
+            ],
+            "input_count": 7,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Water_to_Water_Heat_Pump:Outlet Load Temperature -\u003eHot-side temperature",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 7
+              },
+              {
+                "index": 2,
+                "name": "Water_to_Water_Heat_Pump:Load Flowrate -\u003eHot-side flowrate",
+                "source_output": 4,
+                "source_type": "component",
+                "source_unit": 7
+              },
+              {
+                "index": 3,
+                "name": "Cold_Water_Temperature:Instantaneous temperature -\u003eCold-side temperature",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 4,
+                "name": "DHW_Draw_Schedule:Instantaneous value of function over the timestep -\u003eCold-side flowrate",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 5,
+                "name": "Control_Constants:T_Env -\u003eEnvironment temperature",
+                "source_output": 7,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "T_Env"
+              },
+              {
+                "index": 6,
+                "name": "Control_Constants:Aux1_Ctrl -\u003eControl signal for element 1",
+                "source_output": 8,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "Aux1_Ctrl"
+              },
+              {
+                "index": 7,
+                "name": "Control_Constants:Aux2_Ctrl -\u003eControl signal for element 2",
+                "source_output": 9,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "Aux2_Ctrl"
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Obsolete\\Stratified Storage Tank\\Fixed Inlets\\Uniform Losses\\Type4a.tmf",
+            "parameter_count": 22,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Fixed inlet positions",
+                "value": 1
+              },
+              {
+                "index": 2,
+                "name": "Tank volume",
+                "value": 0.3
+              },
+              {
+                "index": 3,
+                "name": "Fluid specific heat",
+                "value": 4.19
+              },
+              {
+                "index": 4,
+                "name": "Fluid density",
+                "value": 1000
+              },
+              {
+                "index": 5,
+                "name": "Tank loss coefficient",
+                "value": 3
+              },
+              {
+                "index": 6,
+                "name": "Height of node-1",
+                "value": 0.5
+              },
+              {
+                "index": 7,
+                "name": "Height of node-2",
+                "value": 0.5
+              },
+              {
+                "index": 8,
+                "name": "Height of node-3",
+                "value": 0.5
+              },
+              {
+                "index": 9,
+                "name": "Auxiliary heater mode",
+                "value": 1
+              },
+              {
+                "index": 10,
+                "name": "Node containing heating element 1",
+                "value": 1
+              },
+              {
+                "index": 11,
+                "name": "Node containing thermostat 1",
+                "value": 1
+              },
+              {
+                "index": 12,
+                "name": "Set point temperature for element 1",
+                "value": 55
+              },
+              {
+                "index": 13,
+                "name": "Deadband for heating element 1",
+                "value": 5
+              },
+              {
+                "index": 14,
+                "name": "Maximum heating rate of element 1",
+                "value": 0
+              },
+              {
+                "index": 15,
+                "name": "Node containing heating element 2",
+                "value": 1
+              },
+              {
+                "index": 16,
+                "name": "Node containing thermostat 2",
+                "value": 1
+              },
+              {
+                "index": 17,
+                "name": "Set point temperature for element 2",
+                "value": 55
+              },
+              {
+                "index": 18,
+                "name": "Deadband for heating element 2",
+                "value": 5
+              },
+              {
+                "index": 19,
+                "name": "Maximum heating rate of element 2",
+                "value": 0
+              },
+              {
+                "index": 20,
+                "name": "Not used (Flue UA)",
+                "value": 0
+              },
+              {
+                "index": 21,
+                "name": "Not used (Tflue)",
+                "value": 20
+              },
+              {
+                "index": 22,
+                "name": "Boiling point",
+                "value": 100
+              }
+            ],
+            "position_x": 632,
+            "position_y": 147,
+            "purpose": "3-node stratified storage tank with fixed inlet positions and uniform heat losses. Volume 0.3 m³, total height 1.5 m (0.5 m per node). Fluid Cp=4.19 kJ/(kg·K), density=1000 kg/m³. Tank loss coefficient 3 kJ/(h·m²·K). Two auxiliary heaters at node 1 (both disabled, 0 kJ/h) with thermostat setpoint 55°C and deadband 5°C. Initial temperature 20°C for all nodes. Boiling point 100°C",
+            "type_number": "Type4a",
+            "unit_name": "Stratified_Storage_Tank",
+            "unit_number": 8
+          },
+          {
+            "category": "Online Plotter",
+            "initial_values": [
+              "Instantaneous_temperature",
+              "Average_tank_temperature",
+              "Outlet_Source_Temperature",
+              "Outlet_Load_Temperature",
+              "Temperature_to_load",
+              "Temperature_to_heat_source",
+              "Output_control_function"
+            ],
+            "input_count": 7,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Cold_Water_Temperature:Instantaneous temperature -\u003eLeft axis variable-1",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 2,
+                "name": "Stratified_Storage_Tank:Average tank temperature -\u003eLeft axis variable-2",
+                "source_output": 12,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 3,
+                "name": "Water_to_Water_Heat_Pump:Outlet Source Temperature -\u003eLeft axis variable-3",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 7
+              },
+              {
+                "index": 4,
+                "name": "Water_to_Water_Heat_Pump:Outlet Load Temperature -\u003eLeft axis variable-4",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 7
+              },
+              {
+                "index": 5,
+                "name": "Stratified_Storage_Tank:Temperature to load -\u003eLeft axis variable-5",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 6,
+                "name": "Stratified_Storage_Tank:Temperature to heat source -\u003eLeft axis variable-6",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 7,
+                "name": "Differential_Controller:Output control function -\u003eRight axis variable-1",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 4
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Output\\Online Plotter\\Online Plotter Without File\\Type65d.tmf",
+            "parameter_count": 12,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Nb. of left-axis variables",
+                "value": 6
+              },
+              {
+                "index": 2,
+                "name": "Nb. of right-axis variables",
+                "value": 1
+              },
+              {
+                "index": 3,
+                "name": "Left axis minimum",
+                "value": -20
+              },
+              {
+                "index": 4,
+                "name": "Left axis maximum",
+                "value": 70
+              },
+              {
+                "index": 5,
+                "name": "Right axis minimum",
+                "value": 0
+              },
+              {
+                "index": 6,
+                "name": "Right axis maximum",
+                "value": 2
+              },
+              {
+                "index": 7,
+                "name": "Number of plots per simulation",
+                "value": 1
+              },
+              {
+                "index": 8,
+                "name": "X-axis gridpoints",
+                "value": 12
+              },
+              {
+                "index": 9,
+                "name": "Shut off Online w/o removing",
+                "value": 0
+              },
+              {
+                "index": 10,
+                "name": "Logical unit for output file",
+                "value": -1
+              },
+              {
+                "index": 11,
+                "name": "Output file units",
+                "value": 0
+              },
+              {
+                "index": 12,
+                "name": "Output file delimiter",
+                "value": 0
+              }
+            ],
+            "position_x": 952,
+            "position_y": 147,
+            "purpose": "Online graphical plotter (no output file) displaying 7-day simulation results. Left axis (-20 to 70°C): cold water temperature, tank average temperature, heat pump source outlet temperature, heat pump load outlet temperature, tank top temperature, tank bottom temperature. Right axis (0 to 2): differential controller output control signal. Single plot for entire simulation period",
+            "specific_properties": [
+              {
+                "note": "LABELS",
+                "property": "Labels used by this online plotter (leave set to 3)",
+                "value": "3"
+              },
+              {
+                "property": "Left axis title (enclose in double quotes)",
+                "value": "\"Temperature [C]\""
+              },
+              {
+                "property": "Right axis title (enclose in double quotes)",
+                "value": "\"Control Signal [-]\""
+              },
+              {
+                "property": "Plot title (tab name if several plotters are used)",
+                "value": "\"DHW System - 7 Day Simulation\""
+              }
+            ],
+            "type_number": "Type65d",
+            "unit_name": "Online_Plotter",
+            "unit_number": 9
+          }
+        ],
+        "connections": [
+          {
+            "initial_values": [],
+            "input_count": 0,
+            "inputs": [],
+            "specific_properties": [],
+            "type_number": "Type14e",
+            "unit_name": "Cold_Water_Temperature",
+            "unit_number": 2
+          },
+          {
+            "initial_values": [],
+            "input_count": 0,
+            "inputs": [],
+            "specific_properties": [],
+            "type_number": "Type14h",
+            "unit_name": "DHW_Draw_Schedule",
+            "unit_number": 3
+          },
+          {
+            "initial_values": [
+              55,
+              20,
+              20,
+              0,
+              10,
+              0
+            ],
+            "input_count": 6,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Control_Constants:T_Set_Th -\u003eUpper input temperature Th",
+                "source_output": 1,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "T_Set_Th"
+              },
+              {
+                "index": 2,
+                "name": "Stratified_Storage_Tank:Average tank temperature -\u003eLower input temperature Tl",
+                "source_output": 12,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 3,
+                "name": "Stratified_Storage_Tank:Temperature to load -\u003eMonitoring temperature Tin",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 4,
+                "name": "[unconnected] Input control function",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 5,
+                "name": "Control_Constants:dT_Upper -\u003eUpper dead band dT",
+                "source_output": 2,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "dT_Upper"
+              },
+              {
+                "index": 6,
+                "name": "Control_Constants:dT_Lower -\u003eLower dead band dT",
+                "source_output": 3,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "dT_Lower"
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type2b",
+            "unit_name": "Differential_Controller",
+            "unit_number": 4
+          },
+          {
+            "initial_values": [
+              20,
+              0,
+              1,
+              0.6,
+              0.9
+            ],
+            "input_count": 5,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Stratified_Storage_Tank:Temperature to heat source -\u003eInlet fluid temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 2,
+                "name": "[unconnected] Inlet fluid flow rate",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 3,
+                "name": "Differential_Controller:Output control function -\u003eControl signal",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 4,
+                "name": "[unconnected] Overall pump efficiency",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 5,
+                "name": "[unconnected] Motor efficiency",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type114",
+            "unit_name": "Tank_Side_Pump",
+            "unit_number": 5
+          },
+          {
+            "initial_values": [
+              10,
+              0,
+              1,
+              0.6,
+              0.9
+            ],
+            "input_count": 5,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Cold_Water_Temperature:Instantaneous temperature -\u003eInlet fluid temperature",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 2,
+                "name": "[unconnected] Inlet fluid flow rate",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 3,
+                "name": "Differential_Controller:Output control function -\u003eControl signal",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 4,
+                "name": "[unconnected] Overall pump efficiency",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 5,
+                "name": "[unconnected] Motor efficiency",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type114",
+            "unit_name": "Ground_Source_Pump",
+            "unit_number": 6
+          },
+          {
+            "initial_values": [
+              10,
+              1440,
+              20,
+              1440,
+              0,
+              0,
+              1,
+              1
+            ],
+            "input_count": 8,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Ground_Source_Pump:Outlet fluid temperature -\u003eInlet Source Temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 6
+              },
+              {
+                "index": 2,
+                "name": "Ground_Source_Pump:Outlet flow rate -\u003eSource Flowrate",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 6
+              },
+              {
+                "index": 3,
+                "name": "Tank_Side_Pump:Outlet fluid temperature -\u003eInlet Load Temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 4,
+                "name": "Tank_Side_Pump:Outlet flow rate -\u003eLoad Flowrate",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 5,
+                "name": "Control_Constants:Cooling_Ctrl -\u003eCooling Control Signal",
+                "source_output": 4,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "Cooling_Ctrl"
+              },
+              {
+                "index": 6,
+                "name": "Differential_Controller:Output control function -\u003eHeating Control Signal",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 7,
+                "name": "Control_Constants:HP_Scale -\u003eScale Factor",
+                "source_output": 5,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "HP_Scale"
+              },
+              {
+                "index": 8,
+                "name": "Control_Constants:HP_Num_On -\u003eNumber of Heat Pumps On",
+                "source_output": 6,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "HP_Num_On"
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type927",
+            "unit_name": "Water_to_Water_Heat_Pump",
+            "unit_number": 7
+          },
+          {
+            "initial_values": [
+              45,
+              100,
+              10,
+              0,
+              20,
+              0,
+              0
+            ],
+            "input_count": 7,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Water_to_Water_Heat_Pump:Outlet Load Temperature -\u003eHot-side temperature",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 7
+              },
+              {
+                "index": 2,
+                "name": "Water_to_Water_Heat_Pump:Load Flowrate -\u003eHot-side flowrate",
+                "source_output": 4,
+                "source_type": "component",
+                "source_unit": 7
+              },
+              {
+                "index": 3,
+                "name": "Cold_Water_Temperature:Instantaneous temperature -\u003eCold-side temperature",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 4,
+                "name": "DHW_Draw_Schedule:Instantaneous value of function over the timestep -\u003eCold-side flowrate",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 5,
+                "name": "Control_Constants:T_Env -\u003eEnvironment temperature",
+                "source_output": 7,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "T_Env"
+              },
+              {
+                "index": 6,
+                "name": "Control_Constants:Aux1_Ctrl -\u003eControl signal for element 1",
+                "source_output": 8,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "Aux1_Ctrl"
+              },
+              {
+                "index": 7,
+                "name": "Control_Constants:Aux2_Ctrl -\u003eControl signal for element 2",
+                "source_output": 9,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "Aux2_Ctrl"
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type4a",
+            "unit_name": "Stratified_Storage_Tank",
+            "unit_number": 8
+          },
+          {
+            "initial_values": [
+              "Instantaneous_temperature",
+              "Average_tank_temperature",
+              "Outlet_Source_Temperature",
+              "Outlet_Load_Temperature",
+              "Temperature_to_load",
+              "Temperature_to_heat_source",
+              "Output_control_function"
+            ],
+            "input_count": 7,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Cold_Water_Temperature:Instantaneous temperature -\u003eLeft axis variable-1",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 2,
+                "name": "Stratified_Storage_Tank:Average tank temperature -\u003eLeft axis variable-2",
+                "source_output": 12,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 3,
+                "name": "Water_to_Water_Heat_Pump:Outlet Source Temperature -\u003eLeft axis variable-3",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 7
+              },
+              {
+                "index": 4,
+                "name": "Water_to_Water_Heat_Pump:Outlet Load Temperature -\u003eLeft axis variable-4",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 7
+              },
+              {
+                "index": 5,
+                "name": "Stratified_Storage_Tank:Temperature to load -\u003eLeft axis variable-5",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 6,
+                "name": "Stratified_Storage_Tank:Temperature to heat source -\u003eLeft axis variable-6",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 7,
+                "name": "Differential_Controller:Output control function -\u003eRight axis variable-1",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 4
+              }
+            ],
+            "specific_properties": [
+              {
+                "note": "LABELS",
+                "property": "Labels used by this online plotter (leave set to 3)",
+                "value": "3"
+              },
+              {
+                "property": "Left axis title (enclose in double quotes)",
+                "value": "\"Temperature [C]\""
+              },
+              {
+                "property": "Right axis title (enclose in double quotes)",
+                "value": "\"Control Signal [-]\""
+              },
+              {
+                "property": "Plot title (tab name if several plotters are used)",
+                "value": "\"DHW System - 7 Day Simulation\""
+              }
+            ],
+            "type_number": "Type65d",
+            "unit_name": "Online_Plotter",
+            "unit_number": 9
+          },
+          {
+            "initial_values": [],
+            "input_count": 0,
+            "inputs": [],
+            "type_number": "EQUATIONS",
+            "unit_name": "Control_Constants",
+            "unit_number": 10
+          }
+        ],
+        "constants": [],
+        "current_agent": "validator",
+        "dck_content": "\u003cfiltered: str, 14251 chars\u003e",
+        "equations": [
+          {
+            "connection_inputs": [],
+            "equation_count": 9,
+            "equations": [
+              {
+                "comment": "Fixed upper input temperature setpoint for differential controller (reference for ON/OFF hysteresis). T_Set_Th [°C]; to -\u003e [4,1] Upper input temperature Th [°C]",
+                "expression": "55",
+                "variable": "T_Set_Th"
+              },
+              {
+                "comment": "Upper deadband temperature difference: controller turns OFF when Tl rises above Th (55°C), turns ON when Tl drops below Th-dT_Upper (45°C). dT_Upper [deltaC]; to -\u003e [4,5] Upper dead band dT [deltaC]",
+                "expression": "10",
+                "variable": "dT_Upper"
+              },
+              {
+                "comment": "Lower deadband temperature difference: set to 0 so only upper deadband governs the hysteresis. dT_Lower [deltaC]; to -\u003e [4,6] Lower dead band dT [deltaC]",
+                "expression": "0",
+                "variable": "dT_Lower"
+              },
+              {
+                "comment": "Cooling control signal fixed to 0 — heat pump operates in heating mode only. Cooling_Ctrl [-]; to -\u003e [7,5] Cooling Control Signal [-]",
+                "expression": "0",
+                "variable": "Cooling_Ctrl"
+              },
+              {
+                "comment": "Scale factor for single heat pump (1 = one unit at rated capacity). HP_Scale [-]; to -\u003e [7,7] Scale Factor [-]",
+                "expression": "1",
+                "variable": "HP_Scale"
+              },
+              {
+                "comment": "Number of identical heat pumps considered ON (1 unit). HP_Num_On [-]; to -\u003e [7,8] Number of Heat Pumps On [-]",
+                "expression": "1",
+                "variable": "HP_Num_On"
+              },
+              {
+                "comment": "Environment temperature surrounding the storage tank (assumed indoor installation at 20°C). T_Env [°C]; to -\u003e [8,5] Environment temperature [°C]",
+                "expression": "20",
+                "variable": "T_Env"
+              },
+              {
+                "comment": "Control signal for auxiliary heating element 1 — disabled (max heating rate = 0 kJ/h). Aux1_Ctrl [-]; to -\u003e [8,6] Control signal for element 1 [-]",
+                "expression": "0",
+                "variable": "Aux1_Ctrl"
+              },
+              {
+                "comment": "Control signal for auxiliary heating element 2 — disabled (max heating rate = 0 kJ/h). Aux2_Ctrl [-]; to -\u003e [8,7] Control signal for element 2 [-]",
+                "expression": "0",
+                "variable": "Aux2_Ctrl"
+              }
+            ],
+            "layer": "Main",
+            "position_x": 140,
+            "position_y": 339,
+            "unit_name": "Control_Constants",
+            "unit_number": 10
+          }
+        ],
+        "expert_output_status": "layout_designer output successfully",
+        "human_expert_error_analysis": {},
+        "iteration": 7,
+        "last_dispatched_expert": "",
+        "last_validator_snapshot": {
+          "current_round_repair_notes": [],
+          "error_analysis": {},
+          "validation_errors": [],
+          "validation_result": "success",
+          "validator_round": 1
+        },
+        "layout_styles": [
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                160,
+                117
+              ],
+              [
+                180,
+                117
+              ],
+              [
+                180,
+                117
+              ],
+              [
+                292,
+                117
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 2,
+            "input_indices": [
+              1
+            ],
+            "start_dir": "40:0",
+            "style": 0,
+            "to_unit": 6,
+            "user_path": 0,
+            "width": 2
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                160,
+                160
+              ],
+              [
+                196,
+                160
+              ],
+              [
+                196,
+                192
+              ],
+              [
+                516,
+                192
+              ],
+              [
+                516,
+                157
+              ],
+              [
+                612,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 2,
+            "input_indices": [
+              3
+            ],
+            "start_dir": "40:43",
+            "style": 0,
+            "to_unit": 8,
+            "user_path": 0,
+            "width": 2
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                160,
+                160
+              ],
+              [
+                212,
+                160
+              ],
+              [
+                212,
+                208
+              ],
+              [
+                852,
+                208
+              ],
+              [
+                852,
+                157
+              ],
+              [
+                932,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 2,
+            "input_indices": [
+              1
+            ],
+            "start_dir": "40:43",
+            "style": 4,
+            "to_unit": 9,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                158.5,
+                493
+              ],
+              [
+                276,
+                493
+              ],
+              [
+                276,
+                563
+              ],
+              [
+                548,
+                563
+              ],
+              [
+                548,
+                157
+              ],
+              [
+                612,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 3,
+            "input_indices": [
+              4
+            ],
+            "start_dir": "37:40",
+            "style": 0,
+            "to_unit": 8,
+            "user_path": 0,
+            "width": 2
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                160,
+                349
+              ],
+              [
+                228,
+                349
+              ],
+              [
+                228,
+                381
+              ],
+              [
+                676,
+                381
+              ],
+              [
+                676,
+                157
+              ],
+              [
+                772,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 10,
+            "input_indices": [
+              1,
+              5,
+              6
+            ],
+            "start_dir": "40:40",
+            "style": 1,
+            "to_unit": 4,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                160,
+                349
+              ],
+              [
+                244,
+                349
+              ],
+              [
+                244,
+                397
+              ],
+              [
+                356,
+                397
+              ],
+              [
+                356,
+                156
+              ],
+              [
+                453,
+                156
+              ]
+            ],
+            "end_dir": "0:39",
+            "from_unit": 10,
+            "input_indices": [
+              5,
+              7,
+              8
+            ],
+            "start_dir": "40:40",
+            "style": 1,
+            "to_unit": 7,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                160,
+                349
+              ],
+              [
+                260,
+                349
+              ],
+              [
+                260,
+                413
+              ],
+              [
+                532,
+                413
+              ],
+              [
+                532,
+                157
+              ],
+              [
+                612,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 10,
+            "input_indices": [
+              5,
+              6,
+              7
+            ],
+            "start_dir": "40:40",
+            "style": 1,
+            "to_unit": 8,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                812,
+                137
+              ],
+              [
+                820,
+                137
+              ],
+              [
+                820,
+                309
+              ],
+              [
+                932,
+                309
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 4,
+            "input_indices": [
+              3
+            ],
+            "start_dir": "40:20",
+            "style": 1,
+            "to_unit": 5,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                772,
+                157
+              ],
+              [
+                724,
+                157
+              ],
+              [
+                724,
+                272
+              ],
+              [
+                372,
+                272
+              ],
+              [
+                372,
+                157
+              ],
+              [
+                332,
+                157
+              ]
+            ],
+            "end_dir": "40:40",
+            "from_unit": 4,
+            "input_indices": [
+              3
+            ],
+            "start_dir": "0:40",
+            "style": 1,
+            "to_unit": 6,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                772,
+                157
+              ],
+              [
+                740,
+                157
+              ],
+              [
+                740,
+                288
+              ],
+              [
+                580,
+                288
+              ],
+              [
+                580,
+                156
+              ],
+              [
+                491,
+                156
+              ]
+            ],
+            "end_dir": "38:39",
+            "from_unit": 4,
+            "input_indices": [
+              6
+            ],
+            "start_dir": "0:40",
+            "style": 1,
+            "to_unit": 7,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                812,
+                117
+              ],
+              [
+                836,
+                117
+              ],
+              [
+                836,
+                117
+              ],
+              [
+                932,
+                117
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 4,
+            "input_indices": [
+              7
+            ],
+            "start_dir": "40:0",
+            "style": 4,
+            "to_unit": 9,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 8851335,
+            "coordinates": [
+              [
+                932,
+                349
+              ],
+              [
+                916,
+                349
+              ],
+              [
+                916,
+                429
+              ],
+              [
+                596,
+                429
+              ],
+              [
+                596,
+                156
+              ],
+              [
+                491,
+                156
+              ]
+            ],
+            "end_dir": "38:39",
+            "from_unit": 5,
+            "input_indices": [
+              3,
+              4
+            ],
+            "start_dir": "0:40",
+            "style": 0,
+            "to_unit": 7,
+            "user_path": 0,
+            "width": 5
+          },
+          {
+            "color": 8851335,
+            "coordinates": [
+              [
+                332,
+                117
+              ],
+              [
+                340,
+                117
+              ],
+              [
+                340,
+                117
+              ],
+              [
+                453,
+                117
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 6,
+            "input_indices": [
+              1,
+              2
+            ],
+            "start_dir": "40:0",
+            "style": 0,
+            "to_unit": 7,
+            "user_path": 0,
+            "width": 5
+          },
+          {
+            "color": 8851335,
+            "coordinates": [
+              [
+                491,
+                117
+              ],
+              [
+                500,
+                117
+              ],
+              [
+                500,
+                117
+              ],
+              [
+                612,
+                117
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 7,
+            "input_indices": [
+              1,
+              2
+            ],
+            "start_dir": "38:0",
+            "style": 0,
+            "to_unit": 8,
+            "user_path": 0,
+            "width": 5
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                491,
+                156
+              ],
+              [
+                564,
+                156
+              ],
+              [
+                564,
+                224
+              ],
+              [
+                868,
+                224
+              ],
+              [
+                868,
+                157
+              ],
+              [
+                932,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 7,
+            "input_indices": [
+              3,
+              4
+            ],
+            "start_dir": "38:39",
+            "style": 4,
+            "to_unit": 9,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 8851335,
+            "coordinates": [
+              [
+                652,
+                117
+              ],
+              [
+                660,
+                117
+              ],
+              [
+                660,
+                117
+              ],
+              [
+                772,
+                117
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 8,
+            "input_indices": [
+              2,
+              3
+            ],
+            "start_dir": "40:0",
+            "style": 0,
+            "to_unit": 4,
+            "user_path": 0,
+            "width": 5
+          },
+          {
+            "color": 8851335,
+            "coordinates": [
+              [
+                652,
+                157
+              ],
+              [
+                692,
+                157
+              ],
+              [
+                692,
+                240
+              ],
+              [
+                884,
+                240
+              ],
+              [
+                884,
+                349
+              ],
+              [
+                932,
+                349
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 8,
+            "input_indices": [
+              1
+            ],
+            "start_dir": "40:40",
+            "style": 0,
+            "to_unit": 5,
+            "user_path": 0,
+            "width": 5
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                652,
+                157
+              ],
+              [
+                708,
+                157
+              ],
+              [
+                708,
+                256
+              ],
+              [
+                900,
+                256
+              ],
+              [
+                900,
+                157
+              ],
+              [
+                932,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 8,
+            "input_indices": [
+              2,
+              5,
+              6
+            ],
+            "start_dir": "40:40",
+            "style": 4,
+            "to_unit": 9,
+            "user_path": 0,
+            "width": 1
+          }
+        ],
+        "link_style_lines": [
+          {
+            "CONNECTION_SET": "40:0:0:0:1:0:0:2:0:160,117:180,117:180,117:292,117",
+            "LINK": "2:6"
+          },
+          {
+            "CONNECTION_SET": "40:43:0:40:3:0:0:2:0:160,160:196,160:196,192:516,192:516,157:612,157",
+            "LINK": "2:8"
+          },
+          {
+            "CONNECTION_SET": "40:43:0:40:1:0:4:1:0:160,160:212,160:212,208:852,208:852,157:932,157",
+            "LINK": "2:9"
+          },
+          {
+            "CONNECTION_SET": "37:40:0:40:4:0:0:2:0:158.5,493:276,493:276,563:548,563:548,157:612,157",
+            "LINK": "3:8"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:1,5,6:14783312:1:1:0:160,349:228,349:228,381:676,381:676,157:772,157",
+            "LINK": "10:4"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:39:5,7,8:14783312:1:1:0:160,349:244,349:244,397:356,397:356,156:453,156",
+            "LINK": "10:7"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:5,6,7:14783312:1:1:0:160,349:260,349:260,413:532,413:532,157:612,157",
+            "LINK": "10:8"
+          },
+          {
+            "CONNECTION_SET": "40:20:0:0:3:14783312:1:1:0:812,137:820,137:820,309:932,309",
+            "LINK": "4:5"
+          },
+          {
+            "CONNECTION_SET": "0:40:40:40:3:14783312:1:1:0:772,157:724,157:724,272:372,272:372,157:332,157",
+            "LINK": "4:6"
+          },
+          {
+            "CONNECTION_SET": "0:40:38:39:6:14783312:1:1:0:772,157:740,157:740,288:580,288:580,156:491,156",
+            "LINK": "4:7"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:0:7:0:4:1:0:812,117:836,117:836,117:932,117",
+            "LINK": "4:9"
+          },
+          {
+            "CONNECTION_SET": "0:40:38:39:3,4:8851335:0:5:0:932,349:916,349:916,429:596,429:596,156:491,156",
+            "LINK": "5:7"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:0:1,2:8851335:0:5:0:332,117:340,117:340,117:453,117",
+            "LINK": "6:7"
+          },
+          {
+            "CONNECTION_SET": "38:0:0:0:1,2:8851335:0:5:0:491,117:500,117:500,117:612,117",
+            "LINK": "7:8"
+          },
+          {
+            "CONNECTION_SET": "38:39:0:40:3,4:0:4:1:0:491,156:564,156:564,224:868,224:868,157:932,157",
+            "LINK": "7:9"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:0:2,3:8851335:0:5:0:652,117:660,117:660,117:772,117",
+            "LINK": "8:4"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:1:8851335:0:5:0:652,157:692,157:692,240:884,240:884,349:932,349",
+            "LINK": "8:5"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:2,5,6:0:4:1:0:652,157:708,157:708,256:900,256:900,157:932,157",
+            "LINK": "8:9"
+          }
+        ],
+        "next_agent": "FINISH",
+        "repair_execution_chain": [],
+        "repair_targets": [],
+        "simulation_settings": {
+          "solver_type": 0,
+          "start_time": 0,
+          "stop_time": 168,
+          "time_step": 0.125
+        },
+        "status": "completed",
+        "system_analysis": "Good, I've retrieved several relevant reference systems. Let me analyze the key findings:\n\n**From the retrieval results:**\n- System 1: Shows a Type4a stratified storage tank with fixed inlets, uniform losses — very similar to our task\n- System 2 \u0026 3: Show Type165 differential controller with hysteresis — directly relevant\n- System 4: Shows a water-to-water heat pump with normalized performance data files — very similar configuration\n- System 5: Shows the same heat pump type with external data files\n\nNow let me analyze the task comprehensively and produce the planning JSON.\n\n---\n\n**Task Analysis:**\n\n1. **System type**: This is a domestic hot water (DHW) system using a water-to-water heat pump coupled with a stratified storage tank — this falls under **HVAC** with heat pump and thermal storage.\n\n2. **Component categories needed**:\n   - Water-to-water heat pump (normalized data method)\n   - Stratified storage tank (fixed inlets, uniform losses, 3 nodes)\n   - Two single-speed pumps\n   - Differential controller with hysteresis\n   - Time forcing functions (for cold water temperature and DHW draw schedule)\n   - Online plotter (for output visualization)\n   - No weather component needed\n\n3. **Simulation settings**: The task explicitly states:\n   - Start: 0 h, Stop: 168 h, Time step: 0.125 h\n   - The task mentions the differential controller uses \"逐次替代法\" (successive substitution) — this implies `solver_type: 0`\n   - No explicit mention of tolerances, relaxation, DFQ, or debug switches — so I omit those\n\n4. **Key outputs**: Temperature curves and control signal as described.\n\nNow let me produce the JSON:\n\n```json\n{\n    \"system_type\": \"HVAC - Domestic Hot Water Heat Pump System\",\n    \"system_description\": \"A single-stage water-to-water heat pump coupled with a 3-node stratified storage tank for domestic hot water supply over a one-week period. The system includes two single-speed pumps (tank loop and ground-source loop), a differential temperature controller with hysteresis for heat pump on/off control, time forcing functions for constant cold water temperature (10°C) and daily DHW draw schedule, and an online plotter for temperature and control signal visualization. No weather file is used.\",\n    \"component_categories\": [\n        {\n            \"category\": \"Water-to-Water Heat Pump\",\n            \"count\": 1,\n            \"description\": \"Single-stage water-to-water heat pump using normalized performance data files. Operates in heating mode only (cooling control signal fixed to 0). Rated heating capacity 30000 kJ/h, rated heating power 6000 kJ/h. Source and load side fluid: specific heat 4.19 kJ/(kg·K), density 1000 kg/m³. Rated source and load flow: 0.4 L/s each. Uses external cooling and heating performance data files.\"\n        },\n        {\n            \"category\": \"Stratified Storage Tank\",\n            \"count\": 1,\n            \"description\": \"3-node stratified storage tank with fixed inlet positions and uniform heat losses. Volume 0.3 m³, total height 1.5 m (0.5 m per node). Fluid specific heat 4.19 kJ/(kg·K), density 1000 kg/m³. Tank loss coefficient 3 kJ/(h·m²·K). Two auxiliary heaters (both disabled, 0 kJ/h) at node 1 with thermostat setpoint 55°C and deadband 5°C. Initial temperature 20°C for all nodes. Boiling point 100°C.\"\n        },\n        {\n            \"category\": \"Single-Speed Pump\",\n            \"count\": 2,\n            \"description\": \"Two single-speed pumps: one on the tank loop (between tank bottom and heat pump load side), one on the ground-source loop (supplying constant 10°C water to heat pump source side). Both have max flow 1440 kg/h, fluid specific heat 4.19 kJ/(kg·K), max power 1342.28 kJ/h (~0.37 kW), and power-to-fluid heat conversion coefficient of 0. Both controlled by the same differential controller output signal.\"\n        },\n        {\n            \"category\": \"Differential Controller with Hysteresis\",\n            \"count\": 1,\n            \"description\": \"Differential temperature controller with hysteresis using successive substitution method. Upper input temperature Th fixed at 55°C (reference setpoint). Lower input temperature Tl connected to tank average temperature. Monitoring temperature Tin connected to tank top temperature. Upper deadband 10°C, lower deadband 0°C. High limit cut-out at 100°C. Allows 5 oscillations. Turns heat pump and both pumps ON when tank average temperature drops below 45°C (55-10), OFF when it rises to 55°C.\"\n        },\n        {\n            \"category\": \"Time Forcing Function\",\n            \"count\": 2,\n            \"description\": \"Two time forcing functions: (1) Constant cold water temperature at 10°C for the entire simulation, representing mains water supply and ground-source water. (2) Daily repeating DHW draw schedule: 0 kg/h (0:00-7:00), 50 kg/h (7:00-9:00), 0 kg/h (9:00-12:00), 100 kg/h (12:00-13:00), 0 kg/h (13:00-17:00), 50 kg/h (17:00-21:00), 0 kg/h (21:00-24:00).\"\n        },\n        {\n            \"category\": \"Online Plotter\",\n            \"count\": 1,\n            \"description\": \"Single plot for the entire 7-day simulation period. Left axis (-20 to 70°C): cold water temperature, tank average temperature, heat pump source outlet temperature, heat pump load outlet temperature, tank top temperature (load-side outlet), tank bottom temperature (source-side outlet). Right axis (0 to 2): differential controller output control signal.\"\n        }\n    ],\n    \"simulation_settings\": {\n        \"start_time\": 0,\n        \"stop_time\": 168,\n        \"time_step\": 0.125,\n        \"solver_type\": 0\n    },\n    \"key_outputs\": [\n        \"Cold water / mains temperature (constant 10°C)\",\n        \"Tank average temperature\",\n        \"Heat pump source-side outlet temperature\",\n        \"Heat pump load-side outlet temperature\",\n        \"Tank top temperature (load-side outlet to DHW)\",\n        \"Tank bottom temperature (source-side return)\",\n        \"Differential controller ON/OFF control signal (0 or 1)\"\n    ],\n    \"reference_systems\": [\n        \"System 1: Stratified storage tank (Type4a) with fixed inlets, uniform losses, auxiliary heaters — tank configuration pattern\",\n        \"System 2: Differential controller with hysteresis (Type165) for temperature-based pump/heat source control\",\n        \"System 4: Water-to-water heat pump with normalized performance data files, rated capacities, source/load flowrates\",\n        \"System 5: Water-to-water heat pump external data file ASSIGN pattern for cooling and heating performance data\"\n    ]\n}\n```\n\n---\n\n**Summary of the planning:**\n\n- **System type**: HVAC — DHW heat pump system with stratified thermal storage\n- **6 component categories**: heat pump, stratified tank, 2 pumps, differential controller, 2 time forcing functions, and an online plotter\n- **Simulation**: 0–168 hours at 0.125 h time step, with `solver_type: 0` (successive substitution) as implied by the task's mention of the controller using successive substitution — appropriate for a system with significant thermal capacitance (the storage tank)\n- **No tolerances, relaxation factors, DFQ, or debug switches** were specified or implied, so they are omitted (system defaults apply)\n- **Key outputs**: 6 temperature curves + 1 control signal, all on a single 7-day plot with dual Y-axes",
+        "task_description": "您是TRNSYS能源系统仿真领域的专家。请您建立一个基于TRNSYS的水-水热泵生活热水系统仿真模型，用于研究单级水-水热泵与分层蓄热水箱耦合系统在一周时间内的生活热水供应性能。\\n\\n仿真时间从第0小时运行至第168小时（共7天，对应一周），仿真步长为0.125小时（7.5分钟）。\\n\\n系统由一台单级水-水热泵（采用归一化性能数据文件方法）、一个分层蓄热水箱（固定入口、均匀热损失、3节点）、两台单速水泵（一台位于水箱回路，一台位于地源侧回路）、一个带迟滞的差温控制器用于热泵启停控制、一个提供恒定自来水温度的时间强制函数、以及一个定义每日生活热水用水时间表的时间强制函数组成。本仿真不需要天气文件。\\n\\n水-水热泵主要参数（归一化数据文件方法）：\\n- 源侧流体比热容：4.19 kJ/(kg·K)\\n- 负载侧流体比热容：4.19 kJ/(kg·K)\\n- 源侧流体密度：1000 kg/m³\\n- 负载侧流体密度：1000 kg/m³\\n- 制冷数据中源侧温度工况点数：6\\n- 制冷数据中负载侧温度工况点数：4\\n- 制热数据中源侧温度工况点数：5\\n- 制热数据中负载侧温度工况点数：4\\n- 源侧流量工况点数：3\\n- 负载侧流量工况点数：3\\n- 单台热泵额定制冷量：30000 kJ/h（约8.33 kW）\\n- 单台热泵额定制冷功率：6000 kJ/h（约1.67 kW）\\n- 单台热泵额定制热量：30000 kJ/h（约8.33 kW）\\n- 单台热泵额定制热功率：6000 kJ/h（约1.67 kW）\\n- 单台热泵额定源侧流量：0.4 L/s\\n- 单台热泵额定负载侧流量：0.4 L/s\\n- 相同热泵数量：1\\n- 制冷性能数据文件：\\\"d:\\\\TRNSYS18_03\\\\Tess Models\\\\SampleCatalogData\\\\Water-to-WaterHeatPump\\\\Normalized\\\\WWHP_Cooling-Normalized.dat\\\"\\n- 制热性能数据文件：\\\"d:\\\\TRNSYS18_03\\\\Tess Models\\\\SampleCatalogData\\\\Water-to-WaterHeatPump\\\\Normalized\\\\WWHP_Heating-Normalized.dat\\\"\\n\\n\\n分层蓄热水箱主要参数（3节点、固定入口、均匀热损失）：\\n- 水箱容积：0.3 m³\\n- 流体比热容：4.19 kJ/(kg·K)\\n- 流体密度：1000 kg/m³\\n- 水箱热损失系数：3 kJ/(h·m²·K)\\n- 水箱节点数：3\\n- 每个节点高度：0.5 m（水箱总高度：1.5 m）\\n- 辅助加热器模式：主从模式\\n- 辅助加热元件1：位于节点1，温控器位于节点1，设定温度55°C，死区5°C，最大加热功率0 kJ/h（已禁用）\\n- 辅助加热元件2：位于节点1，温控器位于节点1，设定温度55°C，死区5°C，最大加热功率0 kJ/h（已禁用）\\n- 沸点：100°C\\n- 3个节点初始温度均为：20°C\\n\\n水箱侧单速水泵主要参数：\\n- 最大流量：1440 kg/h\\n- 流体比热容：4.19 kJ/(kg·K)\\n- 最大功率：1342.281877 kJ/h（约0.37 kW）\\n- 转换系数（泵功率转化为流体热能的比例）：0\\n\\n地源侧单速水泵主要参数：\\n- 最大流量：1440 kg/h\\n- 流体比热容：4.19 kJ/(kg·K)\\n- 最大功率：1342.281877 kJ/h（约0.37 kW）\\n- 转换系数（泵功率转化为流体热能的比例）：0\\n\\n带迟滞的差温控制器（逐次替代法）：\\n- 上限输入温度（Th）：55°C（固定参考设定值）\\n- 下限输入温度（Tl）：连接至水箱平均温度\\n- 监测温度（Tin）：连接至水箱顶部温度（负载侧出水温度）\\n- 上死区：10°C\\n- 下死区：0°C\\n- 高温切断温度：100°C\\n- 允许振荡次数：5\\n当水箱平均温度降至45°C（55 - 10）以下时，控制器开启热泵和两台水泵；当水箱平均温度升至55°C时，控制器关闭热泵和两台水泵。\\n\\n自来水温度：\\n- 在整个仿真期间恒定为10°C（由时间强制温度函数提供）。\\n\\n生活热水用水时间表（每日重复模式，由时间强制水量函数提供）：\\n- 0:00–7:00：0 kg/h（无用水）\\n- 7:00–9:00：50 kg/h（早间用水）\\n- 9:00–12:00：0 kg/h（无用水）\\n- 12:00–13:00：100 kg/h（午间高峰用水）\\n- 13:00–17:00：0 kg/h（无用水）\\n- 17:00–21:00：50 kg/h（晚间用水）\\n- 21:00–24:00：0 kg/h（无用水）\\n\\n系统连接关系：\\n- 热泵仅在制热模式下运行（制冷控制信号固定为0，制热控制信号由差温控制器驱动）。\\n- 热泵负载侧从水箱底部（经水箱侧水泵）取水，加热后送回水箱热侧入口。\\n- 热泵源侧从地源侧水泵取水，该水泵以恒定的10°C自来水温度供水（模拟地源水供应）。\\n- 生活热水从水箱顶部（负载侧）取用，10°C的冷自来水从水箱底部补入以替换取用的热水。\\n- 两台水泵由同一个差温控制器输出信号控制。\\n\\n输出要求：\\n- 绘制温度曲线图，包括：自来水温度、水箱平均温度、热泵源侧出口温度、热泵负载侧出口温度、水箱顶部温度（负载侧出水）、水箱底部温度（热源侧出水），置于左轴（范围：-20至70°C）\\n- 绘制差温控制器输出控制信号，置于右轴（范围：0至2）\\n- 整个仿真周期（7天）绘制1张图",
+        "task_id": "task03",
+        "validation_errors": [],
+        "validation_file_versions": [
+          {
+            "dck_content": "\u003cfiltered: str, 14251 chars\u003e",
+            "dck_path": "/deps/trnsys_dck_generator/validation_runs/task03/V1_20260616_160830/V1_20260616_160830.dck",
+            "log_path": "/deps/trnsys_dck_generator/validation_runs/task03/V1_20260616_160830/V1_20260616_160830.log",
+            "lst_path": "/deps/trnsys_dck_generator/validation_runs/task03/V1_20260616_160830/V1_20260616_160830.lst",
+            "version_tag": "V1_20260616_160830"
+          }
+        ],
+        "validation_result": "success",
+        "validator_round": 1
+      },
+      "parent_run_id": null,
+      "run_id": "019ecf6f-c069-7660-bb64-009eb4193e78",
+      "run_type": "chain",
+      "start_time": "2026-06-16T07:57:48.047553Z",
+      "status": "success",
+      "tags": null,
+      "token_usage": {
+        "completion_tokens": 43981,
+        "prompt_tokens": 1908855,
+        "total_tokens": 1952836
+      },
+      "trace_id": "019ecf6f-c069-7660-bb64-009eb4193e78"
+    }
+  ],
+  "thread_id": "019ecf6f-bff2-7a10-bc0e-46c27ce76027"
+}
