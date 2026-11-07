@@ -1,2 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+04_full[[:space:]]thread/task07/traces_full/019ecfde-852e-75b3-a7e2-49224e989516.json filter=lfs diff=lfs merge=lfs -text
+04_full[[:space:]]thread/task08/traces_full/019ed0f4-66ec-71d0-bc24-57e2538a6f9a.json filter=lfs diff=lfs merge=lfs -text
+04_full[[:space:]]thread/task09/traces_full/019ecd9c-e170-7eb3-8541-85868b6cf89a.json filter=lfs diff=lfs merge=lfs -text
+04_full[[:space:]]thread/task10/traces_full/019ecd54-e9d9-7051-b567-a44ca1fe1725.json filter=lfs diff=lfs merge=lfs -text

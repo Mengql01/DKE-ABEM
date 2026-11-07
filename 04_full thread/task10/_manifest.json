@@ -1,0 +1,111 @@
+{
+  "export_version": "1.0",
+  "export_type": "langsmith_thread_complete",
+  "exported_at": "2026-06-17T10:16:32.707935+00:00",
+  "project": "trnsys-dck-generator",
+  "thread_id": "019ecd54-e96d-7410-98d1-bd73905c71cc",
+  "session_name": "task10",
+  "session_dir": "导出_10个Threads_完整数据_20260617\\019ecd54-e96d-7410-98d1-bd73905c71cc\\task10",
+  "thread_summary_path": "导出_10个Threads_完整数据_20260617\\019ecd54-e96d-7410-98d1-bd73905c71cc\\task10\\thread_full.json",
+  "trace_count": 1,
+  "traces": [
+    {
+      "trace_id": "019ecd54-e9d9-7051-b567-a44ca1fe1725",
+      "path": "导出_10个Threads_完整数据_20260617\\019ecd54-e96d-7410-98d1-bd73905c71cc\\task10\\traces_full\\019ecd54-e9d9-7051-b567-a44ca1fe1725.json",
+      "run_count": 965,
+      "file_size_bytes": 155185545,
+      "run_type_counts": {
+        "chain": 580,
+        "llm": 81,
+        "tool": 304
+      },
+      "status_counts": {
+        "success": 965
+      },
+      "name_top_20": [
+        [
+          "validate_equation_syntax",
+          159
+        ],
+        [
+          "tools",
+          149
+        ],
+        [
+          "CostTrackingChatOpenAI",
+          81
+        ],
+        [
+          "Prompt",
+          79
+        ],
+        [
+          "RunnableSequence",
+          79
+        ],
+        [
+          "call_model",
+          79
+        ],
+        [
+          "agent",
+          79
+        ],
+        [
+          "should_continue",
+          77
+        ],
+        [
+          "get_tmf_spec",
+          35
+        ],
+        [
+          "get_connection_pattern",
+          14
+        ],
+        [
+          "validate_equations_block",
+          12
+        ],
+        [
+          "rag_search_equation_examples",
+          12
+        ],
+        [
+          "validate_parameter_count",
+          11
+        ],
+        [
+          "rag_search_component_specs",
+          11
+        ],
+        [
+          "search_dck_snippet",
+          10
+        ],
+        [
+          "get_component_io_mapping",
+          9
+        ],
+        [
+          "_route_to_expert",
+          8
+        ],
+        [
+          "supervisor",
+          8
+        ],
+        [
+          "_route_after_expert",
+          7
+        ],
+        [
+          "search_connection_patterns",
+          7
+        ]
+      ],
+      "tree_path": "导出_10个Threads_完整数据_20260617\\019ecd54-e96d-7410-98d1-bd73905c71cc\\task10\\trees\\019ecd54-e9d9-7051-b567-a44ca1fe1725.tree.txt",
+      "html_path": "导出_10个Threads_完整数据_20260617\\019ecd54-e96d-7410-98d1-bd73905c71cc\\task10\\html\\019ecd54-e9d9-7051-b567-a44ca1fe1725.full-hierarchy.html"
+    }
+  ]
+}

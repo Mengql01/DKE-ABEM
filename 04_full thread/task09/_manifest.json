@@ -1,0 +1,111 @@
+{
+  "export_version": "1.0",
+  "export_type": "langsmith_thread_complete",
+  "exported_at": "2026-06-17T10:13:42.914772+00:00",
+  "project": "trnsys-dck-generator",
+  "thread_id": "019ecd9c-e100-76f2-9af7-eae04ca1e734",
+  "session_name": "task09",
+  "session_dir": "导出_10个Threads_完整数据_20260617\\019ecd9c-e100-76f2-9af7-eae04ca1e734\\task09",
+  "thread_summary_path": "导出_10个Threads_完整数据_20260617\\019ecd9c-e100-76f2-9af7-eae04ca1e734\\task09\\thread_full.json",
+  "trace_count": 1,
+  "traces": [
+    {
+      "trace_id": "019ecd9c-e170-7eb3-8541-85868b6cf89a",
+      "path": "导出_10个Threads_完整数据_20260617\\019ecd9c-e100-76f2-9af7-eae04ca1e734\\task09\\traces_full\\019ecd9c-e170-7eb3-8541-85868b6cf89a.json",
+      "run_count": 3050,
+      "file_size_bytes": 753422899,
+      "run_type_counts": {
+        "chain": 2184,
+        "llm": 339,
+        "tool": 527
+      },
+      "status_counts": {
+        "success": 3050
+      },
+      "name_top_20": [
+        [
+          "tools",
+          456
+        ],
+        [
+          "CostTrackingChatOpenAI",
+          332
+        ],
+        [
+          "Prompt",
+          313
+        ],
+        [
+          "RunnableSequence",
+          313
+        ],
+        [
+          "call_model",
+          313
+        ],
+        [
+          "agent",
+          313
+        ],
+        [
+          "should_continue",
+          297
+        ],
+        [
+          "get_tmf_spec",
+          107
+        ],
+        [
+          "validate_equation_syntax",
+          91
+        ],
+        [
+          "get_connection_pattern",
+          75
+        ],
+        [
+          "search_dck_snippet",
+          41
+        ],
+        [
+          "get_component_io_mapping",
+          36
+        ],
+        [
+          "_route_to_expert",
+          34
+        ],
+        [
+          "supervisor",
+          34
+        ],
+        [
+          "_route_after_expert",
+          33
+        ],
+        [
+          "validate_parameter_count",
+          26
+        ],
+        [
+          "verify_connection_units",
+          22
+        ],
+        [
+          "find_dcks_with_components",
+          20
+        ],
+        [
+          "rag_search_equation_examples",
+          19
+        ],
+        [
+          "rag_search_component_specs",
+          18
+        ]
+      ],
+      "tree_path": "导出_10个Threads_完整数据_20260617\\019ecd9c-e100-76f2-9af7-eae04ca1e734\\task09\\trees\\019ecd9c-e170-7eb3-8541-85868b6cf89a.tree.txt",
+      "html_path": "导出_10个Threads_完整数据_20260617\\019ecd9c-e100-76f2-9af7-eae04ca1e734\\task09\\html\\019ecd9c-e170-7eb3-8541-85868b6cf89a.full-hierarchy.html"
+    }
+  ]
+}

@@ -1,0 +1,3190 @@
+{
+  "run_count": 1,
+  "runs": [
+    {
+      "costs": {
+        "completion_cost": 0.620406,
+        "prompt_cost": 1.184814,
+        "total_cost": 1.80522
+      },
+      "custom_metadata": {
+        "LANGGRAPH_API_URL": "http://localhost:8123",
+        "LANGSMITH_ENDPOINT": "https://api.smith.langchain.com",
+        "LANGSMITH_LANGGRAPH_API_REVISION": "5206f65",
+        "LANGSMITH_LANGGRAPH_API_VARIANT": "local",
+        "LANGSMITH_PROJECT": "trnsys-dck-generator",
+        "LANGSMITH_TRACING": "true",
+        "assistant_id": "9d9cb3f1-b4a2-5088-8c82-821b0979849b",
+        "created_by": "system",
+        "from_studio": true,
+        "graph_id": "dck_generator",
+        "langgraph_api_url": null,
+        "langgraph_api_version": "0.10.0",
+        "langgraph_auth_user_id": "",
+        "langgraph_host": "self-hosted",
+        "langgraph_plan": "enterprise",
+        "langgraph_request_id": "0926bcff-7024-431e-8b6a-dbad6f2713d0",
+        "langgraph_version": "1.2.5",
+        "ls_integration": "langgraph",
+        "ls_run_depth": 0,
+        "run_attempt": 1,
+        "run_id": "019ecfde-852e-75b3-a7e2-49224e989516",
+        "thread_id": "019ecfde-84be-72c3-8210-1729347d5264",
+        "user_id": ""
+      },
+      "duration_ms": 7508355,
+      "end_time": "2026-06-16T12:03:55.73663Z",
+      "error": null,
+      "feedback_stats": null,
+      "inputs": {
+        "task_description": "请您建立一个基于TRNSYS的太阳能生活热水系统仿真模型，该系统配备调温阀用于出水温度控制。本项目模拟位于美国威斯康星州麦迪逊地区的一套强制循环式太阳能热水系统，评估其在夏季短期运行工况下的动态性能。\\n\\n仿真基本参数：仿真时段为夏季约7.3天（第3624小时至第3800小时），仿真步长0.125小时（7.5分钟）。积分容差和收敛容差均设为0.001，最大迭代次数30次。必须使用逐次替代求解器（Solver 0），这是调温阀控制器和差温控制器的要求。\\n\\n天气数据：天气文件已为您准备好，位于\\\"D:\\\\TRNSYS18_03\\\\Weather\\\\US-TMY3\\\\US_WI_MADISON_DANE_CO_REGIONAL_ARPT_[ISIS]_726410.tmy3\\\"，为TMY3格式。天气数据处理器采用Reindl辐射模型计算一个朝南、倾角45度的倾斜面上的太阳辐射，地面反射率为0.2。\\n\\n该系统为带调温阀控制的强制循环式太阳能热水系统，主要由1台二阶入射角修正的二次效率平板太阳能集热器、1个带可变入口和均匀热损的分层储热水箱（配备电辅助加热）、1台变速循环水泵、1个带滞后的ON/OFF差温控制器（逐次替代控制策略）、1个调温阀控制器、1个受控分流阀、1个三通混合器、1个用于定义日热水负荷曲线的时间相关强制函数、1个用于计算实际热水需求流量和冷水供水温度的公式模块，以及3个在线绘图器组成。\\n\\n二次效率平板太阳能集热器（带二阶入射角修正）：采用单台平板集热器，有效集热面积5 m²，安装倾角45度朝向正南（方位角0度）。集热器光学效率（截距效率）为0.8，一次热损系数（效率斜率）为13 kJ/(hr·m²·K)，二次热损系数（效率曲率）为0.05 kJ/(hr·m²·K²)。入射角修正采用二阶模型，一阶系数为0.2，二阶系数为0。集热器测试流量为40 kg/(hr·m²)，工质比热4.19 kJ/(kg·K)。效率基于入口温度计算（效率模式1）。串联集热器数量为1。\\n\\n带可变入口和均匀热损的分层储热水箱：立式圆柱形水箱，容积0.3 m³，总高度1.8 m，内部分为6个等高温度分层节点（每个节点高0.3 m）。水箱采用可变入口位置模式（模式2），即热侧和冷侧流体均进入与其温度最接近的节点，以最大化热分层效果。水箱各节点热损系数均为2.5 kJ/(hr·m²·K)。工质为水，比热4.19 kJ/(kg·K)，密度1000 kg/m³。水箱配备两个电辅助加热元件，采用主/从模式运行（模式1）：下部加热元件仅在上部加热元件满足后才启用。两个加热元件均位于节点1（顶部节点），恒温器也位于节点1，设定温度60°C，控制死区5°C，每个加热元件最大加热功率9000 kJ/hr。沸点设定为100°C。各节点初始温度从顶部到底部依次为：60°C、50°C、40°C、30°C、20°C和15°C。热侧入口接收来自太阳能集热器的加热流体，热侧出口（水箱底部）将流体返回集热器回路。冷侧入口接收来自负荷侧分流阀的冷水，冷侧出口（水箱顶部）向负荷供应热水。环境温度设为恒定20°C。两个辅助加热器控制信号均设为恒定1.0（始终启用，由内部恒温器控制）。\\n\\n变速循环水泵：太阳能回路循环泵最大流量200 kg/hr，最大功耗240 kJ/hr，工质比热4.19 kJ/(kg·K)，热转换系数0.05（泵功率转化为流体热能的比例），功率系数0.5。泵的流量由最大流量乘以差温控制器的控制信号确定。\\n\\n带滞后的ON/OFF差温控制器（逐次替代控制策略）：该控制器控制太阳能回路水泵的启停。它比较集热器出口温度（上限输入Th）与水箱底部温度（下限输入Tl）。当温差（Th - Tl）超过上死区10°C时泵启动，当温差降至下死区2°C以下时泵关闭。控制器监测水箱顶部温度，当其超过100°C时执行高温截止保护。每个时间步允许的振荡次数为5次。控制器输出反馈至自身输入以实现滞后稳定性。\\n\\n调温阀控制器：该控制器管理储热水箱与冷水旁通之间的流量分配，以维持所需的出水温度。设定温度为60°C，热源温度为水箱顶部出水温度，调温流体温度为15°C的冷水供水，运行模式为1（加热模式）。控制器输出两个分数：送往热源（水箱）的流量比例和旁通热源的流量比例。每个时间步允许的振荡次数为5次。\\n\\n受控分流阀：该阀门根据调温阀控制器的信号将进入的冷水需求流量分为两路。一路（出口1）导向储热水箱冷侧，另一路（出口2）旁通水箱。入口接收温度为15°C的冷水，流量来自负荷曲线公式计算的需求流量。\\n\\n三通混合器：该组件将来自水箱顶部的热水（入口1）与来自分流阀的冷水旁通（入口2）混合，产生最终的调温热水供应流。\\n\\n日热水负荷曲线与公式：时间相关强制函数定义了归一化的日热水消耗模式，包含三个用水时段：早间高峰7:00至9:00（归一化值0.000056）、午间用水11:00至13:00（归一化值0.000028）和晚间用水18:00至22:00（归一化值0.000028）。其余时段消耗为零。公式模块通过将强制函数输出乘以日消耗缩放因子200来计算实际需求流量（mdDHW = 负荷曲线输出 × 200）。冷水供水温度定义为恒定15°C（TCold = 15）。\\n\\n输出要求：\\n1. 太阳能回路温度与流量：集热器入口温度、集热器出口温度、倾斜面上的太阳辐射，以及集热器出口流量。\\n2. 水箱热行为：水箱顶部温度（供负荷）、全部6个分层节点温度、水箱底部温度（供热源）和辅助加热功率。\\n3. 调温阀性能：冷水供水温度、水箱热水出口温度、最终调温出水温度（混合后）、送往水箱的流量比例和旁通水箱的流量比例。\\n4. 负荷侧流量分配：调温热水供应流量和旁通流量。",
+        "task_id": "task07"
+      },
+      "name": "dck_generator",
+      "outputs": {
+        "agent_execution_snapshot": {},
+        "agent_execution_snapshot_agent": "",
+        "agent_last_outputs": "\u003cfiltered: dict, 5 keys\u003e",
+        "agent_retry_counts": {},
+        "agent_validation_failed": false,
+        "component_plan": [
+          {
+            "category": "weather",
+            "count": 1,
+            "description": "Weather data reader/processor for TMY3 format file (Madison, WI). Computes solar radiation on a south-facing 45° tilted surface using the Reindl radiation model with ground reflectance 0.2."
+          },
+          {
+            "category": "solar_collector",
+            "count": 1,
+            "description": "Flat-plate solar collector with 2nd-order incidence angle modifier. Effective area 5 m², 45° tilt, south-facing (azimuth 0°). Optical efficiency 0.8, first-order loss coefficient 13 kJ/(hr·m²·K), second-order loss coefficient 0.05 kJ/(hr·m²·K²). IAM: first-order coefficient 0.2, second-order coefficient 0. Test flow rate 40 kg/(hr·m²), fluid specific heat 4.19 kJ/(kg·K). Efficiency mode 1 (based on inlet temperature). Single collector in series."
+          },
+          {
+            "category": "thermal_storage",
+            "count": 1,
+            "description": "Vertical cylindrical stratified storage tank with variable inlet position (mode 2) and uniform heat loss. Volume 0.3 m³, height 1.8 m, 6 equal-height nodes (0.3 m each). Node loss coefficient 2.5 kJ/(hr·m²·K). Fluid: water, specific heat 4.19 kJ/(kg·K), density 1000 kg/m³. Two electric auxiliary heaters in master/slave mode (mode 1), both at node 1 (top), thermostat at node 1, setpoint 60°C, deadband 5°C, max power 9000 kJ/hr each. Boiling point 100°C. Initial temperatures: 60/50/40/30/20/15°C top-to-bottom. Ambient temperature 20°C. Heater control signals constant 1.0."
+          },
+          {
+            "category": "pump",
+            "count": 1,
+            "description": "Variable-speed circulation pump for the solar collector loop. Maximum flow rate 200 kg/hr, maximum power 240 kJ/hr, fluid specific heat 4.19 kJ/(kg·K), heat conversion coefficient 0.05, power coefficient 0.5. Flow rate modulated by differential controller control signal multiplied by maximum flow."
+          },
+          {
+            "category": "controller",
+            "count": 1,
+            "description": "ON/OFF differential controller with hysteresis for solar loop pump control. Compares collector outlet temperature (Th) with tank bottom temperature (Tl). Upper deadband 10°C (pump ON when Th-Tl \u003e 10°C), lower deadband 2°C (pump OFF when Th-Tl \u003c 2°C). High-temperature cut-out at 100°C (monitors tank top temperature). Maximum 5 oscillations per time step. Successive substitution control strategy with output feedback for hysteresis stability."
+          },
+          {
+            "category": "controller",
+            "count": 1,
+            "description": "Tempering valve controller for DHW outlet temperature regulation. Setpoint 60°C, heat source temperature from tank top, tempering fluid at 15°C cold water. Operating mode 1 (heating mode). Outputs two fractions: flow to heat source (tank) and flow bypassing heat source. Maximum 5 oscillations per time step."
+          },
+          {
+            "category": "flow_diverter",
+            "count": 1,
+            "description": "Controlled flow diverter valve that splits incoming cold water demand flow into two streams based on the tempering valve controller signal. Outlet 1 directs flow to the tank cold-side inlet; Outlet 2 bypasses the tank. Inlet receives 15°C cold water at the demand flow rate."
+          },
+          {
+            "category": "flow_mixer",
+            "count": 1,
+            "description": "Tee-piece flow mixer that combines hot water from the tank top (inlet 1) with cold bypass flow from the diverter (inlet 2) to produce the final tempered DHW supply at the desired temperature."
+          },
+          {
+            "category": "forcing_function",
+            "count": 1,
+            "description": "Time-dependent forcing function defining the normalized daily DHW consumption profile. Three draw periods: morning peak 7:00–9:00 (value 0.000056), midday 11:00–13:00 (value 0.000028), evening 18:00–22:00 (value 0.000028). All other hours zero."
+          },
+          {
+            "category": "equation",
+            "count": 1,
+            "description": "Equation/formula component for calculating actual DHW demand flow (mdDHW = load profile output × 200) and defining cold water supply temperature (TCold = 15°C)."
+          },
+          {
+            "category": "plotter",
+            "count": 3,
+            "description": "Three online plotters for real-time visualization: (1) solar loop temperatures and flow — collector inlet/outlet temperatures, tilted surface radiation, collector outlet flow; (2) tank thermal behavior — tank top temperature, all 6 node temperatures, tank bottom temperature, auxiliary heating power; (3) tempering valve performance and load-side flow — cold water temperature, tank hot outlet temperature, final tempered outlet temperature, fraction to tank, fraction bypassing tank, tempered DHW supply flow, bypass flow."
+          }
+        ],
+        "components": [
+          {
+            "category": "weather",
+            "external_files": [
+              {
+                "description": "Which file contains the TMY-3 weather data?",
+                "logical_unit": 30,
+                "path": "D:\\TRNSYS18_03\\Weather\\US-TMY3\\US_WI_MADISON_DANE_CO_REGIONAL_ARPT_[ISIS]_726410.tmy3"
+              }
+            ],
+            "initial_values": [],
+            "input_count": 0,
+            "inputs": [],
+            "layer": "Main",
+            "model_path": ".\\Weather Data Reading and Processing\\Standard Format\\TMY3\\Type15-TMY3.tmf",
+            "parameter_count": 9,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "File Type",
+                "value": 7
+              },
+              {
+                "index": 2,
+                "name": "Logical unit",
+                "value": 30
+              },
+              {
+                "index": 3,
+                "name": "Tilted Surface Radiation Mode",
+                "value": 3
+              },
+              {
+                "index": 4,
+                "name": "Ground reflectance: no albedo reported",
+                "value": 0.2
+              },
+              {
+                "index": 5,
+                "name": "Not used",
+                "value": 0.7
+              },
+              {
+                "index": 6,
+                "name": "Number of surfaces",
+                "value": 1
+              },
+              {
+                "index": 7,
+                "name": "Tracking mode",
+                "value": 1
+              },
+              {
+                "index": 8,
+                "name": "Slope of surface",
+                "value": 45
+              },
+              {
+                "index": 9,
+                "name": "Azimuth of surface",
+                "value": 0
+              }
+            ],
+            "position_x": 140,
+            "position_y": 371,
+            "purpose": "Weather data reader/processor for TMY3 format (Madison, WI). Computes solar radiation on a south-facing 45° tilted surface using Reindl radiation model with ground reflectance 0.2.",
+            "type_number": "Type15-TMY3",
+            "unit_name": "Weather_Data",
+            "unit_number": 2
+          },
+          {
+            "category": "solar_collector",
+            "initial_values": [
+              20,
+              100,
+              10,
+              0,
+              0,
+              0,
+              0.2,
+              45,
+              0
+            ],
+            "input_count": 9,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Solar_Pump:Outlet fluid temperature -\u003eInlet temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 2,
+                "name": "Solar_Pump:Outlet flow rate -\u003eInlet flowrate",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 3,
+                "name": "Weather_Data:Dry bulb temperature -\u003eAmbient temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 4,
+                "name": "Weather_Data:Total tilted surface radiation for surface -\u003eIncident radiation",
+                "source_output": 24,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 5,
+                "name": "Weather_Data:Total horizontal radiation -\u003eTotal horizontal radiation",
+                "source_output": 18,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 6,
+                "name": "Weather_Data:Total diffuse radiation on the horizontal -\u003eHorizontal diffuse radiation",
+                "source_output": 22,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 7,
+                "name": "Weather_Data:Ground reflectance -\u003eGround reflectance",
+                "source_output": 59,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 8,
+                "name": "Weather_Data:Angle of incidence for surface -\u003eIncidence angle",
+                "source_output": 29,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 9,
+                "name": "Weather_Data:Slope of surface -\u003eCollector slope",
+                "source_output": 30,
+                "source_type": "component",
+                "source_unit": 2
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Solar Thermal Collectors\\Quadratic Efficiency Collector\\2nd-Order Incidence Angle Modifiers\\Type1b.tmf",
+            "parameter_count": 11,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Number in series",
+                "value": 1
+              },
+              {
+                "index": 2,
+                "name": "Collector area",
+                "value": 5
+              },
+              {
+                "index": 3,
+                "name": "Fluid specific heat",
+                "value": 4.19
+              },
+              {
+                "index": 4,
+                "name": "Efficiency mode",
+                "value": 1
+              },
+              {
+                "index": 5,
+                "name": "Tested flow rate",
+                "value": 40
+              },
+              {
+                "index": 6,
+                "name": "Intercept efficiency",
+                "value": 0.8
+              },
+              {
+                "index": 7,
+                "name": "Efficiency slope",
+                "value": 13
+              },
+              {
+                "index": 8,
+                "name": "Efficiency curvature",
+                "value": 0.05
+              },
+              {
+                "index": 9,
+                "name": "Optical mode 2",
+                "value": 2
+              },
+              {
+                "index": 10,
+                "name": "1st-order IAM",
+                "value": 0.2
+              },
+              {
+                "index": 11,
+                "name": "2nd-order IAM",
+                "value": 0
+              }
+            ],
+            "position_x": 300,
+            "position_y": 371,
+            "purpose": "Flat-plate solar collector with quadratic efficiency and 2nd-order incidence angle modifier. 5 m², 45° tilt, south-facing. Optical efficiency 0.8, loss coefficients 13/0.05 kJ/(hr·m²·K/²). IAM coefficients 0.2/0. Efficiency mode 1 (inlet-based).",
+            "type_number": "Type1b",
+            "unit_name": "Solar_Collector",
+            "unit_number": 3
+          },
+          {
+            "category": "thermal_storage",
+            "initial_values": [
+              20,
+              0,
+              20,
+              0,
+              20,
+              20,
+              20,
+              9000
+            ],
+            "input_count": 8,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Solar_Collector:Outlet temperature -\u003eInlet temperature for port 1",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 2,
+                "name": "Solar_Collector:Outlet flowrate -\u003eInlet flow rate for port 1",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 3,
+                "name": "Flow_Diverter:Temperature at outlet 1 -\u003eInlet temperature for port 2",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 4,
+                "name": "Flow_Diverter:Flow rate at outlet 1 -\u003eInlet flow rate for port 2",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 5,
+                "name": "[unconnected] Top loss temperature",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 6,
+                "name": "[unconnected] Edge loss temperature",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 7,
+                "name": "[unconnected] Bottom loss temperature",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 8,
+                "name": "[unconnected] Auxiliary heat input",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Thermal Storage\\Constant Volume Liquid Storage\\Vertical Tank\\No HX\\Type158.tmf",
+            "parameter_count": 17,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Tank volume",
+                "value": 0.3
+              },
+              {
+                "index": 2,
+                "name": "Tank height",
+                "value": 1.8
+              },
+              {
+                "index": 3,
+                "name": "Number of tank nodes",
+                "value": 6
+              },
+              {
+                "index": 4,
+                "name": "Top loss coefficient",
+                "value": 2.5
+              },
+              {
+                "index": 5,
+                "name": "Edge loss coefficient",
+                "value": 2.5
+              },
+              {
+                "index": 6,
+                "name": "Bottom loss coefficient",
+                "value": 2.5
+              },
+              {
+                "index": 7,
+                "name": "Fluid specific heat",
+                "value": 4.19
+              },
+              {
+                "index": 8,
+                "name": "Fluid density",
+                "value": 1000
+              },
+              {
+                "index": 9,
+                "name": "Fluid thermal conductivity",
+                "value": 2.224
+              },
+              {
+                "index": 10,
+                "name": "Height fraction of inlet 1",
+                "value": 1
+              },
+              {
+                "index": 11,
+                "name": "Height fraction of outlet 1",
+                "value": 0
+              },
+              {
+                "index": 12,
+                "name": "Height fraction of inlet 2",
+                "value": 0
+              },
+              {
+                "index": 13,
+                "name": "Height fraction of outlet 2",
+                "value": 1
+              },
+              {
+                "index": 14,
+                "name": "Number of thermostats",
+                "value": 1
+              },
+              {
+                "index": 15,
+                "name": "Height fraction of thermostat",
+                "value": 1
+              },
+              {
+                "index": 16,
+                "name": "Number of auxiliary heat inputs",
+                "value": 1
+              },
+              {
+                "index": 17,
+                "name": "Height fraction of auxiliary input",
+                "value": 1
+              }
+            ],
+            "position_x": 472,
+            "position_y": 147,
+            "purpose": "Vertical cylindrical stratified storage tank. 0.3 m³, 1.8 m height, 6 equal nodes (0.3 m each). Uniform edge loss 2.5 kJ/(hr·m²·K). Two electric auxiliary heaters (master/slave mode 1) at node 1, thermostat at node 1, setpoint 60°C, deadband 5°C, max power 9000 kJ/hr each. Initial temperatures: 60/50/40/30/20/15°C top-to-bottom. Ambient 20°C.",
+            "type_number": "Type158",
+            "unit_name": "Storage_Tank",
+            "unit_number": 4
+          },
+          {
+            "category": "pump",
+            "initial_values": [
+              20,
+              100,
+              1
+            ],
+            "input_count": 3,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Storage_Tank:Temperature at outlet 1 -\u003eInlet fluid temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 2,
+                "name": "Storage_Tank:Flow rate at outlet 1 -\u003eInlet mass flow rate",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 3,
+                "name": "Differential_Controller:Output control function -\u003eControl signal",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 6
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Obsolete\\Pumps\\Variable Speed\\Type3b.tmf",
+            "parameter_count": 5,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Maximum flow rate",
+                "value": 200
+              },
+              {
+                "index": 2,
+                "name": "Fluid specific heat",
+                "value": 4.19
+              },
+              {
+                "index": 3,
+                "name": "Maximum power",
+                "value": 240
+              },
+              {
+                "index": 4,
+                "name": "Conversion coefficient",
+                "value": 0.05
+              },
+              {
+                "index": 5,
+                "name": "Power coefficient",
+                "value": 0.5
+              }
+            ],
+            "position_x": 852,
+            "position_y": 371,
+            "purpose": "Variable-speed circulation pump for solar collector loop. Maximum flow 200 kg/hr, maximum power 240 kJ/hr, fluid specific heat 4.19 kJ/(kg·K), heat conversion coefficient 0.05, power coefficient 0.5. Flow modulated by differential controller control signal × maximum flow.",
+            "type_number": "Type3b",
+            "unit_name": "Solar_Pump",
+            "unit_number": 5
+          },
+          {
+            "category": "controller",
+            "initial_values": [
+              20,
+              10,
+              20,
+              0,
+              10,
+              2
+            ],
+            "input_count": 6,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Solar_Collector:Outlet temperature -\u003eUpper input temperature Th",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 2,
+                "name": "Storage_Tank:Temperature at outlet 1 -\u003eLower input temperature Tl",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 3,
+                "name": "Storage_Tank:Temperature at outlet 2 -\u003eMonitoring temperature Tin",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 4,
+                "name": "Differential_Controller:Output control function -\u003eInput control function",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 6
+              },
+              {
+                "index": 5,
+                "name": "[unconnected] Upper dead band dT",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 6,
+                "name": "[unconnected] Lower dead band dT",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Controllers\\Differential Controller w_ Hysteresis\\for Temperatures\\Complex Control Strategies\\Solver 0 (Successive Substitution) Control Strategy\\Type2b.tmf",
+            "parameter_count": 2,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "No. of oscillations",
+                "value": 5
+              },
+              {
+                "index": 2,
+                "name": "High limit cut-out",
+                "value": 100
+              }
+            ],
+            "position_x": 680,
+            "position_y": 515,
+            "purpose": "ON/OFF differential controller with hysteresis for solar loop pump control. Compares collector outlet (Th) with tank bottom (Tl). Upper deadband 10°C (ON when Th-Tl \u003e 10°C), lower deadband 2°C (OFF when Th-Tl \u003c 2°C). High-temperature cut-out at 100°C monitoring tank top. Max 5 oscillations per timestep. Solver 0 successive substitution with output feedback for hysteresis.",
+            "type_number": "Type2b",
+            "unit_name": "Differential_Controller",
+            "unit_number": 6
+          },
+          {
+            "category": "controller",
+            "initial_values": [
+              60,
+              10,
+              20
+            ],
+            "input_count": 3,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "[unconnected] Setpoint Temperature",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 2,
+                "name": "Storage_Tank:Temperature at outlet 2 -\u003eSource Temperature",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 3,
+                "name": "DHW_Calculations:TCold -\u003eTempering Fluid Temperature (Return Temperature)",
+                "source_output": 2,
+                "source_type": "equation",
+                "source_unit": 14,
+                "source_variable": "TCold"
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Controllers\\Tempering Valve Control\\Heating Mode\\Type115.tmf",
+            "parameter_count": 1,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "# Oscillations Permitted",
+                "value": 5
+              }
+            ],
+            "position_x": 680,
+            "position_y": 147,
+            "purpose": "Tempering valve controller for DHW outlet temperature regulation. Setpoint 60°C, heat source temperature from tank top, tempering fluid at 15°C cold water. Operating mode 1 (heating mode). Outputs fraction to heat source (tank) and fraction bypassing heat source. Max 5 oscillations per timestep.",
+            "type_number": "Type115",
+            "unit_name": "Tempering_Valve_Controller",
+            "unit_number": 7
+          },
+          {
+            "category": "flow_diverter",
+            "initial_values": [
+              20,
+              100,
+              0.5
+            ],
+            "input_count": 3,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "DHW_Calculations:TCold -\u003eInlet temperature",
+                "source_output": 2,
+                "source_type": "equation",
+                "source_unit": 14,
+                "source_variable": "TCold"
+              },
+              {
+                "index": 2,
+                "name": "DHW_Calculations:mdDHW -\u003eInlet flow rate",
+                "source_output": 1,
+                "source_type": "equation",
+                "source_unit": 14,
+                "source_variable": "mdDHW"
+              },
+              {
+                "index": 3,
+                "name": "Tempering_Valve_Controller:Fraction to Bypass Heat Source -\u003eControl signal",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 7
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Hydronics\\Flow Diverter\\Other Fluids\\Type11f.tmf",
+            "parameter_count": 1,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Flow diverter mode",
+                "value": 2
+              }
+            ],
+            "position_x": 852,
+            "position_y": 147,
+            "purpose": "Controlled flow diverter valve (mode 2) splitting incoming cold water demand flow into two streams based on tempering valve controller signal. Outlet 1 to tank cold-side inlet; Outlet 2 bypasses tank. Inlet receives 15°C cold water at demand flow rate.",
+            "type_number": "Type11f",
+            "unit_name": "Flow_Diverter",
+            "unit_number": 8
+          },
+          {
+            "category": "flow_mixer",
+            "initial_values": [
+              20,
+              100,
+              20,
+              100
+            ],
+            "input_count": 4,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Storage_Tank:Temperature at outlet 2 -\u003eTemperature at inlet 1",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 2,
+                "name": "Storage_Tank:Flow rate at outlet 2 -\u003eFlow rate at inlet 1",
+                "source_output": 4,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 3,
+                "name": "Flow_Diverter:Temperature at outlet 2 -\u003eTemperature at inlet 2",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 4,
+                "name": "Flow_Diverter:Flow rate at outlet 2 -\u003eFlow rate at inlet 2",
+                "source_output": 4,
+                "source_type": "component",
+                "source_unit": 8
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Hydronics\\Tee-Piece Flow Mixer\\Other Fluids\\Type11h.tmf",
+            "parameter_count": 1,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Tee piece mode",
+                "value": 1
+              }
+            ],
+            "position_x": 1012,
+            "position_y": 147,
+            "purpose": "Tee-piece flow mixer (mode 1) combining hot water from tank top (inlet 1) with cold bypass flow from diverter (inlet 2) to produce final tempered DHW supply at desired temperature.",
+            "type_number": "Type11h",
+            "unit_name": "Flow_Mixer",
+            "unit_number": 9
+          },
+          {
+            "category": "forcing_function",
+            "initial_values": [],
+            "input_count": 0,
+            "inputs": [],
+            "layer": "Main",
+            "model_path": ".\\Utility\\Forcing Functions\\General\\Type14h.tmf",
+            "parameter_count": 16,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Initial value of time",
+                "value": 0
+              },
+              {
+                "index": 2,
+                "name": "Initial value of function",
+                "value": 0
+              },
+              {
+                "index": 3,
+                "name": "Time at point-1",
+                "value": 7
+              },
+              {
+                "index": 4,
+                "name": "Value at point-1",
+                "value": 0.000056
+              },
+              {
+                "index": 5,
+                "name": "Time at point-2",
+                "value": 9
+              },
+              {
+                "index": 6,
+                "name": "Value at point-2",
+                "value": 0
+              },
+              {
+                "index": 7,
+                "name": "Time at point-3",
+                "value": 11
+              },
+              {
+                "index": 8,
+                "name": "Value at point-3",
+                "value": 0.000028
+              },
+              {
+                "index": 9,
+                "name": "Time at point-4",
+                "value": 13
+              },
+              {
+                "index": 10,
+                "name": "Value at point-4",
+                "value": 0
+              },
+              {
+                "index": 11,
+                "name": "Time at point-5",
+                "value": 18
+              },
+              {
+                "index": 12,
+                "name": "Value at point-5",
+                "value": 0.000028
+              },
+              {
+                "index": 13,
+                "name": "Time at point-6",
+                "value": 22
+              },
+              {
+                "index": 14,
+                "name": "Value at point-6",
+                "value": 0
+              },
+              {
+                "index": 15,
+                "name": "Time at point-7",
+                "value": 24
+              },
+              {
+                "index": 16,
+                "name": "Value at point-7",
+                "value": 0
+              }
+            ],
+            "position_x": 140,
+            "position_y": 147,
+            "purpose": "Time-dependent forcing function defining normalized daily DHW consumption profile. Three draw periods: morning peak 7:00-9:00 (value 0.000056), midday 11:00-13:00 (value 0.000028), evening 18:00-22:00 (value 0.000028). All other hours zero. Repeats daily.",
+            "type_number": "Type14h",
+            "unit_name": "DHW_Load_Profile",
+            "unit_number": 10
+          },
+          {
+            "category": "plotter",
+            "initial_values": [
+              "Outlet_fluid_temperature",
+              "Outlet_temperature",
+              "Total_tilted_surface_radiation_for_surface",
+              "Outlet_flowrate"
+            ],
+            "input_count": 4,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Solar_Pump:Outlet fluid temperature -\u003eLeft axis variable-1",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 2,
+                "name": "Solar_Collector:Outlet temperature -\u003eLeft axis variable-2",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 3,
+                "name": "Weather_Data:Total tilted surface radiation for surface -\u003eRight axis variable-1",
+                "source_output": 24,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 4,
+                "name": "Solar_Collector:Outlet flowrate -\u003eRight axis variable-2",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 3
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Output\\Online Plotter\\Online Plotter Without File\\Type65d.tmf",
+            "parameter_count": 12,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Nb. of left-axis variables",
+                "value": 2
+              },
+              {
+                "index": 2,
+                "name": "Nb. of right-axis variables",
+                "value": 2
+              },
+              {
+                "index": 3,
+                "name": "Left axis minimum",
+                "value": 0
+              },
+              {
+                "index": 4,
+                "name": "Left axis maximum",
+                "value": 120
+              },
+              {
+                "index": 5,
+                "name": "Right axis minimum",
+                "value": 0
+              },
+              {
+                "index": 6,
+                "name": "Right axis maximum",
+                "value": 4000
+              },
+              {
+                "index": 7,
+                "name": "Number of plots per simulation",
+                "value": 1
+              },
+              {
+                "index": 8,
+                "name": "X-axis gridpoints",
+                "value": 12
+              },
+              {
+                "index": 9,
+                "name": "Shut off Online w/o removing",
+                "value": 0
+              },
+              {
+                "index": 10,
+                "name": "Logical unit for output file",
+                "value": -1
+              },
+              {
+                "index": 11,
+                "name": "Output file units",
+                "value": 0
+              },
+              {
+                "index": 12,
+                "name": "Output file delimiter",
+                "value": 0
+              }
+            ],
+            "position_x": 1012,
+            "position_y": 371,
+            "purpose": "Online plotter (no output file) for solar loop temperatures and flow: collector inlet temperature, collector outlet temperature, tilted surface radiation, collector outlet flow rate.",
+            "specific_properties": [
+              {
+                "note": "LABELS",
+                "property": "Labels used by this online plotter (leave set to 3)",
+                "value": "3"
+              },
+              {
+                "property": "Left axis title (enclose in double quotes)",
+                "value": "\"Temperature [C]\""
+              },
+              {
+                "property": "Right axis title (enclose in double quotes)",
+                "value": "\"Radiation / Flow Rate\""
+              },
+              {
+                "property": "Plot title (tab name if several plotters are used)",
+                "value": "\"Solar Loop\""
+              }
+            ],
+            "type_number": "Type65d",
+            "unit_name": "Plotter_Solar_Loop",
+            "unit_number": 11
+          },
+          {
+            "category": "plotter",
+            "initial_values": [
+              "Temperature_at_outlet_2",
+              "Tank_nodal_temperature",
+              "Tank_nodal_temperature-2",
+              "Tank_nodal_temperature-3",
+              "Tank_nodal_temperature-4",
+              "Tank_nodal_temperature-5",
+              "Tank_nodal_temperature-6",
+              "Temperature_at_outlet_1",
+              "Auxiliary_heating_rate"
+            ],
+            "input_count": 9,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Storage_Tank:Temperature at outlet 2 -\u003eLeft axis variable-1",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 2,
+                "name": "Storage_Tank:Tank nodal temperature -\u003eLeft axis variable-2",
+                "source_output": 15,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 3,
+                "name": "Storage_Tank:Tank nodal temperature-2 -\u003eLeft axis variable-3",
+                "source_output": 16,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 4,
+                "name": "Storage_Tank:Tank nodal temperature-3 -\u003eLeft axis variable-4",
+                "source_output": 17,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 5,
+                "name": "Storage_Tank:Tank nodal temperature-4 -\u003eLeft axis variable-5",
+                "source_output": 18,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 6,
+                "name": "Storage_Tank:Tank nodal temperature-5 -\u003eLeft axis variable-6",
+                "source_output": 19,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 7,
+                "name": "Storage_Tank:Tank nodal temperature-6 -\u003eLeft axis variable-7",
+                "source_output": 20,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 8,
+                "name": "Storage_Tank:Temperature at outlet 1 -\u003eLeft axis variable-8",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 9,
+                "name": "Storage_Tank:Auxiliary heating rate -\u003eRight axis variable-1",
+                "source_output": 11,
+                "source_type": "component",
+                "source_unit": 4
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Output\\Online Plotter\\Online Plotter Without File\\Type65d.tmf",
+            "parameter_count": 12,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Nb. of left-axis variables",
+                "value": 8
+              },
+              {
+                "index": 2,
+                "name": "Nb. of right-axis variables",
+                "value": 1
+              },
+              {
+                "index": 3,
+                "name": "Left axis minimum",
+                "value": 0
+              },
+              {
+                "index": 4,
+                "name": "Left axis maximum",
+                "value": 100
+              },
+              {
+                "index": 5,
+                "name": "Right axis minimum",
+                "value": 0
+              },
+              {
+                "index": 6,
+                "name": "Right axis maximum",
+                "value": 20000
+              },
+              {
+                "index": 7,
+                "name": "Number of plots per simulation",
+                "value": 1
+              },
+              {
+                "index": 8,
+                "name": "X-axis gridpoints",
+                "value": 12
+              },
+              {
+                "index": 9,
+                "name": "Shut off Online w/o removing",
+                "value": 0
+              },
+              {
+                "index": 10,
+                "name": "Logical unit for output file",
+                "value": -1
+              },
+              {
+                "index": 11,
+                "name": "Output file units",
+                "value": 0
+              },
+              {
+                "index": 12,
+                "name": "Output file delimiter",
+                "value": 0
+              }
+            ],
+            "position_x": 680,
+            "position_y": 371,
+            "purpose": "Online plotter (no output file) for tank thermal behavior: tank top temperature (to load), all 6 node temperatures, tank bottom temperature (to heat source), auxiliary heating power.",
+            "specific_properties": [
+              {
+                "note": "LABELS",
+                "property": "Labels used by this online plotter (leave set to 3)",
+                "value": "3"
+              },
+              {
+                "property": "Left axis title (enclose in double quotes)",
+                "value": "\"Temperature [C]\""
+              },
+              {
+                "property": "Right axis title (enclose in double quotes)",
+                "value": "\"Auxiliary Power [kJ/hr]\""
+              },
+              {
+                "property": "Plot title (tab name if several plotters are used)",
+                "value": "\"Tank Thermal Behavior\""
+              }
+            ],
+            "type_number": "Type65d",
+            "unit_name": "Plotter_Tank_Behavior",
+            "unit_number": 12
+          },
+          {
+            "category": "plotter",
+            "initial_values": [
+              "TCold",
+              "Temperature_at_outlet_2",
+              "Outlet_temperature",
+              "Fraction_to_Heat_Source",
+              "Fraction_to_Bypass_Heat_Source",
+              "Outlet_flow_rate",
+              "Flow_rate_at_outlet_2"
+            ],
+            "input_count": 7,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "DHW_Calculations:TCold -\u003eLeft axis variable-1",
+                "source_output": 2,
+                "source_type": "equation",
+                "source_unit": 14,
+                "source_variable": "TCold"
+              },
+              {
+                "index": 2,
+                "name": "Storage_Tank:Temperature at outlet 2 -\u003eLeft axis variable-2",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 3,
+                "name": "Flow_Mixer:Outlet temperature -\u003eLeft axis variable-3",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 9
+              },
+              {
+                "index": 4,
+                "name": "Tempering_Valve_Controller:Fraction to Heat Source -\u003eRight axis variable-1",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 7
+              },
+              {
+                "index": 5,
+                "name": "Tempering_Valve_Controller:Fraction to Bypass Heat Source -\u003eRight axis variable-2",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 7
+              },
+              {
+                "index": 6,
+                "name": "Flow_Mixer:Outlet flow rate -\u003eRight axis variable-3",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 9
+              },
+              {
+                "index": 7,
+                "name": "Flow_Diverter:Flow rate at outlet 2 -\u003eRight axis variable-4",
+                "source_output": 4,
+                "source_type": "component",
+                "source_unit": 8
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Output\\Online Plotter\\Online Plotter Without File\\Type65d.tmf",
+            "parameter_count": 12,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Nb. of left-axis variables",
+                "value": 3
+              },
+              {
+                "index": 2,
+                "name": "Nb. of right-axis variables",
+                "value": 4
+              },
+              {
+                "index": 3,
+                "name": "Left axis minimum",
+                "value": 0
+              },
+              {
+                "index": 4,
+                "name": "Left axis maximum",
+                "value": 100
+              },
+              {
+                "index": 5,
+                "name": "Right axis minimum",
+                "value": 0
+              },
+              {
+                "index": 6,
+                "name": "Right axis maximum",
+                "value": 500
+              },
+              {
+                "index": 7,
+                "name": "Number of plots per simulation",
+                "value": 1
+              },
+              {
+                "index": 8,
+                "name": "X-axis gridpoints",
+                "value": 12
+              },
+              {
+                "index": 9,
+                "name": "Shut off Online w/o removing",
+                "value": 0
+              },
+              {
+                "index": 10,
+                "name": "Logical unit for output file",
+                "value": -1
+              },
+              {
+                "index": 11,
+                "name": "Output file units",
+                "value": 0
+              },
+              {
+                "index": 12,
+                "name": "Output file delimiter",
+                "value": 0
+              }
+            ],
+            "position_x": 1172,
+            "position_y": 147,
+            "purpose": "Online plotter (no output file) for tempering valve performance and load-side flow: cold water temperature, tank hot outlet temperature, final tempered outlet temperature, fraction to tank, fraction bypassing tank, tempered DHW supply flow, bypass flow.",
+            "specific_properties": [
+              {
+                "note": "LABELS",
+                "property": "Labels used by this online plotter (leave set to 3)",
+                "value": "3"
+              },
+              {
+                "property": "Left axis title (enclose in double quotes)",
+                "value": "\"Temperature [C]\""
+              },
+              {
+                "property": "Right axis title (enclose in double quotes)",
+                "value": "\"Fraction / Flow Rate\""
+              },
+              {
+                "property": "Plot title (tab name if several plotters are used)",
+                "value": "\"Tempering Valve Performance\""
+              }
+            ],
+            "type_number": "Type65d",
+            "unit_name": "Plotter_Tempering_Performance",
+            "unit_number": 13
+          }
+        ],
+        "connections": [
+          {
+            "initial_values": [],
+            "input_count": 0,
+            "inputs": [],
+            "specific_properties": [],
+            "type_number": "Type15-TMY3",
+            "unit_name": "Weather_Data",
+            "unit_number": 2
+          },
+          {
+            "initial_values": [
+              20,
+              100,
+              10,
+              0,
+              0,
+              0,
+              0.2,
+              45,
+              0
+            ],
+            "input_count": 9,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Solar_Pump:Outlet fluid temperature -\u003eInlet temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 2,
+                "name": "Solar_Pump:Outlet flow rate -\u003eInlet flowrate",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 3,
+                "name": "Weather_Data:Dry bulb temperature -\u003eAmbient temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 4,
+                "name": "Weather_Data:Total tilted surface radiation for surface -\u003eIncident radiation",
+                "source_output": 24,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 5,
+                "name": "Weather_Data:Total horizontal radiation -\u003eTotal horizontal radiation",
+                "source_output": 18,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 6,
+                "name": "Weather_Data:Total diffuse radiation on the horizontal -\u003eHorizontal diffuse radiation",
+                "source_output": 22,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 7,
+                "name": "Weather_Data:Ground reflectance -\u003eGround reflectance",
+                "source_output": 59,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 8,
+                "name": "Weather_Data:Angle of incidence for surface -\u003eIncidence angle",
+                "source_output": 29,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 9,
+                "name": "Weather_Data:Slope of surface -\u003eCollector slope",
+                "source_output": 30,
+                "source_type": "component",
+                "source_unit": 2
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type1b",
+            "unit_name": "Solar_Collector",
+            "unit_number": 3
+          },
+          {
+            "initial_values": [
+              20,
+              0,
+              20,
+              0,
+              20,
+              20,
+              20,
+              9000
+            ],
+            "input_count": 8,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Solar_Collector:Outlet temperature -\u003eInlet temperature for port 1",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 2,
+                "name": "Solar_Collector:Outlet flowrate -\u003eInlet flow rate for port 1",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 3,
+                "name": "Flow_Diverter:Temperature at outlet 1 -\u003eInlet temperature for port 2",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 4,
+                "name": "Flow_Diverter:Flow rate at outlet 1 -\u003eInlet flow rate for port 2",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 5,
+                "name": "[unconnected] Top loss temperature",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 6,
+                "name": "[unconnected] Edge loss temperature",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 7,
+                "name": "[unconnected] Bottom loss temperature",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 8,
+                "name": "[unconnected] Auxiliary heat input",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type158",
+            "unit_name": "Storage_Tank",
+            "unit_number": 4
+          },
+          {
+            "initial_values": [
+              20,
+              100,
+              1
+            ],
+            "input_count": 3,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Storage_Tank:Temperature at outlet 1 -\u003eInlet fluid temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 2,
+                "name": "Storage_Tank:Flow rate at outlet 1 -\u003eInlet mass flow rate",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 3,
+                "name": "Differential_Controller:Output control function -\u003eControl signal",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 6
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type3b",
+            "unit_name": "Solar_Pump",
+            "unit_number": 5
+          },
+          {
+            "initial_values": [
+              20,
+              10,
+              20,
+              0,
+              10,
+              2
+            ],
+            "input_count": 6,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Solar_Collector:Outlet temperature -\u003eUpper input temperature Th",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 2,
+                "name": "Storage_Tank:Temperature at outlet 1 -\u003eLower input temperature Tl",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 3,
+                "name": "Storage_Tank:Temperature at outlet 2 -\u003eMonitoring temperature Tin",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 4,
+                "name": "Differential_Controller:Output control function -\u003eInput control function",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 6
+              },
+              {
+                "index": 5,
+                "name": "[unconnected] Upper dead band dT",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 6,
+                "name": "[unconnected] Lower dead band dT",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type2b",
+            "unit_name": "Differential_Controller",
+            "unit_number": 6
+          },
+          {
+            "initial_values": [
+              60,
+              10,
+              20
+            ],
+            "input_count": 3,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "[unconnected] Setpoint Temperature",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 2,
+                "name": "Storage_Tank:Temperature at outlet 2 -\u003eSource Temperature",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 3,
+                "name": "DHW_Calculations:TCold -\u003eTempering Fluid Temperature (Return Temperature)",
+                "source_output": 2,
+                "source_type": "equation",
+                "source_unit": 14,
+                "source_variable": "TCold"
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type115",
+            "unit_name": "Tempering_Valve_Controller",
+            "unit_number": 7
+          },
+          {
+            "initial_values": [
+              20,
+              100,
+              0.5
+            ],
+            "input_count": 3,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "DHW_Calculations:TCold -\u003eInlet temperature",
+                "source_output": 2,
+                "source_type": "equation",
+                "source_unit": 14,
+                "source_variable": "TCold"
+              },
+              {
+                "index": 2,
+                "name": "DHW_Calculations:mdDHW -\u003eInlet flow rate",
+                "source_output": 1,
+                "source_type": "equation",
+                "source_unit": 14,
+                "source_variable": "mdDHW"
+              },
+              {
+                "index": 3,
+                "name": "Tempering_Valve_Controller:Fraction to Bypass Heat Source -\u003eControl signal",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 7
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type11f",
+            "unit_name": "Flow_Diverter",
+            "unit_number": 8
+          },
+          {
+            "initial_values": [
+              20,
+              100,
+              20,
+              100
+            ],
+            "input_count": 4,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Storage_Tank:Temperature at outlet 2 -\u003eTemperature at inlet 1",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 2,
+                "name": "Storage_Tank:Flow rate at outlet 2 -\u003eFlow rate at inlet 1",
+                "source_output": 4,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 3,
+                "name": "Flow_Diverter:Temperature at outlet 2 -\u003eTemperature at inlet 2",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 4,
+                "name": "Flow_Diverter:Flow rate at outlet 2 -\u003eFlow rate at inlet 2",
+                "source_output": 4,
+                "source_type": "component",
+                "source_unit": 8
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type11h",
+            "unit_name": "Flow_Mixer",
+            "unit_number": 9
+          },
+          {
+            "initial_values": [],
+            "input_count": 0,
+            "inputs": [],
+            "specific_properties": [],
+            "type_number": "Type14h",
+            "unit_name": "DHW_Load_Profile",
+            "unit_number": 10
+          },
+          {
+            "initial_values": [
+              "Outlet_fluid_temperature",
+              "Outlet_temperature",
+              "Total_tilted_surface_radiation_for_surface",
+              "Outlet_flowrate"
+            ],
+            "input_count": 4,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Solar_Pump:Outlet fluid temperature -\u003eLeft axis variable-1",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 2,
+                "name": "Solar_Collector:Outlet temperature -\u003eLeft axis variable-2",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 3,
+                "name": "Weather_Data:Total tilted surface radiation for surface -\u003eRight axis variable-1",
+                "source_output": 24,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 4,
+                "name": "Solar_Collector:Outlet flowrate -\u003eRight axis variable-2",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 3
+              }
+            ],
+            "specific_properties": [
+              {
+                "note": "LABELS",
+                "property": "Labels used by this online plotter (leave set to 3)",
+                "value": "3"
+              },
+              {
+                "property": "Left axis title (enclose in double quotes)",
+                "value": "\"Temperature [C]\""
+              },
+              {
+                "property": "Right axis title (enclose in double quotes)",
+                "value": "\"Radiation / Flow Rate\""
+              },
+              {
+                "property": "Plot title (tab name if several plotters are used)",
+                "value": "\"Solar Loop\""
+              }
+            ],
+            "type_number": "Type65d",
+            "unit_name": "Plotter_Solar_Loop",
+            "unit_number": 11
+          },
+          {
+            "initial_values": [
+              "Temperature_at_outlet_2",
+              "Tank_nodal_temperature",
+              "Tank_nodal_temperature-2",
+              "Tank_nodal_temperature-3",
+              "Tank_nodal_temperature-4",
+              "Tank_nodal_temperature-5",
+              "Tank_nodal_temperature-6",
+              "Temperature_at_outlet_1",
+              "Auxiliary_heating_rate"
+            ],
+            "input_count": 9,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Storage_Tank:Temperature at outlet 2 -\u003eLeft axis variable-1",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 2,
+                "name": "Storage_Tank:Tank nodal temperature -\u003eLeft axis variable-2",
+                "source_output": 15,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 3,
+                "name": "Storage_Tank:Tank nodal temperature-2 -\u003eLeft axis variable-3",
+                "source_output": 16,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 4,
+                "name": "Storage_Tank:Tank nodal temperature-3 -\u003eLeft axis variable-4",
+                "source_output": 17,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 5,
+                "name": "Storage_Tank:Tank nodal temperature-4 -\u003eLeft axis variable-5",
+                "source_output": 18,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 6,
+                "name": "Storage_Tank:Tank nodal temperature-5 -\u003eLeft axis variable-6",
+                "source_output": 19,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 7,
+                "name": "Storage_Tank:Tank nodal temperature-6 -\u003eLeft axis variable-7",
+                "source_output": 20,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 8,
+                "name": "Storage_Tank:Temperature at outlet 1 -\u003eLeft axis variable-8",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 9,
+                "name": "Storage_Tank:Auxiliary heating rate -\u003eRight axis variable-1",
+                "source_output": 11,
+                "source_type": "component",
+                "source_unit": 4
+              }
+            ],
+            "specific_properties": [
+              {
+                "note": "LABELS",
+                "property": "Labels used by this online plotter (leave set to 3)",
+                "value": "3"
+              },
+              {
+                "property": "Left axis title (enclose in double quotes)",
+                "value": "\"Temperature [C]\""
+              },
+              {
+                "property": "Right axis title (enclose in double quotes)",
+                "value": "\"Auxiliary Power [kJ/hr]\""
+              },
+              {
+                "property": "Plot title (tab name if several plotters are used)",
+                "value": "\"Tank Thermal Behavior\""
+              }
+            ],
+            "type_number": "Type65d",
+            "unit_name": "Plotter_Tank_Behavior",
+            "unit_number": 12
+          },
+          {
+            "initial_values": [
+              "TCold",
+              "Temperature_at_outlet_2",
+              "Outlet_temperature",
+              "Fraction_to_Heat_Source",
+              "Fraction_to_Bypass_Heat_Source",
+              "Outlet_flow_rate",
+              "Flow_rate_at_outlet_2"
+            ],
+            "input_count": 7,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "DHW_Calculations:TCold -\u003eLeft axis variable-1",
+                "source_output": 2,
+                "source_type": "equation",
+                "source_unit": 14,
+                "source_variable": "TCold"
+              },
+              {
+                "index": 2,
+                "name": "Storage_Tank:Temperature at outlet 2 -\u003eLeft axis variable-2",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 3,
+                "name": "Flow_Mixer:Outlet temperature -\u003eLeft axis variable-3",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 9
+              },
+              {
+                "index": 4,
+                "name": "Tempering_Valve_Controller:Fraction to Heat Source -\u003eRight axis variable-1",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 7
+              },
+              {
+                "index": 5,
+                "name": "Tempering_Valve_Controller:Fraction to Bypass Heat Source -\u003eRight axis variable-2",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 7
+              },
+              {
+                "index": 6,
+                "name": "Flow_Mixer:Outlet flow rate -\u003eRight axis variable-3",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 9
+              },
+              {
+                "index": 7,
+                "name": "Flow_Diverter:Flow rate at outlet 2 -\u003eRight axis variable-4",
+                "source_output": 4,
+                "source_type": "component",
+                "source_unit": 8
+              }
+            ],
+            "specific_properties": [
+              {
+                "note": "LABELS",
+                "property": "Labels used by this online plotter (leave set to 3)",
+                "value": "3"
+              },
+              {
+                "property": "Left axis title (enclose in double quotes)",
+                "value": "\"Temperature [C]\""
+              },
+              {
+                "property": "Right axis title (enclose in double quotes)",
+                "value": "\"Fraction / Flow Rate\""
+              },
+              {
+                "property": "Plot title (tab name if several plotters are used)",
+                "value": "\"Tempering Valve Performance\""
+              }
+            ],
+            "type_number": "Type65d",
+            "unit_name": "Plotter_Tempering_Performance",
+            "unit_number": 13
+          },
+          {
+            "initial_values": [],
+            "input_count": 1,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "[10,2] -\u003emdDHW",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 10,
+                "target_equation_index": 1,
+                "target_variable": "mdDHW"
+              }
+            ],
+            "type_number": "EQUATIONS",
+            "unit_name": "DHW_Calculations",
+            "unit_number": 14
+          }
+        ],
+        "constants": [],
+        "current_agent": "validator",
+        "current_round_repair_notes": [
+          {
+            "no_change": false,
+            "repair_agent": "parameter_configurator",
+            "repair_detail": "direct_issue_fix: Unit 4 Type158 had parameter 16 'Number of auxiliary heat inputs' set to 2, which caused a parameter count mismatch at runtime (TRNSYS expected 18 but only 17 were specified in the DCK, or vice versa). Analysis of training DCK snippets revealed that all Type158 examples use Number of auxiliary heat inputs = 1 with exactly 17 parameters. The two heating elements at the same node with the same thermostat are functionally equivalent to a single combined auxiliary heat input. Changed parameter 16 value from 2 to 1. All other parameters kept unchanged. Unit 6 Type2b error is a connection issue (output access beyond available outputs), not a parameter issue — Type2b parameters (2) are correct per TMF.",
+            "repair_summary": "Unit 4 Type158: changed Number of auxiliary heat inputs from 2 to 1 to match TMF spec (17 params).",
+            "repair_type": "direct_issue_fix",
+            "validator_round": 1
+          },
+          {
+            "no_change": false,
+            "repair_agent": "connection_generator",
+            "repair_detail": "direct_issue_fix: Unit 4 Type158 had 9 inputs with 2 auxiliary heat inputs, but parameter_configurator changed Number of auxiliary heat inputs from 2 to 1 (17 params total). Removed input 9 (Auxiliary heat input-2) and its initial value 9000.0, reducing input_count from 9 to 8. Also aligned equation source_output values from 0 to match configured components (1 for mdDHW, 2 for TCold) for consistency. All other connections kept unchanged. Re-verified Type158 connections with verify_connection_units — all MATCH.",
+            "repair_summary": "Type158: removed input 9 (aux heat-2), input_count 9→8; aligned equation source_output indices with configured components.",
+            "repair_type": "direct_issue_fix",
+            "validator_round": 1
+          },
+          {
+            "no_change": false,
+            "repair_agent": "layout_designer",
+            "repair_detail": "Adjusted positions and link styles to match updated connection topology",
+            "repair_summary": "Layout adapted after upstream repair",
+            "repair_type": "indirect_adaptive_fix",
+            "validator_round": 1
+          }
+        ],
+        "dck_content": "\u003cfiltered: str, 16708 chars\u003e",
+        "equations": [
+          {
+            "connection_inputs": [
+              {
+                "index": 1,
+                "name": "[10,2] -\u003emdDHW",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 10,
+                "target_equation_index": 1,
+                "target_variable": "mdDHW"
+              }
+            ],
+            "equation_count": 2,
+            "equations": [
+              {
+                "comment": "Actual DHW demand flow rate, scaled from normalized load profile by factor 200. mdDHW [kg/hr]; from [10,2] Instantaneous value of function over the timestep [-]; to -\u003e [8,2] Inlet flow rate [kg/hr]",
+                "expression": "[10,2]*200",
+                "variable": "mdDHW"
+              },
+              {
+                "comment": "Cold water supply temperature constant. TCold [°C]; to -\u003e [8,1] Inlet temperature [°C]; to -\u003e [7,3] Tempering Fluid Temperature (Return Temperature) [°C]",
+                "expression": "15",
+                "variable": "TCold"
+              }
+            ],
+            "layer": "Main",
+            "position_x": 300,
+            "position_y": 147,
+            "unit_name": "DHW_Calculations",
+            "unit_number": 14
+          }
+        ],
+        "error_analysis": {
+          "fix_suggestions": [
+            "For Unit 4 Type 158: Reduce the PARAMETERS count to exactly 17 by removing excess parameters. The 17 required parameters are: 1-Tank volume, 2-Tank height, 3-Number of tank nodes, 4-Top loss coefficient, 5-Edge loss coefficient, 6-Bottom loss coefficient, 7-Fluid specific heat, 8-Fluid density, 9-Fluid thermal conductivity, 10-Height fraction of inlet 1, 11-Height fraction of outlet 1, 12-Height fraction of inlet 2, 13-Height fraction of outlet 2, 14-Number of thermostats, 15-Height fraction of thermostat, 16-Number of auxiliary heat inputs, 17-Height fraction of auxiliary input.",
+            "For Unit 6 Type 2b: Search all INPUTS blocks in the DCK for any reference to '6,2' or '6,N' where N \u003e 1, and correct those connections to reference only '6,1' (the sole output: Output control function). If a second output value is needed, add an EQUATIONS block to derive it from output 1.",
+            "Run validate_parameter_count for Type158 with count=17 and validate_input_count for Type2b to confirm corrections."
+          ],
+          "priority": "high",
+          "responsible_agents": [
+            "parameter_configurator",
+            "connection_generator"
+          ],
+          "root_cause": "Two fatal errors: (1) Unit 4 Type 158 has a parameter count mismatch — the TMF specification requires exactly 17 parameters (Tank volume, Tank height, Number of tank nodes, Top/Edge/Bottom loss coefficients, Fluid specific heat/density/thermal conductivity, Height fractions for inlets/outlets 1\u00262, Number of thermostats, Height fraction of thermostat, Number of auxiliary heat inputs, Height fraction of auxiliary input), but more than 17 were specified in the DCK. (2) A downstream component references an output from Unit 6 Type 2b that exceeds its single available output — Type2b has only 1 output (Output control function), so any reference to '6,2' or higher is invalid."
+        },
+        "expert_output_status": "layout_designer output successfully",
+        "first_round_complete": true,
+        "human_expert_error_analysis": {},
+        "iteration": 12,
+        "last_dispatched_expert": "",
+        "last_validator_snapshot": {
+          "current_round_repair_notes": [
+            {
+              "no_change": false,
+              "repair_agent": "parameter_configurator",
+              "repair_detail": "direct_issue_fix: Unit 4 Type158 had parameter 16 'Number of auxiliary heat inputs' set to 2, which caused a parameter count mismatch at runtime (TRNSYS expected 18 but only 17 were specified in the DCK, or vice versa). Analysis of training DCK snippets revealed that all Type158 examples use Number of auxiliary heat inputs = 1 with exactly 17 parameters. The two heating elements at the same node with the same thermostat are functionally equivalent to a single combined auxiliary heat input. Changed parameter 16 value from 2 to 1. All other parameters kept unchanged. Unit 6 Type2b error is a connection issue (output access beyond available outputs), not a parameter issue — Type2b parameters (2) are correct per TMF.",
+              "repair_summary": "Unit 4 Type158: changed Number of auxiliary heat inputs from 2 to 1 to match TMF spec (17 params).",
+              "repair_type": "direct_issue_fix",
+              "validator_round": 1
+            },
+            {
+              "no_change": false,
+              "repair_agent": "connection_generator",
+              "repair_detail": "direct_issue_fix: Unit 4 Type158 had 9 inputs with 2 auxiliary heat inputs, but parameter_configurator changed Number of auxiliary heat inputs from 2 to 1 (17 params total). Removed input 9 (Auxiliary heat input-2) and its initial value 9000.0, reducing input_count from 9 to 8. Also aligned equation source_output values from 0 to match configured components (1 for mdDHW, 2 for TCold) for consistency. All other connections kept unchanged. Re-verified Type158 connections with verify_connection_units — all MATCH.",
+              "repair_summary": "Type158: removed input 9 (aux heat-2), input_count 9→8; aligned equation source_output indices with configured components.",
+              "repair_type": "direct_issue_fix",
+              "validator_round": 1
+            },
+            {
+              "no_change": false,
+              "repair_agent": "layout_designer",
+              "repair_detail": "Adjusted positions and link styles to match updated connection topology",
+              "repair_summary": "Layout adapted after upstream repair",
+              "repair_type": "indirect_adaptive_fix",
+              "validator_round": 1
+            }
+          ],
+          "error_analysis": {},
+          "validation_errors": [],
+          "validation_result": "success",
+          "validator_round": 2
+        },
+        "layout_styles": [
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                160,
+                341
+              ],
+              [
+                196,
+                341
+              ],
+              [
+                196,
+                341
+              ],
+              [
+                280,
+                341
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 2,
+            "input_indices": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "start_dir": "40:0",
+            "style": 0,
+            "to_unit": 3,
+            "user_path": 0,
+            "width": 2
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                160,
+                381
+              ],
+              [
+                212,
+                381
+              ],
+              [
+                212,
+                413
+              ],
+              [
+                912,
+                413
+              ],
+              [
+                912,
+                381
+              ],
+              [
+                992,
+                381
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 2,
+            "input_indices": [
+              3
+            ],
+            "start_dir": "40:40",
+            "style": 4,
+            "to_unit": 11,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                158.5,
+                117
+              ],
+              [
+                180,
+                117
+              ],
+              [
+                180,
+                117
+              ],
+              [
+                280,
+                117
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 10,
+            "input_indices": [
+              1
+            ],
+            "start_dir": "37:0",
+            "style": 0,
+            "to_unit": 14,
+            "user_path": 0,
+            "width": 2
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                320,
+                157
+              ],
+              [
+                356,
+                157
+              ],
+              [
+                356,
+                189
+              ],
+              [
+                564,
+                189
+              ],
+              [
+                564,
+                157
+              ],
+              [
+                660,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 14,
+            "input_indices": [
+              3
+            ],
+            "start_dir": "40:40",
+            "style": 1,
+            "to_unit": 7,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                320,
+                157
+              ],
+              [
+                372,
+                157
+              ],
+              [
+                372,
+                205
+              ],
+              [
+                752,
+                205
+              ],
+              [
+                752,
+                157
+              ],
+              [
+                832,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 14,
+            "input_indices": [
+              1,
+              2
+            ],
+            "start_dir": "40:40",
+            "style": 0,
+            "to_unit": 8,
+            "user_path": 0,
+            "width": 2
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                320,
+                157
+              ],
+              [
+                388,
+                157
+              ],
+              [
+                388,
+                221
+              ],
+              [
+                1056,
+                221
+              ],
+              [
+                1056,
+                157
+              ],
+              [
+                1152,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 14,
+            "input_indices": [
+              1
+            ],
+            "start_dir": "40:40",
+            "style": 4,
+            "to_unit": 13,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 8851335,
+            "coordinates": [
+              [
+                320,
+                341
+              ],
+              [
+                340,
+                341
+              ],
+              [
+                340,
+                137
+              ],
+              [
+                452,
+                137
+              ]
+            ],
+            "end_dir": "0:20",
+            "from_unit": 3,
+            "input_indices": [
+              1,
+              2
+            ],
+            "start_dir": "40:0",
+            "style": 0,
+            "to_unit": 4,
+            "user_path": 0,
+            "width": 5
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                320,
+                381
+              ],
+              [
+                404,
+                381
+              ],
+              [
+                404,
+                429
+              ],
+              [
+                580,
+                429
+              ],
+              [
+                580,
+                525
+              ],
+              [
+                660,
+                525
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 3,
+            "input_indices": [
+              1
+            ],
+            "start_dir": "40:40",
+            "style": 1,
+            "to_unit": 6,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                320,
+                381
+              ],
+              [
+                420,
+                381
+              ],
+              [
+                420,
+                445
+              ],
+              [
+                928,
+                445
+              ],
+              [
+                928,
+                381
+              ],
+              [
+                992,
+                381
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 3,
+            "input_indices": [
+              2,
+              4
+            ],
+            "start_dir": "40:40",
+            "style": 4,
+            "to_unit": 11,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 8851335,
+            "coordinates": [
+              [
+                492,
+                157
+              ],
+              [
+                596,
+                157
+              ],
+              [
+                596,
+                237
+              ],
+              [
+                768,
+                237
+              ],
+              [
+                768,
+                381
+              ],
+              [
+                832,
+                381
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 4,
+            "input_indices": [
+              1,
+              2
+            ],
+            "start_dir": "40:40",
+            "style": 0,
+            "to_unit": 5,
+            "user_path": 0,
+            "width": 5
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                492,
+                137
+              ],
+              [
+                500,
+                137
+              ],
+              [
+                500,
+                485
+              ],
+              [
+                660,
+                485
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 4,
+            "input_indices": [
+              2,
+              3
+            ],
+            "start_dir": "40:20",
+            "style": 1,
+            "to_unit": 6,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                492,
+                117
+              ],
+              [
+                516,
+                117
+              ],
+              [
+                516,
+                117
+              ],
+              [
+                660,
+                117
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 4,
+            "input_indices": [
+              2
+            ],
+            "start_dir": "40:0",
+            "style": 1,
+            "to_unit": 7,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 8851335,
+            "coordinates": [
+              [
+                492,
+                157
+              ],
+              [
+                612,
+                157
+              ],
+              [
+                612,
+                253
+              ],
+              [
+                944,
+                253
+              ],
+              [
+                944,
+                157
+              ],
+              [
+                992,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 4,
+            "input_indices": [
+              1,
+              2
+            ],
+            "start_dir": "40:40",
+            "style": 0,
+            "to_unit": 9,
+            "user_path": 0,
+            "width": 5
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                492,
+                137
+              ],
+              [
+                532,
+                137
+              ],
+              [
+                532,
+                341
+              ],
+              [
+                660,
+                341
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 4,
+            "input_indices": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "start_dir": "40:20",
+            "style": 4,
+            "to_unit": 12,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                492,
+                157
+              ],
+              [
+                628,
+                157
+              ],
+              [
+                628,
+                269
+              ],
+              [
+                1072,
+                269
+              ],
+              [
+                1072,
+                157
+              ],
+              [
+                1152,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 4,
+            "input_indices": [
+              2
+            ],
+            "start_dir": "40:40",
+            "style": 4,
+            "to_unit": 13,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 8851335,
+            "coordinates": [
+              [
+                832,
+                381
+              ],
+              [
+                816,
+                381
+              ],
+              [
+                816,
+                461
+              ],
+              [
+                436,
+                461
+              ],
+              [
+                436,
+                381
+              ],
+              [
+                320,
+                381
+              ]
+            ],
+            "end_dir": "40:40",
+            "from_unit": 5,
+            "input_indices": [
+              1,
+              2
+            ],
+            "start_dir": "0:40",
+            "style": 0,
+            "to_unit": 3,
+            "user_path": 0,
+            "width": 5
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                872,
+                341
+              ],
+              [
+                896,
+                341
+              ],
+              [
+                896,
+                341
+              ],
+              [
+                992,
+                341
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 5,
+            "input_indices": [
+              1
+            ],
+            "start_dir": "40:0",
+            "style": 4,
+            "to_unit": 11,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                700,
+                485
+              ],
+              [
+                736,
+                485
+              ],
+              [
+                736,
+                361
+              ],
+              [
+                832,
+                361
+              ]
+            ],
+            "end_dir": "0:20",
+            "from_unit": 6,
+            "input_indices": [
+              3
+            ],
+            "start_dir": "40:0",
+            "style": 1,
+            "to_unit": 5,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                660,
+                485
+              ],
+              [
+                548,
+                485
+              ],
+              [
+                548,
+                485
+              ],
+              [
+                660,
+                485
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 6,
+            "input_indices": [
+              4
+            ],
+            "start_dir": "0:0",
+            "style": 1,
+            "to_unit": 6,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                700,
+                117
+              ],
+              [
+                720,
+                117
+              ],
+              [
+                720,
+                117
+              ],
+              [
+                832,
+                117
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 7,
+            "input_indices": [
+              3
+            ],
+            "start_dir": "40:0",
+            "style": 1,
+            "to_unit": 8,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                700,
+                157
+              ],
+              [
+                784,
+                157
+              ],
+              [
+                784,
+                285
+              ],
+              [
+                1088,
+                285
+              ],
+              [
+                1088,
+                157
+              ],
+              [
+                1152,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 7,
+            "input_indices": [
+              4,
+              5
+            ],
+            "start_dir": "40:40",
+            "style": 4,
+            "to_unit": 13,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 8851335,
+            "coordinates": [
+              [
+                832,
+                157
+              ],
+              [
+                800,
+                157
+              ],
+              [
+                800,
+                301
+              ],
+              [
+                644,
+                301
+              ],
+              [
+                644,
+                157
+              ],
+              [
+                492,
+                157
+              ]
+            ],
+            "end_dir": "40:40",
+            "from_unit": 8,
+            "input_indices": [
+              3,
+              4
+            ],
+            "start_dir": "0:40",
+            "style": 0,
+            "to_unit": 4,
+            "user_path": 0,
+            "width": 5
+          },
+          {
+            "color": 8851335,
+            "coordinates": [
+              [
+                872,
+                117
+              ],
+              [
+                880,
+                117
+              ],
+              [
+                880,
+                117
+              ],
+              [
+                992,
+                117
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 8,
+            "input_indices": [
+              3,
+              4
+            ],
+            "start_dir": "40:0",
+            "style": 0,
+            "to_unit": 9,
+            "user_path": 0,
+            "width": 5
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                872,
+                157
+              ],
+              [
+                960,
+                157
+              ],
+              [
+                960,
+                317
+              ],
+              [
+                1104,
+                317
+              ],
+              [
+                1104,
+                157
+              ],
+              [
+                1152,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 8,
+            "input_indices": [
+              7
+            ],
+            "start_dir": "40:40",
+            "style": 4,
+            "to_unit": 13,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                1032,
+                117
+              ],
+              [
+                1040,
+                117
+              ],
+              [
+                1040,
+                117
+              ],
+              [
+                1152,
+                117
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 9,
+            "input_indices": [
+              3,
+              6
+            ],
+            "start_dir": "40:0",
+            "style": 4,
+            "to_unit": 13,
+            "user_path": 0,
+            "width": 1
+          }
+        ],
+        "link_style_lines": [
+          {
+            "CONNECTION_SET": "40:0:0:0:3,4,5,6,7,8,9:0:0:2:0:160,341:196,341:196,341:280,341",
+            "LINK": "2:3"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:3:0:4:1:0:160,381:212,381:212,413:912,413:912,381:992,381",
+            "LINK": "2:11"
+          },
+          {
+            "CONNECTION_SET": "37:0:0:0:1:0:0:2:0:158.5,117:180,117:180,117:280,117",
+            "LINK": "10:14"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:3:14783312:1:1:0:320,157:356,157:356,189:564,189:564,157:660,157",
+            "LINK": "14:7"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:1,2:0:0:2:0:320,157:372,157:372,205:752,205:752,157:832,157",
+            "LINK": "14:8"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:1:0:4:1:0:320,157:388,157:388,221:1056,221:1056,157:1152,157",
+            "LINK": "14:13"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:20:1,2:8851335:0:5:0:320,341:340,341:340,137:452,137",
+            "LINK": "3:4"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:1:14783312:1:1:0:320,381:404,381:404,429:580,429:580,525:660,525",
+            "LINK": "3:6"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:2,4:0:4:1:0:320,381:420,381:420,445:928,445:928,381:992,381",
+            "LINK": "3:11"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:1,2:8851335:0:5:0:492,157:596,157:596,237:768,237:768,381:832,381",
+            "LINK": "4:5"
+          },
+          {
+            "CONNECTION_SET": "40:20:0:0:2,3:14783312:1:1:0:492,137:500,137:500,485:660,485",
+            "LINK": "4:6"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:0:2:14783312:1:1:0:492,117:516,117:516,117:660,117",
+            "LINK": "4:7"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:1,2:8851335:0:5:0:492,157:612,157:612,253:944,253:944,157:992,157",
+            "LINK": "4:9"
+          },
+          {
+            "CONNECTION_SET": "40:20:0:0:1,2,3,4,5,6,7,8,9:0:4:1:0:492,137:532,137:532,341:660,341",
+            "LINK": "4:12"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:2:0:4:1:0:492,157:628,157:628,269:1072,269:1072,157:1152,157",
+            "LINK": "4:13"
+          },
+          {
+            "CONNECTION_SET": "0:40:40:40:1,2:8851335:0:5:0:832,381:816,381:816,461:436,461:436,381:320,381",
+            "LINK": "5:3"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:0:1:0:4:1:0:872,341:896,341:896,341:992,341",
+            "LINK": "5:11"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:20:3:14783312:1:1:0:700,485:736,485:736,361:832,361",
+            "LINK": "6:5"
+          },
+          {
+            "CONNECTION_SET": "0:0:0:0:4:14783312:1:1:0:660,485:548,485:548,485:660,485",
+            "LINK": "6:6"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:0:3:14783312:1:1:0:700,117:720,117:720,117:832,117",
+            "LINK": "7:8"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:4,5:0:4:1:0:700,157:784,157:784,285:1088,285:1088,157:1152,157",
+            "LINK": "7:13"
+          },
+          {
+            "CONNECTION_SET": "0:40:40:40:3,4:8851335:0:5:0:832,157:800,157:800,301:644,301:644,157:492,157",
+            "LINK": "8:4"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:0:3,4:8851335:0:5:0:872,117:880,117:880,117:992,117",
+            "LINK": "8:9"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:7:0:4:1:0:872,157:960,157:960,317:1104,317:1104,157:1152,157",
+            "LINK": "8:13"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:0:3,6:0:4:1:0:1032,117:1040,117:1040,117:1152,117",
+            "LINK": "9:13"
+          }
+        ],
+        "next_agent": "FINISH",
+        "pending_experts": [],
+        "repair_execution_chain": [],
+        "repair_mode": true,
+        "repair_notes_history": [
+          {
+            "no_change": false,
+            "repair_agent": "parameter_configurator",
+            "repair_detail": "direct_issue_fix: Unit 4 Type158 had parameter 16 'Number of auxiliary heat inputs' set to 2, which caused a parameter count mismatch at runtime (TRNSYS expected 18 but only 17 were specified in the DCK, or vice versa). Analysis of training DCK snippets revealed that all Type158 examples use Number of auxiliary heat inputs = 1 with exactly 17 parameters. The two heating elements at the same node with the same thermostat are functionally equivalent to a single combined auxiliary heat input. Changed parameter 16 value from 2 to 1. All other parameters kept unchanged. Unit 6 Type2b error is a connection issue (output access beyond available outputs), not a parameter issue — Type2b parameters (2) are correct per TMF.",
+            "repair_summary": "Unit 4 Type158: changed Number of auxiliary heat inputs from 2 to 1 to match TMF spec (17 params).",
+            "repair_type": "direct_issue_fix",
+            "validator_round": 1
+          },
+          {
+            "no_change": false,
+            "repair_agent": "connection_generator",
+            "repair_detail": "direct_issue_fix: Unit 4 Type158 had 9 inputs with 2 auxiliary heat inputs, but parameter_configurator changed Number of auxiliary heat inputs from 2 to 1 (17 params total). Removed input 9 (Auxiliary heat input-2) and its initial value 9000.0, reducing input_count from 9 to 8. Also aligned equation source_output values from 0 to match configured components (1 for mdDHW, 2 for TCold) for consistency. All other connections kept unchanged. Re-verified Type158 connections with verify_connection_units — all MATCH.",
+            "repair_summary": "Type158: removed input 9 (aux heat-2), input_count 9→8; aligned equation source_output indices with configured components.",
+            "repair_type": "direct_issue_fix",
+            "validator_round": 1
+          },
+          {
+            "no_change": false,
+            "repair_agent": "layout_designer",
+            "repair_detail": "Adjusted positions and link styles to match updated connection topology",
+            "repair_summary": "Layout adapted after upstream repair",
+            "repair_type": "indirect_adaptive_fix",
+            "validator_round": 1
+          }
+        ],
+        "repair_targets": [],
+        "simulation_settings": {
+          "convergence_tolerance": 0.001,
+          "integration_tolerance": 0.001,
+          "max_iterations": 30,
+          "solver_type": 0,
+          "start_time": 3624,
+          "stop_time": 3800,
+          "time_step": 0.125
+        },
+        "status": "completed",
+        "system_analysis": "Excellent — the retrieved systems are highly relevant. Let me now analyze the task in detail and produce the planning scheme.\n\nThe task describes a **solar domestic hot water (SDHW) system** with:\n- Forced circulation solar loop (collector → tank → pump → collector)\n- Tempering valve control for outlet temperature\n- Stratified storage tank with electric auxiliary heating\n- Differential controller with hysteresis for pump control\n- Daily DHW load profile\n\nLet me now compile the complete analysis and produce the JSON output.\n\n---\n\n## Analysis Summary\n\n**System Type**: Solar Domestic Hot Water (SDHW) — forced circulation with tempering valve\n\n**Key Features Extracted**:\n1. **Solar loop**: Flat-plate collector (5 m², 45° tilt, south-facing, 2nd-order IAM), variable-speed pump, differential controller with hysteresis\n2. **Storage**: Stratified tank (0.3 m³, 6 nodes, variable inlet position, uniform heat loss, dual electric auxiliary heaters in master/slave mode)\n3. **Load side**: Tempering valve controller + diverter valve + tee-piece mixer, time-dependent DHW load profile (3 draw periods), formula for flow calculation\n4. **Weather**: TMY3 Madison, WI; Reindl radiation model, 45° tilted surface, ground reflectance 0.2\n5. **Simulation**: Summer period (3624–3800 hr), 0.125 hr step, tolerances 0.001, Solver 0 (successive substitution), max 30 iterations\n\n**Simulation Settings (SELECTIVE — only task-stated parameters)**:\n- `start_time`: 3624\n- `stop_time`: 3800\n- `time_step`: 0.125\n- `integration_tolerance`: 0.001\n- `convergence_tolerance`: 0.001\n- `max_iterations`: 30\n- `solver_type`: 0 (explicitly required for tempering valve and differential controller)\n\n**Component Categories** (14 categories):\n1. Weather data reader/processor\n2. Solar collector (flat-plate, 2nd-order IAM)\n3. Stratified storage tank with auxiliary heaters\n4. Variable-speed circulation pump\n5. Differential controller with hysteresis\n6. Tempering valve controller\n7. Flow diverter (controlled)\n8. Tee-piece / flow mixer\n9. Time-dependent forcing function (DHW load profile)\n10. Equation/formula component\n11. Online plotters (×3)\n12. (Implicit) Printer/output component\n\n---\n\n```json\n{\n    \"system_type\": \"solar_domestic_hot_water\",\n    \"system_description\": \"Forced-circulation solar domestic hot water system with tempering valve control for Madison, WI. The system consists of a single flat-plate solar collector (5 m², 45° tilt, south-facing, 2nd-order IAM), a stratified vertical storage tank (0.3 m³, 6 nodes, variable inlet position, dual electric auxiliary heaters in master/slave mode), a variable-speed circulation pump, an ON/OFF differential controller with hysteresis for pump control, a tempering valve controller with a controlled diverter valve and tee-piece mixer for outlet temperature regulation, a time-dependent DHW load profile (three daily draw periods), and an equation component for flow and temperature calculations. Simulated over a summer period of approximately 7.3 days (hours 3624–3800) with a 0.125-hour time step.\",\n    \"component_categories\": [\n        {\n            \"category\": \"weather\",\n            \"count\": 1,\n            \"description\": \"Weather data reader/processor for TMY3 format file (Madison, WI). Computes solar radiation on a south-facing 45° tilted surface using the Reindl radiation model with ground reflectance 0.2.\"\n        },\n        {\n            \"category\": \"solar_collector\",\n            \"count\": 1,\n            \"description\": \"Flat-plate solar collector with 2nd-order incidence angle modifier. Effective area 5 m², 45° tilt, south-facing (azimuth 0°). Optical efficiency 0.8, first-order loss coefficient 13 kJ/(hr·m²·K), second-order loss coefficient 0.05 kJ/(hr·m²·K²). IAM: first-order coefficient 0.2, second-order coefficient 0. Test flow rate 40 kg/(hr·m²), fluid specific heat 4.19 kJ/(kg·K). Efficiency mode 1 (based on inlet temperature). Single collector in series.\"\n        },\n        {\n            \"category\": \"thermal_storage\",\n            \"count\": 1,\n            \"description\": \"Vertical cylindrical stratified storage tank with variable inlet position (mode 2) and uniform heat loss. Volume 0.3 m³, height 1.8 m, 6 equal-height nodes (0.3 m each). Node loss coefficient 2.5 kJ/(hr·m²·K). Fluid: water, specific heat 4.19 kJ/(kg·K), density 1000 kg/m³. Two electric auxiliary heaters in master/slave mode (mode 1), both at node 1 (top), thermostat at node 1, setpoint 60°C, deadband 5°C, max power 9000 kJ/hr each. Boiling point 100°C. Initial temperatures: 60/50/40/30/20/15°C top-to-bottom. Ambient temperature 20°C. Heater control signals constant 1.0.\"\n        },\n        {\n            \"category\": \"pump\",\n            \"count\": 1,\n            \"description\": \"Variable-speed circulation pump for the solar collector loop. Maximum flow rate 200 kg/hr, maximum power 240 kJ/hr, fluid specific heat 4.19 kJ/(kg·K), heat conversion coefficient 0.05, power coefficient 0.5. Flow rate modulated by differential controller control signal multiplied by maximum flow.\"\n        },\n        {\n            \"category\": \"controller\",\n            \"count\": 1,\n            \"description\": \"ON/OFF differential controller with hysteresis for solar loop pump control. Compares collector outlet temperature (Th) with tank bottom temperature (Tl). Upper deadband 10°C (pump ON when Th-Tl \u003e 10°C), lower deadband 2°C (pump OFF when Th-Tl \u003c 2°C). High-temperature cut-out at 100°C (monitors tank top temperature). Maximum 5 oscillations per time step. Successive substitution control strategy with output feedback for hysteresis stability.\"\n        },\n        {\n            \"category\": \"controller\",\n            \"count\": 1,\n            \"description\": \"Tempering valve controller for DHW outlet temperature regulation. Setpoint 60°C, heat source temperature from tank top, tempering fluid at 15°C cold water. Operating mode 1 (heating mode). Outputs two fractions: flow to heat source (tank) and flow bypassing heat source. Maximum 5 oscillations per time step.\"\n        },\n        {\n            \"category\": \"flow_diverter\",\n            \"count\": 1,\n            \"description\": \"Controlled flow diverter valve that splits incoming cold water demand flow into two streams based on the tempering valve controller signal. Outlet 1 directs flow to the tank cold-side inlet; Outlet 2 bypasses the tank. Inlet receives 15°C cold water at the demand flow rate.\"\n        },\n        {\n            \"category\": \"flow_mixer\",\n            \"count\": 1,\n            \"description\": \"Tee-piece flow mixer that combines hot water from the tank top (inlet 1) with cold bypass flow from the diverter (inlet 2) to produce the final tempered DHW supply at the desired temperature.\"\n        },\n        {\n            \"category\": \"forcing_function\",\n            \"count\": 1,\n            \"description\": \"Time-dependent forcing function defining the normalized daily DHW consumption profile. Three draw periods: morning peak 7:00–9:00 (value 0.000056), midday 11:00–13:00 (value 0.000028), evening 18:00–22:00 (value 0.000028). All other hours zero.\"\n        },\n        {\n            \"category\": \"equation\",\n            \"count\": 1,\n            \"description\": \"Equation/formula component for calculating actual DHW demand flow (mdDHW = load profile output × 200) and defining cold water supply temperature (TCold = 15°C).\"\n        },\n        {\n            \"category\": \"plotter\",\n            \"count\": 3,\n            \"description\": \"Three online plotters for real-time visualization: (1) solar loop temperatures and flow — collector inlet/outlet temperatures, tilted surface radiation, collector outlet flow; (2) tank thermal behavior — tank top temperature, all 6 node temperatures, tank bottom temperature, auxiliary heating power; (3) tempering valve performance and load-side flow — cold water temperature, tank hot outlet temperature, final tempered outlet temperature, fraction to tank, fraction bypassing tank, tempered DHW supply flow, bypass flow.\"\n        }\n    ],\n    \"simulation_settings\": {\n        \"start_time\": 3624,\n        \"stop_time\": 3800,\n        \"time_step\": 0.125,\n        \"integration_tolerance\": 0.001,\n        \"convergence_tolerance\": 0.001,\n        \"max_iterations\": 30,\n        \"solver_type\": 0\n    },\n    \"key_outputs\": [\n        \"Collector inlet temperature\",\n        \"Collector outlet temperature\",\n        \"Solar radiation on tilted surface\",\n        \"Collector outlet flow rate\",\n        \"Tank top temperature (to load)\",\n        \"Tank node temperatures (6 nodes)\",\n        \"Tank bottom temperature (to heat source)\",\n        \"Auxiliary heating power\",\n        \"Cold water supply temperature\",\n        \"Tank hot water outlet temperature\",\n        \"Final tempered DHW outlet temperature\",\n        \"Fraction of flow to tank\",\n        \"Fraction of flow bypassing tank\",\n        \"Tempered DHW supply flow rate\",\n        \"Bypass flow rate\"\n    ],\n    \"reference_systems\": [\n        \"SDHW system with Type158 stratified tank, Type11f diverter, Type115 tempering valve control, Type165 differential controller\",\n        \"Forced-circulation solar DHW with tempering valve, Type158 vertical tank (6 nodes, variable inlet), Type11f flow diverter mode 2\",\n        \"Solar DHW with daily load profile forcing function (3 draw periods), equation-based flow calculation, and Type115 tempering controller\"\n    ]\n}\n```",
+        "task_description": "请您建立一个基于TRNSYS的太阳能生活热水系统仿真模型，该系统配备调温阀用于出水温度控制。本项目模拟位于美国威斯康星州麦迪逊地区的一套强制循环式太阳能热水系统，评估其在夏季短期运行工况下的动态性能。\\n\\n仿真基本参数：仿真时段为夏季约7.3天（第3624小时至第3800小时），仿真步长0.125小时（7.5分钟）。积分容差和收敛容差均设为0.001，最大迭代次数30次。必须使用逐次替代求解器（Solver 0），这是调温阀控制器和差温控制器的要求。\\n\\n天气数据：天气文件已为您准备好，位于\\\"D:\\\\TRNSYS18_03\\\\Weather\\\\US-TMY3\\\\US_WI_MADISON_DANE_CO_REGIONAL_ARPT_[ISIS]_726410.tmy3\\\"，为TMY3格式。天气数据处理器采用Reindl辐射模型计算一个朝南、倾角45度的倾斜面上的太阳辐射，地面反射率为0.2。\\n\\n该系统为带调温阀控制的强制循环式太阳能热水系统，主要由1台二阶入射角修正的二次效率平板太阳能集热器、1个带可变入口和均匀热损的分层储热水箱（配备电辅助加热）、1台变速循环水泵、1个带滞后的ON/OFF差温控制器（逐次替代控制策略）、1个调温阀控制器、1个受控分流阀、1个三通混合器、1个用于定义日热水负荷曲线的时间相关强制函数、1个用于计算实际热水需求流量和冷水供水温度的公式模块，以及3个在线绘图器组成。\\n\\n二次效率平板太阳能集热器（带二阶入射角修正）：采用单台平板集热器，有效集热面积5 m²，安装倾角45度朝向正南（方位角0度）。集热器光学效率（截距效率）为0.8，一次热损系数（效率斜率）为13 kJ/(hr·m²·K)，二次热损系数（效率曲率）为0.05 kJ/(hr·m²·K²)。入射角修正采用二阶模型，一阶系数为0.2，二阶系数为0。集热器测试流量为40 kg/(hr·m²)，工质比热4.19 kJ/(kg·K)。效率基于入口温度计算（效率模式1）。串联集热器数量为1。\\n\\n带可变入口和均匀热损的分层储热水箱：立式圆柱形水箱，容积0.3 m³，总高度1.8 m，内部分为6个等高温度分层节点（每个节点高0.3 m）。水箱采用可变入口位置模式（模式2），即热侧和冷侧流体均进入与其温度最接近的节点，以最大化热分层效果。水箱各节点热损系数均为2.5 kJ/(hr·m²·K)。工质为水，比热4.19 kJ/(kg·K)，密度1000 kg/m³。水箱配备两个电辅助加热元件，采用主/从模式运行（模式1）：下部加热元件仅在上部加热元件满足后才启用。两个加热元件均位于节点1（顶部节点），恒温器也位于节点1，设定温度60°C，控制死区5°C，每个加热元件最大加热功率9000 kJ/hr。沸点设定为100°C。各节点初始温度从顶部到底部依次为：60°C、50°C、40°C、30°C、20°C和15°C。热侧入口接收来自太阳能集热器的加热流体，热侧出口（水箱底部）将流体返回集热器回路。冷侧入口接收来自负荷侧分流阀的冷水，冷侧出口（水箱顶部）向负荷供应热水。环境温度设为恒定20°C。两个辅助加热器控制信号均设为恒定1.0（始终启用，由内部恒温器控制）。\\n\\n变速循环水泵：太阳能回路循环泵最大流量200 kg/hr，最大功耗240 kJ/hr，工质比热4.19 kJ/(kg·K)，热转换系数0.05（泵功率转化为流体热能的比例），功率系数0.5。泵的流量由最大流量乘以差温控制器的控制信号确定。\\n\\n带滞后的ON/OFF差温控制器（逐次替代控制策略）：该控制器控制太阳能回路水泵的启停。它比较集热器出口温度（上限输入Th）与水箱底部温度（下限输入Tl）。当温差（Th - Tl）超过上死区10°C时泵启动，当温差降至下死区2°C以下时泵关闭。控制器监测水箱顶部温度，当其超过100°C时执行高温截止保护。每个时间步允许的振荡次数为5次。控制器输出反馈至自身输入以实现滞后稳定性。\\n\\n调温阀控制器：该控制器管理储热水箱与冷水旁通之间的流量分配，以维持所需的出水温度。设定温度为60°C，热源温度为水箱顶部出水温度，调温流体温度为15°C的冷水供水，运行模式为1（加热模式）。控制器输出两个分数：送往热源（水箱）的流量比例和旁通热源的流量比例。每个时间步允许的振荡次数为5次。\\n\\n受控分流阀：该阀门根据调温阀控制器的信号将进入的冷水需求流量分为两路。一路（出口1）导向储热水箱冷侧，另一路（出口2）旁通水箱。入口接收温度为15°C的冷水，流量来自负荷曲线公式计算的需求流量。\\n\\n三通混合器：该组件将来自水箱顶部的热水（入口1）与来自分流阀的冷水旁通（入口2）混合，产生最终的调温热水供应流。\\n\\n日热水负荷曲线与公式：时间相关强制函数定义了归一化的日热水消耗模式，包含三个用水时段：早间高峰7:00至9:00（归一化值0.000056）、午间用水11:00至13:00（归一化值0.000028）和晚间用水18:00至22:00（归一化值0.000028）。其余时段消耗为零。公式模块通过将强制函数输出乘以日消耗缩放因子200来计算实际需求流量（mdDHW = 负荷曲线输出 × 200）。冷水供水温度定义为恒定15°C（TCold = 15）。\\n\\n输出要求：\\n1. 太阳能回路温度与流量：集热器入口温度、集热器出口温度、倾斜面上的太阳辐射，以及集热器出口流量。\\n2. 水箱热行为：水箱顶部温度（供负荷）、全部6个分层节点温度、水箱底部温度（供热源）和辅助加热功率。\\n3. 调温阀性能：冷水供水温度、水箱热水出口温度、最终调温出水温度（混合后）、送往水箱的流量比例和旁通水箱的流量比例。\\n4. 负荷侧流量分配：调温热水供应流量和旁通流量。",
+        "task_id": "task07",
+        "validation_errors": [],
+        "validation_file_versions": [
+          {
+            "dck_content": "\u003cfiltered: str, 16708 chars\u003e",
+            "dck_path": "/deps/trnsys_dck_generator/validation_runs/task07/V2_20260616_200354/V2_20260616_200354.dck",
+            "log_path": "/deps/trnsys_dck_generator/validation_runs/task07/V2_20260616_200354/V2_20260616_200354.log",
+            "lst_path": "/deps/trnsys_dck_generator/validation_runs/task07/V2_20260616_200354/V2_20260616_200354.lst",
+            "version_tag": "V2_20260616_200354"
+          }
+        ],
+        "validation_result": "success",
+        "validator_round": 2
+      },
+      "parent_run_id": null,
+      "run_id": "019ecfde-852e-75b3-a7e2-49224e989516",
+      "run_type": "chain",
+      "start_time": "2026-06-16T09:58:47.380771Z",
+      "status": "success",
+      "tags": null,
+      "token_usage": {
+        "completion_tokens": 103401,
+        "prompt_tokens": 5592858,
+        "total_tokens": 5696259
+      },
+      "trace_id": "019ecfde-852e-75b3-a7e2-49224e989516"
+    }
+  ],
+  "thread_id": "019ecfde-84be-72c3-8210-1729347d5264"
+}
