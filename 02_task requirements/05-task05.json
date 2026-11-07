@@ -1,0 +1,37 @@
+{
+  "task_id": "test_005",
+  "source_dck": "05-Building_step2.dck",
+  "description": "You are an expert in TRNSYS energy system simulation. Please build a TRNSYS-based two-story office building thermal performance simulation model. We need to analyze the indoor thermal environment and energy consumption performance of this office building located in Stuttgart, Germany, under typical meteorological conditions.\n\nSimulation parameters: The simulation runs for 7 days (168 hours) with a time step of 1 hour. Integration and convergence tolerances are both set to 0.001.\n\nWeather data: The weather file is provided at \"d:\\TRNSYS18_03\\Weather\\Meteonorm\\Europe\\DE-Stuttgart-107370.tm2\". Solar radiation data for 7 different surface orientations need to be processed, including horizontal surface, south-facing 25-degree tilted surface, south-facing vertical surface, west-facing vertical surface, north-facing 25-degree tilted surface, north-facing vertical surface, and east-facing vertical surface. Ground reflectance is set to 0.2 without snow cover and 0.7 with snow cover. Tilted surface radiation calculation mode 3 is used.\n\nBuilding model: The building model configuration file is provided at \"D:\\TRNSYS18_03\\Examples\\3D_Building\\2_Step_Import_Studio\\Building_step2.b18\". The building has a two-story structure with two thermal zones: first-floor office area (first_floor) and second-floor office area (second_floor). The operative temperature weighting factor for the multi-zone building model is set to 0.50.\n\nGround temperature boundary condition: A simplified ground temperature model is used to calculate underground soil temperature as the building bottom boundary condition. Soil thermal conductivity is 8.72 W/(m·K), soil density is 3200 kg/m³, and soil specific heat is 0.84 kJ/(kg·K). Annual average surface temperature is 9.0°C, annual temperature amplitude is 9.0°C, and the minimum temperature occurs in the 11th month. The soil temperature at a depth of 1 meter is calculated.\n\nShading control strategy: The shading device closes when the solar radiation intensity received by the external wall surface exceeds 140 W/m² (504 kJ/(h·m²)), and opens when it falls below 120 W/m² (432 kJ/(h·m²)). The maximum opacity of both internal and external shading devices is 70%. The building boundary temperature is set to 20°C.\n\nOutput requirements:\n1. Total radiation intensity and direct radiation intensity curves for 7 surface orientations (unit: W/m²)\n2. Outdoor ambient temperature, indoor air temperature and operative temperature curves for first-floor and second-floor office areas\n3. Soil temperature variation curve at 1 meter depth underground\n4. Heating load and cooling load curves for first-floor and second-floor office areas (unit: W/m²)\n5. Equipment electrical load and lighting electrical load curves for first-floor and second-floor office areas (unit: W/m²)\n\nThis model aims to evaluate the thermal performance of the building under typical meteorological conditions and provide reference for building energy-efficient design.",
+  "metadata": {
+    "simulation_start": 0,
+    "simulation_stop": 168,
+    "simulation_step": 1,
+    "tolerances": {
+      "integration": 0.001,
+      "convergence": 0.001
+    },
+    "weather_file": "d:\\TRNSYS18_03\\Weather\\Meteonorm\\Europe\\DE-Stuttgart-107370.tm2",
+    "building_file": "Building_step2.b18",
+    "system_type": "Two-story office building thermal performance simulation",
+    "key_parameters": {
+      "zones": ["first_floor", "second_floor"],
+      "soil_conductivity_W_mK": 8.72,
+      "soil_density_kg_m3": 3200,
+      "soil_specific_heat_kJ_kgK": 0.84,
+      "annual_avg_temp_C": 9.0,
+      "annual_temp_amplitude_C": 9.0,
+      "min_temp_month": 11,
+      "ground_depth_m": 1,
+      "tilted_surface_radiation_mode": 3,
+      "ground_reflectance_no_snow": 0.2,
+      "ground_reflectance_snow": 0.7,
+      "shading_close_threshold_W_m2": 140,
+      "shading_open_threshold_W_m2": 120,
+      "max_internal_shading_opacity": 0.70,
+      "max_external_shading_opacity": 0.70,
+      "boundary_temperature_C": 20,
+      "operative_temp_weight": 0.50,
+      "surface_orientations": 7
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "task_id": "test_004",
+  "source_dck": "04-Type941.dck",
+  "description": "You are an expert in TRNSYS energy system simulation. Please build a TRNSYS-based air-to-water heat pump system simulation model to study the combined performance of space cooling and domestic hot water (DHW) heating during a typical summer month.\n\nSimulation runs from hour 5040 to hour 5760 (approximately 30 days, corresponding to August), with a time step of 0.125 hours (7.5 minutes). The weather file is provided at \"d:\\TRNSYS18_03\\Weather\\US-TMY3\\US_CA_FRESNO_YOSEMITE_INTL_AP_723890.tmy3\".\n\nThe system consists of an air-to-water heat pump (with air humidity effects neglected), a lumped capacitance single-zone building model, a five-stage room thermostat, a single-speed circulation pump, a stratified hot water storage tank with auxiliary electric heating, a time-dependent water draw schedule, and an online plotter. The heat pump draws indoor air from the building, extracts heat from it to heat the liquid (water) stream, and returns the cooled air back to the building for space cooling. The heated water is stored in the stratified tank for domestic hot water use. The thermostat monitors the indoor zone temperature and activates the heat pump and pump when cooling is needed (zone temperature exceeds the cooling setpoint).\n\nAir-to-water heat pump parameters (air humidity effects neglected):\n- Humidity mode: 1 (humidity ratio mode)\n- Specific heat of liquid stream: 4.19 kJ/(kg·K)\n- Specific heat of DHW stream: 4.19 kJ/(kg·K)\n- Blower power: 671 kJ/hr\n- Total air flowrate: 300 l/s\n- Rated cooling capacity: 40000 kJ/hr (approximately 11.1 kW)\n- Rated cooling power: 20000 kJ/hr (approximately 5.6 kW)\n- Rated heating capacity: 40000 kJ/hr (approximately 11.1 kW)\n- Rated heating power: 20000 kJ/hr (approximately 5.6 kW)\n- Capacity of auxiliary heater: 0 kJ/hr (no auxiliary)\n- Cooling performance data file: \"d:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\Air-to-WaterHeatPump\\AWHP_Type941_C.dat\", containing 6 water temperature points and 6 dry bulb temperature points\n- Heating performance data file: \"d:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\Air-to-WaterHeatPump\\AWHP_Type941_H.dat\", containing 6 water temperature points and 5 dry bulb temperature points\n\nLumped capacitance single-zone building model parameters:\n- Building loss coefficient: 5 kJ/(h·m²·K)\n- Building capacitance: 2000 kJ/K\n- Specific heat of building air: 1.007 kJ/(kg·K)\n- Density of building air: 1.2 kg/m³\n- Building surface area: 200 m²\n- Building volume: 300 m³\n- Humidity ratio multiplier: 1\n- Initial temperature: 20°C\n- Initial humidity ratio: 0.005\n- Latent heat of vaporization: 2260 kJ/kg\n\nFive-stage room thermostat parameters:\n- Number of oscillations permitted: 5\n- Temperature dead band: 2°C\n- 1st stage heating setpoint: 15°C\n- 2nd stage heating setpoint: 12°C\n- 3rd stage heating setpoint: -999°C (disabled)\n- 1st stage cooling setpoint: 20°C\n- 2nd stage cooling setpoint: 99°C (disabled)\nThe thermostat's 1st stage cooling control signal is used to activate both the heat pump (in heating mode, i.e., heating the water while cooling the air) and the circulation pump.\n\nSingle-speed circulation pump parameters:\n- Rated flow rate: 1000 kg/hr\n- Fluid specific heat: 4.19 kJ/(kg·K)\n- Rated power: 2684 kJ/hr (approximately 0.75 kW)\n- Motor heat loss fraction: 0 (no heat transferred to fluid)\n\nStratified hot water storage tank parameters (5-node, fixed inlets, uniform losses):\n- Tank volume: 2 m³\n- Fluid specific heat: 4.19 kJ/(kg·K)\n- Fluid density: 1000 kg/m³\n- Tank loss coefficient: 3 kJ/(h·m²·K)\n- Height of each node: 0.2 m (5 nodes, total height 1.0 m)\n- Auxiliary heater mode: 1 (master-slave)\n- Heating element 1: located in node 1, thermostat in node 2, setpoint 50°C, deadband 5°C, maximum heating rate 32400 kJ/hr (approximately 9 kW)\n- Heating element 2: located in node 3, thermostat in node 1, setpoint 30°C, deadband 5°C, maximum heating rate 0 kJ/hr (disabled)\n- Initial temperature of all nodes: 50°C\n- Boiling point: 100°C\nThe hot side receives heated water from the heat pump; the cold side draws mains water for domestic hot water use.\n\nDomestic hot water draw profile:\nA time-dependent forcing function defines a morning burst water draw schedule with a 24-hour repeating pattern: no draw from 0:00 to 6:00, a ramp from 50 kg/hr at 6:00 to 60 kg/hr at 8:00, then no draw from 8:00 to 24:00. The actual water draw flowrate is calculated by the formula: M_dot = 50 × sin(time × 10) + 100 + 2 × (morning burst schedule value), which combines a sinusoidal base load with the morning burst profile. The cold-side inlet water temperature equals the mains water temperature provided by the weather data processor.\n\nOutput requirements:\n- Plot temperature curves on the left axis (range 0–100°C) including: ambient dry bulb temperature, indoor zone temperature, heat pump outlet air temperature (supply air), tank top node temperature, tank bottom node temperature, and average tank temperature\n- Plot energy/flow curves on the right axis (range 0–50000) including: heat pump heating heat transfer to liquid (kJ/hr), tank load-side flowrate (kg/hr), and auxiliary heating rate (kJ/hr)\n- Generate a continuous plot for the entire simulation period",
+  "metadata": {
+    "simulation_start": 5040,
+    "simulation_stop": 5760,
+    "simulation_step": 0.125,
+    "weather_file": "d:\\TRNSYS18_03\\Weather\\US-TMY3\\US_CA_FRESNO_YOSEMITE_INTL_AP_723890.tmy3",
+    "system_type": "Air-to-water heat pump system for combined space cooling and domestic hot water heating",
+    "external_files": [
+      "d:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\Air-to-WaterHeatPump\\AWHP_Type941_C.dat",
+      "d:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\Air-to-WaterHeatPump\\AWHP_Type941_H.dat"
+    ],
+    "key_parameters": {
+      "heat_pump": {
+        "humidity_mode": 1,
+        "specific_heat_liquid_kJ_kgK": 4.19,
+        "specific_heat_DHW_kJ_kgK": 4.19,
+        "blower_power_kJ_hr": 671,
+        "total_air_flowrate_l_s": 300,
+        "rated_cooling_capacity_kJ_hr": 40000,
+        "rated_cooling_power_kJ_hr": 20000,
+        "rated_heating_capacity_kJ_hr": 40000,
+        "rated_heating_power_kJ_hr": 20000,
+        "auxiliary_capacity_kJ_hr": 0,
+        "num_water_temps_cooling": 6,
+        "num_drybulb_temps_cooling": 6,
+        "num_water_temps_heating": 6,
+        "num_drybulb_temps_heating": 5
+      },
+      "building": {
+        "loss_coefficient_kJ_hm2K": 5,
+        "capacitance_kJ_K": 2000,
+        "specific_heat_air_kJ_kgK": 1.007,
+        "density_air_kg_m3": 1.2,
+        "surface_area_m2": 200,
+        "volume_m3": 300,
+        "humidity_ratio_multiplier": 1,
+        "initial_temp_C": 20,
+        "initial_humidity_ratio": 0.005,
+        "latent_heat_kJ_kg": 2260
+      },
+      "thermostat": {
+        "oscillations_permitted": 5,
+        "deadband_C": 2,
+        "heating_setpoint_1_C": 15,
+        "heating_setpoint_2_C": 12,
+        "heating_setpoint_3_C": -999,
+        "cooling_setpoint_1_C": 20,
+        "cooling_setpoint_2_C": 99
+      },
+      "pump": {
+        "rated_flow_kg_hr": 1000,
+        "specific_heat_kJ_kgK": 4.19,
+        "rated_power_kJ_hr": 2684,
+        "motor_heat_loss_fraction": 0
+      },
+      "storage_tank": {
+        "volume_m3": 2,
+        "specific_heat_kJ_kgK": 4.19,
+        "density_kg_m3": 1000,
+        "loss_coefficient_kJ_hm2K": 3,
+        "node_height_m": 0.2,
+        "num_nodes": 5,
+        "aux_heater_mode": 1,
+        "element1_node": 1,
+        "element1_thermostat_node": 2,
+        "element1_setpoint_C": 50,
+        "element1_deadband_C": 5,
+        "element1_max_rate_kJ_hr": 32400,
+        "element2_node": 3,
+        "element2_thermostat_node": 1,
+        "element2_setpoint_C": 30,
+        "element2_deadband_C": 5,
+        "element2_max_rate_kJ_hr": 0,
+        "initial_temp_all_nodes_C": 50,
+        "boiling_point_C": 100
+      },
+      "water_draw": {
+        "morning_burst_start_hr": 6,
+        "morning_burst_end_hr": 8,
+        "morning_burst_start_flow_kg_hr": 50,
+        "morning_burst_end_flow_kg_hr": 60,
+        "flow_formula": "50*sin(time*10)+100+2*(morning_burst_schedule)"
+      }
+    }
+  }
+}

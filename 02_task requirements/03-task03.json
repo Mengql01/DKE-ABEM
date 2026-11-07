@@ -1,0 +1,68 @@
+{
+  "task_id": "test_003",
+  "source_dck": "03-Type927.dck",
+  "description": "You are an expert in TRNSYS energy system simulation. Please build a TRNSYS-based water-to-water heat pump domestic hot water system simulation model to study the performance of a single-stage water-to-water heat pump coupled with a stratified hot water storage tank for domestic hot water supply over a one-week period.\n\nSimulation runs from hour 0 to hour 168 (7 days, corresponding to one week), with a time step of 0.125 hours (7.5 minutes).\n\nThe system consists of a single-stage water-to-water heat pump (using normalized performance data files), a stratified hot water storage tank with fixed inlets and uniform losses (3 nodes), two single-speed pumps (one on the tank loop and one on the ground-source loop), a differential controller with hysteresis for heat pump on/off control, a time-dependent forcing function providing a constant mains water temperature, and a time-dependent forcing function defining a daily domestic hot water draw schedule. No weather file is required for this simulation.\n\nWater-to-water heat pump parameters (normalized data file approach):\n- Source fluid specific heat: 4.19 kJ/(kg·K)\n- Load fluid specific heat: 4.19 kJ/(kg·K)\n- Source fluid density: 1000 kg/m³\n- Load fluid density: 1000 kg/m³\n- Number of source temperatures for cooling data: 6\n- Number of load temperatures for cooling data: 4\n- Number of source temperatures for heating data: 5\n- Number of load temperatures for heating data: 4\n- Number of source flowrates: 3\n- Number of load flowrates: 3\n- Rated cooling capacity per heat pump: 30000 kJ/h (approximately 8.33 kW)\n- Rated cooling power per heat pump: 6000 kJ/h (approximately 1.67 kW)\n- Rated heating capacity per heat pump: 30000 kJ/h (approximately 8.33 kW)\n- Rated heating power per heat pump: 6000 kJ/h (approximately 1.67 kW)\n- Rated source flowrate per heat pump: 0.4 L/s\n- Rated load flowrate per heat pump: 0.4 L/s\n- Number of identical heat pumps: 1\n- Cooling performance data file: \"d:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\Water-to-WaterHeatPump\\Normalized\\WWHP_Cooling-Normalized.dat\"\n- Heating performance data file: \"d:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\Water-to-WaterHeatPump\\Normalized\\WWHP_Heating-Normalized.dat\"\n\nStratified hot water storage tank parameters (3-node, fixed inlets, uniform losses):\n- Tank volume: 0.3 m³\n- Fluid specific heat: 4.19 kJ/(kg·K)\n- Fluid density: 1000 kg/m³\n- Tank loss coefficient: 3 kJ/(h·m²·K)\n- Number of tank nodes: 3\n- Height of each node: 0.5 m (total tank height: 1.5 m)\n- Auxiliary heater mode: master-slave\n- Auxiliary heater element 1: located in node 1, thermostat in node 1, set point 55°C, deadband 5°C, maximum heating rate 0 kJ/h (disabled)\n- Auxiliary heater element 2: located in node 1, thermostat in node 1, set point 55°C, deadband 5°C, maximum heating rate 0 kJ/h (disabled)\n- Boiling point: 100°C\n- Initial temperature of all 3 nodes: 20°C\n\n\nTank-side single-speed pump parameters:\n- Maximum flow rate: 1440 kg/h\n- Fluid specific heat: 4.19 kJ/(kg·K)\n- Maximum power: 1342.281877 kJ/h (approximately 0.37 kW)\n- Conversion coefficient (fraction of pump power converted to fluid thermal energy): 0\n\nGround-source-side single-speed pump parameters:\n- Maximum flow rate: 1440 kg/h\n- Fluid specific heat: 4.19 kJ/(kg·K)\n- Maximum power: 1342.281877 kJ/h (approximately 0.37 kW)\n- Conversion coefficient (fraction of pump power converted to fluid thermal energy): 0\n\nDifferential controller with hysteresis (successive substitution method):\n- Upper input temperature (Th): 55°C (fixed reference set point)\n- Lower input temperature (Tl): connected to the average tank temperature\n- Monitoring temperature (Tin): connected to the tank top temperature (temperature to load)\n- Upper dead band: 10°C\n- Lower dead band: 0°C\n- High limit cut-out: 100°C\n- Number of allowed oscillations: 5\nThe controller turns on the heat pump and both pumps when the average tank temperature drops below 45°C (55 - 10), and turns them off when the average tank temperature reaches 55°C.\n\nMains water temperature:\n- Constant at 10°C throughout the simulation period (provided by a time-dependent temperature forcing function).\n\nDomestic hot water draw schedule (repeating daily pattern, provided by a time-dependent water draw forcing function):\n- 0:00–7:00: 0 kg/h (no draw)\n- 7:00–9:00: 50 kg/h (morning draw)\n- 9:00–12:00: 0 kg/h (no draw)\n- 12:00–13:00: 100 kg/h (midday peak draw)\n- 13:00–17:00: 0 kg/h (no draw)\n- 17:00–21:00: 50 kg/h (evening draw)\n- 21:00–24:00: 0 kg/h (no draw)\n\nSystem connections:\n- The heat pump operates in heating mode only (cooling control signal is fixed at 0, heating control signal is driven by the differential controller).\n- The heat pump load side receives water from the tank bottom (via the tank-side pump) and returns heated water to the tank hot-side inlet.\n- The heat pump source side receives water from the ground-source pump, which draws water at the constant mains temperature of 10°C (simulating a ground-source water supply).\n- Domestic hot water is drawn from the tank top (load side), and cold mains water at 10°C enters the tank bottom to replace the drawn water.\n- Both pumps are controlled by the same differential controller output signal.\n\nOutput requirements:\n- Plot temperature curves including: mains water temperature, average tank temperature, heat pump source-side outlet temperature, heat pump load-side outlet temperature, tank top temperature (to load), and tank bottom temperature (to heat source) on the left axis (range: -20 to 70°C)\n- Plot the differential controller output control signal on the right axis (range: 0 to 2)\n- Generate 1 plot for the entire simulation period (7 days)",
+  "metadata": {
+    "simulation_start": 0,
+    "simulation_stop": 168,
+    "simulation_step": 0.125,
+    "system_type": "Water-to-water heat pump domestic hot water system",
+    "external_files": [
+      "d:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\Water-to-WaterHeatPump\\Normalized\\WWHP_Cooling-Normalized.dat",
+      "d:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\Water-to-WaterHeatPump\\Normalized\\WWHP_Heating-Normalized.dat"
+    ],
+    "key_parameters": {
+      "heat_pump": {
+        "rated_heating_capacity_kJ_h": 30000,
+        "rated_heating_power_kJ_h": 6000,
+        "rated_cooling_capacity_kJ_h": 30000,
+        "rated_cooling_power_kJ_h": 6000,
+        "rated_source_flowrate_Lps": 0.4,
+        "rated_load_flowrate_Lps": 0.4,
+        "source_fluid_cp_kJ_kgK": 4.19,
+        "load_fluid_cp_kJ_kgK": 4.19,
+        "num_heat_pumps": 1
+      },
+      "storage_tank": {
+        "volume_m3": 0.3,
+        "fluid_cp_kJ_kgK": 4.19,
+        "fluid_density_kg_m3": 1000,
+        "loss_coefficient_kJ_hm2K": 3,
+        "num_nodes": 3,
+        "node_height_m": 0.5,
+        "total_height_m": 1.5,
+        "initial_temp_C": 20,
+        "aux_heater_disabled": true
+      },
+      "tank_pump": {
+        "max_flow_kg_h": 1440,
+        "fluid_cp_kJ_kgK": 4.19,
+        "max_power_kJ_h": 1342.281877,
+        "conversion_coefficient": 0
+      },
+      "ground_pump": {
+        "max_flow_kg_h": 1440,
+        "fluid_cp_kJ_kgK": 4.19,
+        "max_power_kJ_h": 1342.281877,
+        "conversion_coefficient": 0
+      },
+      "controller": {
+        "upper_input_temp_C": 55,
+        "upper_deadband_C": 10,
+        "lower_deadband_C": 0,
+        "high_limit_cutout_C": 100
+      },
+      "mains_water_temp_C": 10,
+      "hot_water_draw_schedule": {
+        "0_7h": 0,
+        "7_9h": 50,
+        "9_12h": 0,
+        "12_13h": 100,
+        "13_17h": 0,
+        "17_21h": 50,
+        "21_24h": 0,
+        "unit": "kg/h"
+      }
+    }
+  }
+}

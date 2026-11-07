@@ -1,0 +1,46 @@
+{
+  "task_id": "test_002",
+  "source_dck": "02-Type987.dck",
+  "description": "You are an expert in TRNSYS energy system simulation. Please build a TRNSYS-based simulation model for a 4-pipe performance map fan coil unit serving a single-zone building, to evaluate the heating and cooling performance of the fan coil system under varying weather conditions.\n\nSimulation runs from hour 2550 to hour 2730 (approximately 7.5 days, corresponding to a period in mid-April), with a time step of 0.125 hours (7.5 minutes). The weather file is provided at \"D:\\TRNSYS18_03\\Weather\\US-TMY3\\US_WI_MADISON_DANE_CO_REGIONAL_ARPT_[ISIS]_726410.tmy3\".\n\nThe system consists of one 4-pipe performance map fan coil unit (capable of simultaneous heating and cooling), one lumped capacitance single-zone building model, one weather data processor, one five-stage room thermostat, and two single-speed pumps (one for the chilled water loop and one for the hot water loop). The fan coil unit receives return air from the building zone and mixes it with a fraction of outdoor fresh air, then conditions the mixed air through its cooling and/or heating coils before supplying it back to the zone. The thermostat monitors the zone temperature and sends on/off control signals to the fan coil unit and the two pumps.\n\n4-pipe performance map fan coil unit parameters:\n- Humidity mode: 2 (relative humidity mode)\n- Cooling fluid specific heat: 4.19 kJ/(kg·K)\n- Heating fluid specific heat: 4.19 kJ/(kg·K)\n- Rated volumetric air flowrate: 277.8 l/s\n- Rated liquid flowrate for cooling: 1000 kg/h\n- Rated liquid flowrate for heating: 1000 kg/h\n- Rated total cooling capacity: 35000 kJ/h (approximately 9.72 kW)\n- Rated sensible cooling capacity: 28000 kJ/h (approximately 7.78 kW)\n- Rated total heating capacity: 30000 kJ/h (approximately 8.33 kW)\n- Rated fan power: 1000 kJ/h (approximately 0.278 kW)\n- Fan motor efficiency: 0.9\n- Fraction of fan heat to air: 1.0\n- Number of fan speeds: 11\n- Cooling performance data file: \"D:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\4-Pipe Performance Map Fan Coil\\Normalized_FanCoil_Cooling.dat\" (7 dry-bulb temperatures, 7 wet-bulb temperatures, 6 air flows, 8 liquid temperatures, 2 liquid flowrates)\n- Heating performance data file: \"D:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\4-Pipe Performance Map Fan Coil\\Normalized_FanCoil_Heating.dat\" (7 air temperatures, 6 air flows, 11 liquid temperatures, 2 liquid flowrates)\n- Fan correction data file: \"D:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\4-Pipe Performance Map Fan Coil\\FanLawPerformance.dat\"\n\nLumped capacitance single-zone building model parameters:\n- Building loss coefficient: 3 kJ/(h·m²·K)\n- Building thermal capacitance: 2000 kJ/K\n- Specific heat of building air: 1.007 kJ/(kg·K)\n- Density of building air: 1.2 kg/m³\n- Building surface area: 200 m²\n- Building volume: 300 m³\n- Humidity ratio multiplier: 1\n- Initial zone temperature: 20°C\n- Initial humidity ratio: 0.005\n- Latent heat of vaporization: 2260 kJ/kg\n\nFive-stage room thermostat parameters:\n- Number of oscillations permitted: 5\n- 1st stage heating enabled in 2nd stage: yes\n- 2nd stage heating enabled in 3rd stage: yes\n- 1st stage heating enabled in 3rd stage: yes\n- 1st stage cooling enabled in 2nd stage: yes\n- Temperature dead band: 2°C\n- 1st stage heating setpoint: 20°C\n- 2nd stage heating setpoint: 16°C\n- 1st stage cooling setpoint: 22°C\n\nChilled water single-speed pump (Cold) parameters:\n- Rated flow rate: 1000 kg/h\n- Fluid specific heat: 4.19 kJ/(kg·K)\n- Rated power: 720 kJ/h (approximately 0.2 kW)\n- Motor heat loss fraction: 0 (no heat transferred to fluid)\n- Inlet fluid temperature: 10°C\n- Overall pump efficiency: 0.6\n- Motor efficiency: 0.9\n\nHot water single-speed pump (Hot) parameters:\n- Rated flow rate: 1000 kg/h\n- Fluid specific heat: 4.19 kJ/(kg·K)\n- Rated power: 720 kJ/h (approximately 0.2 kW)\n- Motor heat loss fraction: 0 (no heat transferred to fluid)\n- Inlet fluid temperature: 50°C\n- Overall pump efficiency: 0.6\n- Motor efficiency: 0.9\n\nControl strategy:\nThe five-stage room thermostat monitors the zone temperature and controls the system as follows: when the zone temperature drops below the heating setpoint (20°C minus half the dead band), the thermostat activates the 1st stage heating signal, which turns on the hot water pump and the fan coil heating mode; when the zone temperature rises above the cooling setpoint (22°C plus half the dead band), the thermostat activates the 1st stage cooling signal, which turns on the chilled water pump and the fan coil cooling mode. The thermostat also outputs a conditioning signal that controls the fan coil fan operation. The fraction of outside air mixed with return air is set to 0.15 (15% fresh air).\n\nOutput requirements:\n- Plot temperature curves including: ambient dry bulb temperature, zone temperature, and fan coil supply air temperature (left axis, range -20 to 40°C)\n- Plot energy rate curves including: total cooling rate and total heating rate from the fan coil unit (right axis, range 0 to 80000 kJ/h)\n- Display all curves on a single graph with 7 gridpoints on the X-axis",
+  "metadata": {
+    "simulation_start": 2550,
+    "simulation_stop": 2730,
+    "simulation_step": 0.125,
+    "weather_file": "D:\\TRNSYS18_03\\Weather\\US-TMY3\\US_WI_MADISON_DANE_CO_REGIONAL_ARPT_[ISIS]_726410.tmy3",
+    "system_type": "4-pipe performance map fan coil unit with single-zone building",
+    "external_files": [
+      "D:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\4-Pipe Performance Map Fan Coil\\Normalized_FanCoil_Cooling.dat",
+      "D:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\4-Pipe Performance Map Fan Coil\\Normalized_FanCoil_Heating.dat",
+      "D:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\4-Pipe Performance Map Fan Coil\\FanLawPerformance.dat"
+    ],
+    "key_parameters": {
+      "fcu_humidity_mode": 2,
+      "fcu_cooling_fluid_cp_kJ_kgK": 4.19,
+      "fcu_heating_fluid_cp_kJ_kgK": 4.19,
+      "fcu_rated_air_flowrate_l_s": 277.8,
+      "fcu_rated_cooling_liquid_flow_kg_h": 1000,
+      "fcu_rated_heating_liquid_flow_kg_h": 1000,
+      "fcu_rated_total_cooling_kJ_h": 35000,
+      "fcu_rated_sensible_cooling_kJ_h": 28000,
+      "fcu_rated_total_heating_kJ_h": 30000,
+      "fcu_rated_fan_power_kJ_h": 1000,
+      "fcu_fan_motor_efficiency": 0.9,
+      "fcu_num_fan_speeds": 11,
+      "building_loss_coeff_kJ_h_m2_K": 3,
+      "building_capacitance_kJ_K": 2000,
+      "building_surface_area_m2": 200,
+      "building_volume_m3": 300,
+      "building_initial_temp_C": 20,
+      "thermostat_dead_band_C": 2,
+      "thermostat_heating_setpoint_C": 20,
+      "thermostat_cooling_setpoint_C": 22,
+      "cold_pump_rated_flow_kg_h": 1000,
+      "cold_pump_rated_power_kJ_h": 720,
+      "cold_pump_inlet_temp_C": 10,
+      "hot_pump_rated_flow_kg_h": 1000,
+      "hot_pump_rated_power_kJ_h": 720,
+      "hot_pump_inlet_temp_C": 50,
+      "outside_air_fraction": 0.15
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "task_id": "test_010",
+  "source_dck": "10-System2.dck",
+  "description": "You are an expert in TRNSYS energy system simulation. Please build a TRNSYS-based multi-zone office building HVAC simulation model using zonal packaged terminal air-source heat pumps (without auxiliary heating) to analyze the annual energy performance of a five-zone office building located in Boston, Massachusetts.\n\nSimulation runs from hour 0 to hour 8760 (full year), with a time step of 0.125 hours (7.5 minutes). Integration and convergence tolerances are both set to 0.001, with a maximum of 30 iterations per time step.\n\nWeather data: The TMY3 weather file is provided at \"D:\\TRNSYS18_03\\Examples\\HVACTemplates\\weather\\US_MA_BOSTON_LOGAN_INTL_ARPT_725090.tmy3\". The weather data processor reads this file and provides ambient dry bulb temperature, relative humidity, effective sky temperature, solar zenith and azimuth angles, ground reflectance, and tilted surface radiation data. One tilted surface is defined with a slope of 0° and azimuth of 0° (horizontal), using the Perez tilted surface radiation model. Ground reflectance is set to 0.2.\n\nBuilding model: The multi-zone building model configuration file is provided at \"D:\\TRNSYS18_03\\Examples\\HVACTemplates\\buildings\\ExampleBuilding_Sys2.b18\". The building has 5 thermal zones: four lower-floor zones (LOWER1, LOWER2, LOWER3, LOWER4) each with a floor area of 150 m², and one upper-floor zone (UPPER) with a floor area of 400 m², totaling 1000 m². The star network calculation is performed only at the beginning of the simulation, and the operative temperature weighting factor is 0.50.\n\nInternal heat gains: Lighting power density is 13 W/m² and equipment power density is 21.5 W/m². Occupancy density is calculated at one person per 20 m². Internal gains follow weekly schedules with three distinct daily profiles:\n- Weekday (Monday–Friday) occupancy: ramps from 0 at 7:00 to 0.1, then to 0.2 at 8:00, peaks at 0.95 from 9:00–13:00, drops to 0.5 from 13:00–14:00, returns to 0.95 from 14:00–18:00, then decreases through 0.3 and 0.1 to 0.05 by 23:00, and remains at 0.05 until midnight.\n- Saturday occupancy: ramps from 0 at 7:00 to 0.1, increases to 0.3 from 9:00–13:00, drops to 0.1 from 13:00–18:00, then to 0.05 from 18:00–20:00, and 0 from 20:00–24:00.\n- Sunday occupancy: constant at 0.05 from 7:00–18:00, and 0 otherwise.\n- Weekday lighting/equipment schedule: starts at 0.05 baseline, ramps through 0.1 (5:00–7:00), 0.3 (7:00–8:00), peaks at 0.9 (8:00–12:00), dips to 0.8 (12:00–13:00), returns to 0.9 (13:00–17:00), then decreases through 0.5, 0.3, 0.2, 0.1 to 0.05 by 23:00.\n- Saturday lighting/equipment: starts at 0.05, ramps to 0.1 (7:00–9:00), 0.3 (9:00–13:00), 0.15 (13:00–17:00), 0.1 (17:00–18:00), then 0.05 until midnight.\n- Sunday lighting/equipment: constant at 0.05 throughout the day.\n\nOutside air ventilation: Outside air flow rates are calculated using the ventilation rate procedure: 0.3 L/(s·m²) floor area plus 2.5 L/(s·person). For the four lower zones (150 m² each, 8 persons), the required outside air is 65 L/s per zone. For the upper zone (400 m², 10 persons), the required outside air is 145 L/s. Outside air is supplied according to a weekly schedule: on weekdays from 8:00–17:00, on Saturdays from 8:00–17:00, and not on Sundays.\n\nOutside convective heat transfer coefficient: Calculated using a wind-speed-dependent formula: h_outside = 3.6 × (3.8 × windSpeed_corr + 7.4) kJ/(h·m²·K), where windSpeed_corr = max(0, wind_speed) to eliminate negative values from the data file.\n\nAir-source heat pump systems (5 units, one per zone, without auxiliary heating): Each zone is served by an independent packaged terminal air-source heat pump that provides both heating and cooling. The heat pumps use manufacturer's catalog data for performance modeling, with separate cooling and heating performance data files. The humidity mode uses relative humidity. Each heat pump has 3 air flow steps, with 6 outdoor dry-bulb temperature points and 5 indoor dry-bulb temperature points and 4 indoor wet-bulb temperature points for cooling data, and 16 outdoor dry-bulb temperature points and 4 indoor dry-bulb temperature points for heating data. The minimum relative humidity for latent heat transfer is 20%.\n\nZone-specific heat pump parameters:\n- LOWER1 zone: Heating capacity 11.97 kW (25% oversize), cooling capacity 12.2 kW (15% oversize), condenser fan power 0.062 kW, indoor fan power allowance based on 0.64 W/(L/s), fan efficiency 0.84. Cooling performance data: \"D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Cooling47681.dat\", heating performance data: \"D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Heating43108.dat\".\n- LOWER2 zone: Heating capacity 8.06 kW, cooling capacity 10.87 kW, condenser fan power 0.062 kW. Cooling data: \"D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Cooling42519.dat\", heating data: \"D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Heating29014.dat\".\n- LOWER3 zone: Heating capacity 14.21 kW, cooling capacity 13.38 kW, condenser fan power 0.062 kW. Cooling data: \"D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Cooling52338.dat\", heating data: \"D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Heating51151.dat\".\n- LOWER4 zone: Heating capacity 12.25 kW, cooling capacity 11.78 kW, condenser fan power 0.062 kW. Cooling data: \"D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Cooling46083.dat\", heating data: \"D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Heating44088.dat\".\n- UPPER zone: Heating capacity 50.32 kW, cooling capacity 39.86 kW, condenser fan power 0.062 kW. Cooling data: \"D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Cooling155955.dat\", heating data: \"D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Heating181155.dat\".\n\nThe supply air flow rate for each zone is calculated according to ASHRAE 90.1-2007 Section G3.1.2.8: flow_rate = max(heating_capacity, cooling_capacity) / (1.007 × 11) / 1.2 × 1000 / 3600 [L/s]. The total fan power allowance is calculated at 0.64 W/(L/s) per ASHRAE 90.1-2007 Section G3.1.2.9.\n\nThermostat control: Each zone has an independent simple room thermostat with a heating setpoint of 21°C, a cooling setpoint of 26°C, and a temperature dead band of 2.0°C. The maximum number of oscillations permitted is 5. The thermostat monitors the zone air temperature and generates heating and cooling control signals for the corresponding heat pump.\n\nFan and damper control: The indoor fan operates whenever the thermostat is calling for heating or cooling, or during occupied hours (based on the outside air schedule). The outside air damper opens during scheduled ventilation hours. The return air quantity is calculated as the total supply air flow minus the outside air quantity. The outside air damper fraction is the ratio of outside air to total supply air.\n\nOutput requirements:\n- Plot zone air temperatures for all 5 zones along with the ambient dry bulb temperature, with Y-axis range from -30°C to 40°C. Generate approximately 52 plots per simulation (one per week).\n- Generate hourly and monthly integrated energy reports including: cooling mode compressor power, heating mode compressor power, indoor fan power, outdoor fan power for each of the 5 heat pumps, plus total lighting and equipment loads. The integration interval is 1 hour.",
+  "metadata": {
+    "simulation_start": 0,
+    "simulation_stop": 8760,
+    "simulation_step": 0.125,
+    "tolerances": {
+      "integration": 0.001,
+      "convergence": 0.001
+    },
+    "weather_file": "D:\\TRNSYS18_03\\Examples\\HVACTemplates\\weather\\US_MA_BOSTON_LOGAN_INTL_ARPT_725090.tmy3",
+    "building_file": "D:\\TRNSYS18_03\\Examples\\HVACTemplates\\buildings\\ExampleBuilding_Sys2.b18",
+    "system_type": "Zonal packaged terminal air-source heat pumps for multi-zone office building",
+    "external_files": [
+      "D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Cooling47681.dat",
+      "D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Heating43108.dat",
+      "D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Cooling42519.dat",
+      "D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Heating29014.dat",
+      "D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Cooling52338.dat",
+      "D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Heating51151.dat",
+      "D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Cooling46083.dat",
+      "D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Heating44088.dat",
+      "D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Cooling155955.dat",
+      "D:\\TRNSYS18_03\\Examples\\HVACTemplates\\equipment\\ASHP_Heating181155.dat"
+    ],
+    "key_parameters": {
+      "zones": ["LOWER1", "LOWER2", "LOWER3", "LOWER4", "UPPER"],
+      "floor_areas_m2": [150, 150, 150, 150, 400],
+      "total_floor_area_m2": 1000,
+      "lighting_power_density_Wm2": 13,
+      "equipment_power_density_Wm2": 21.5,
+      "occupancy_density_m2_person": 20,
+      "heating_setpoint_C": 21,
+      "cooling_setpoint_C": 26,
+      "thermostat_deadband_C": 2.0,
+      "thermostat_max_oscillations": 5,
+      "fan_efficiency": 0.84,
+      "fan_power_W_per_Lps": 0.64,
+      "condenser_fan_power_kW": 0.062,
+      "min_RH_latent_transfer_pct": 20,
+      "heating_capacities_kW": [11.97, 8.06, 14.21, 12.25, 50.32],
+      "cooling_capacities_kW": [12.2, 10.87, 13.38, 11.78, 39.86],
+      "oa_flow_rate_Lps_m2": 0.3,
+      "oa_flow_rate_Lps_person": 2.5,
+      "ground_reflectance": 0.2,
+      "tilted_surface_radiation_mode": "Perez",
+      "star_network_calc_switch": 0,
+      "operative_temp_weighting": 0.50
+    }
+  }
+}

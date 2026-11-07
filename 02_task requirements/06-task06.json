@@ -1,0 +1,43 @@
+{
+  "task_id": "test_006",
+  "source_dck": "06-Simple zone - PID controller.dck",
+  "description": "You are an expert in TRNSYS energy system simulation. Please build a TRNSYS-based single-zone building heating and cooling simulation model with PID control. This project demonstrates the use of PID controllers to maintain indoor comfort in a lumped capacitance single-zone building, with separate heating and cooling controllers that are mutually exclusive to prevent simultaneous operation.\n\nSimulation runs from hour 5088 to hour 7296 (2208 hours, approximately 92 days covering mid-July to mid-October), with a time step of 0.25 hours (15 minutes). Integration and convergence tolerances are both set to 0.0001. The weather file is provided at \"D:\\TRNSYS18_03\\Weather\\Meteonorm\\Central-South-America\\AR-Buenos-Aires-875850.tm2\" (TMY2 format, Buenos Aires, Argentina).\n\nThe system consists of 1 weather data processor, 1 lumped capacitance single-zone building model, 2 time-dependent temperature forcing functions (heating and cooling setpoint schedules), 2 PID controllers (one for heating, one for cooling), 1 delayed output device for mode switching logic, 1 online graphical plotter with output file, and 1 simulation summary component.\n\nWeather data processor parameters:\n- File type: 2 (TMY2 format)\n- Tilted surface radiation mode: 3\n- Ground reflectance without snow: 0.2\n- Ground reflectance with snow cover: 0.7\n- Number of surfaces: 1\n- Tracking mode: 1 (fixed surface)\n- Slope of surface: 0 degrees (horizontal)\n- Azimuth of surface: 0 degrees\n\nLumped capacitance single-zone building model parameters:\n- Building overall loss coefficient (UA): 10 kJ/(hr·m²·K)\n- Building thermal capacitance: 25000 kJ/K\n- Specific heat of building air: 1.007 kJ/(kg·K)\n- Density of building air: 1.2 kg/m³\n- Building surface area: 100 m²\n- Building volume: 200 m³\n- Humidity ratio multiplier: 1\n- Initial zone temperature: 20°C\n- Initial humidity ratio: 0\n- Latent heat of vaporization: 0 kJ/kg\nThe building receives ventilation air and ambient air at outdoor dry bulb temperature. Solar gains are calculated as the total horizontal radiation from the weather data processor multiplied by a factor of 10 (representing a simplified solar gain through windows). The combined heating and cooling energy from the PID controllers is fed back to the building as equipment gains.\n\nHeating setpoint schedule (24-hour repeating daily pattern):\n- Hours 0–5: 15°C\n- Hours 5–6: ramp from 15°C to 21°C\n- Hours 6–18: 21°C\n- Hours 18–19: ramp from 21°C to 15°C\n- Hours 19–24: 15°C\n\nCooling setpoint schedule (24-hour repeating daily pattern):\n- Hours 0–8: 35°C (effectively no cooling)\n- At hour 8: step down to 26°C\n- Hours 8–18: 26°C\n- At hour 18: step up to 35°C\n- Hours 18–24: 35°C (effectively no cooling)\n\nHeating PID controller configuration:\n- Operating mode: 0 (non-iterative, real-life controller)\n- Maximum number of oscillations: 0\n- Setpoint input: from the heating setpoint schedule\n- Controlled variable: zone temperature from the building model\n- On/Off signal: determined by mode switching logic (heating enabled when zone temperature at previous timestep < 23°C)\n- Minimum control signal: 0 kJ/hr\n- Maximum control signal: 100000 kJ/hr\n- Threshold for non-zero output: 0\n- Gain constant: 100000\n- Integral time: 25 hr\n- Derivative time: 0.25 hr\n- Tracking time for anti-windup: -1 hr (automatic)\n- Fraction of setpoint for proportional effect: 1\n- Fraction of setpoint for derivative effect: 1\n- High-frequency limit on derivative: 10\n\nCooling PID controller configuration:\n- Operating mode: 0 (non-iterative, real-life controller)\n- Maximum number of oscillations: 0\n- Setpoint input: from the cooling setpoint schedule\n- Controlled variable: zone temperature from the building model\n- On/Off signal: determined by mode switching logic (cooling enabled when zone temperature at previous timestep >= 24°C)\n- Minimum control signal: -100000 kJ/hr\n- Maximum control signal: 0 kJ/hr\n- Threshold for non-zero output: 0\n- Gain constant: 100000\n- Integral time: 25 hr\n- Derivative time: 0.25 hr\n- Tracking time for anti-windup: -1 hr (automatic)\n- Fraction of setpoint for proportional effect: 1\n- Fraction of setpoint for derivative effect: 1\n- High-frequency limit on derivative: 10\n\nMode switching logic:\nA delayed output device holds the zone temperature from the previous timestep to prevent control oscillations. Based on this delayed temperature value:\n- Heating mode is enabled when the delayed zone temperature is less than 23°C\n- Cooling mode is enabled when the delayed zone temperature is greater than or equal to 24°C\nThis creates a 1°C dead band (23–24°C) between heating and cooling modes, ensuring that heating and cooling never operate simultaneously.\n\nThe total equipment gain to the building is the sum of the heating controller output (positive values, representing heating energy) and the cooling controller output (negative values, representing cooling energy extraction).\n\nOutput requirements:\n- Online plot with output file showing:\n  - Left axis (temperature, range -30 to 40°C): zone temperature, ambient dry bulb temperature, heating setpoint, cooling setpoint\n  - Right axis (energy rate, range -100000 to 300000 kJ/hr): heating control signal, cooling control signal, total equipment gains\n  - 1 plot per simulation, with 12 gridpoints on the X-axis\n- Simulation summary to external file containing:\n  - Heating energy: instantaneous value and integrated total\n  - Cooling energy: instantaneous value and integrated total\n  - Zone temperature: mean value and integrated total",
+  "metadata": {
+    "simulation_start": 5088,
+    "simulation_stop": 7296,
+    "simulation_step": 0.25,
+    "tolerances": {
+      "integration": 0.0001,
+      "convergence": 0.0001
+    },
+    "weather_file": "D:\\TRNSYS18_03\\Weather\\Meteonorm\\Central-South-America\\AR-Buenos-Aires-875850.tm2",
+    "system_type": "Single-zone building with PID-controlled heating and cooling",
+    "key_parameters": {
+      "building_loss_coefficient_kJ_hr_m2_K": 10,
+      "building_capacitance_kJ_K": 25000,
+      "building_air_specific_heat_kJ_kgK": 1.007,
+      "building_air_density_kg_m3": 1.2,
+      "building_surface_area_m2": 100,
+      "building_volume_m3": 200,
+      "initial_zone_temperature_C": 20,
+      "heating_setpoint_occupied_C": 21,
+      "heating_setpoint_unoccupied_C": 15,
+      "cooling_setpoint_occupied_C": 26,
+      "cooling_setpoint_unoccupied_C": 35,
+      "pid_mode": 0,
+      "heating_pid_gain": 100000,
+      "heating_pid_integral_time_hr": 25,
+      "heating_pid_derivative_time_hr": 0.25,
+      "heating_pid_max_signal_kJ_hr": 100000,
+      "cooling_pid_gain": 100000,
+      "cooling_pid_integral_time_hr": 25,
+      "cooling_pid_derivative_time_hr": 0.25,
+      "cooling_pid_min_signal_kJ_hr": -100000,
+      "mode_switch_heating_threshold_C": 23,
+      "mode_switch_cooling_threshold_C": 24,
+      "solar_gain_multiplier": 10,
+      "ground_reflectance_no_snow": 0.2,
+      "ground_reflectance_snow": 0.7
+    }
+  }
+}
