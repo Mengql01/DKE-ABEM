@@ -1,0 +1,2828 @@
+{
+  "run_count": 1,
+  "runs": [
+    {
+      "costs": {
+        "completion_cost": 0.354366,
+        "prompt_cost": 0.5134348,
+        "total_cost": 0.8678008
+      },
+      "custom_metadata": {
+        "LANGGRAPH_API_URL": "http://localhost:8123",
+        "LANGSMITH_ENDPOINT": "https://api.smith.langchain.com",
+        "LANGSMITH_LANGGRAPH_API_REVISION": "5206f65",
+        "LANGSMITH_LANGGRAPH_API_VARIANT": "local",
+        "LANGSMITH_PROJECT": "trnsys-dck-generator",
+        "LANGSMITH_TRACING": "true",
+        "assistant_id": "9d9cb3f1-b4a2-5088-8c82-821b0979849b",
+        "created_by": "system",
+        "from_studio": true,
+        "graph_id": "dck_generator",
+        "langgraph_api_url": null,
+        "langgraph_api_version": "0.10.0",
+        "langgraph_auth_user_id": "",
+        "langgraph_host": "self-hosted",
+        "langgraph_plan": "enterprise",
+        "langgraph_request_id": "d2946d1a-f32c-4ce3-bf42-2f113f032c0e",
+        "langgraph_version": "1.2.5",
+        "ls_integration": "langgraph",
+        "ls_run_depth": 0,
+        "run_attempt": 1,
+        "run_id": "019ed2df-da73-7402-9d50-2f699934b19f",
+        "thread_id": "019ed2df-da00-7073-9c89-0521b45b76e2",
+        "user_id": ""
+      },
+      "duration_ms": 556925,
+      "end_time": "2026-06-17T00:08:23.318231Z",
+      "error": null,
+      "feedback_stats": null,
+      "inputs": {
+        "task_description": "您是TRNSYS能源系统仿真领域的专家。请您建立一个基于TRNSYS的四管制性能映射风机盘管单区建筑空调系统仿真模型，用于评估风机盘管系统在变化气象条件下的供暖和制冷性能。\\n\\n仿真时间从第2550小时运行至第2730小时（约7.5天，对应4月中旬），仿真步长为0.125小时（7.5分钟）。天气文件已为您准备好，位于\\\"D:\\\\TRNSYS18_03\\\\Weather\\\\US-TMY3\\\\US_WI_MADISON_DANE_CO_REGIONAL_ARPT_[ISIS]_726410.tmy3\\\"。\\n\\n系统包含一台四管制性能映射风机盘管（可同时供暖和制冷）、一个集总参数单区建筑模型、一个气象数据处理器、一个五级室内温控器以及两台单速水泵（一台用于冷冻水回路，一台用于热水回路）。风机盘管接收来自建筑区域的回风，并与一定比例的室外新风混合，然后通过冷却盘管和/或加热盘管对混合空气进行处理后送回区域。温控器监测区域温度，并向风机盘管和两台水泵发送开/关控制信号。\\n\\n四管制性能映射风机盘管主要参数：\\n- 湿度模式：2（相对湿度模式）\\n- 冷却流体比热容：4.19 kJ/(kg·K)\\n- 加热流体比热容：4.19 kJ/(kg·K)\\n- 额定容积风量：277.8 l/s\\n- 额定冷却液体流量：1000 kg/h\\n- 额定加热液体流量：1000 kg/h\\n- 额定总制冷量：35000 kJ/h（约9.72 kW）\\n- 额定显热制冷量：28000 kJ/h（约7.78 kW）\\n- 额定总制热量：30000 kJ/h（约8.33 kW）\\n- 额定风机功率：1000 kJ/h（约0.278 kW）\\n- 风机电机效率：0.9\\n- 风机热量传递至空气的比例：1.0\\n- 风机转速级数：11\\n- 制冷性能数据文件：\\\"D:\\\\TRNSYS18_03\\\\Tess Models\\\\SampleCatalogData\\\\4-Pipe Performance Map Fan Coil\\\\Normalized_FanCoil_Cooling.dat\\\"（7个干球温度、7个湿球温度、6个风量、8个液体温度、2个液体流量）\\n- 制热性能数据文件：\\\"D:\\\\TRNSYS18_03\\\\Tess Models\\\\SampleCatalogData\\\\4-Pipe Performance Map Fan Coil\\\\Normalized_FanCoil_Heating.dat\\\"（7个空气温度、6个风量、11个液体温度、2个液体流量）\\n- 风机修正数据文件：\\\"D:\\\\TRNSYS18_03\\\\Tess Models\\\\SampleCatalogData\\\\4-Pipe Performance Map Fan Coil\\\\FanLawPerformance.dat\\\"\\n\\n集总参数单区建筑模型主要参数：\\n- 建筑热损失系数：3 kJ/(h·m²·K)\\n- 建筑热容量：2000 kJ/K\\n- 建筑空气比热容：1.007 kJ/(kg·K)\\n- 建筑空气密度：1.2 kg/m³\\n- 建筑外表面积：200 m²\\n- 建筑体积：300 m³\\n- 湿度比乘数：1\\n- 初始区域温度：20°C\\n- 初始湿度比：0.005\\n- 汽化潜热：2260 kJ/kg\\n\\n五级室内温控器主要参数：\\n- 允许振荡次数：5\\n- 第二级供暖时启用第一级供暖：是\\n- 第三级供暖时启用第二级供暖：是\\n- 第三级供暖时启用第一级供暖：是\\n- 第二级制冷时启用第一级制冷：是\\n- 温度死区：2°C\\n- 第一级供暖设定温度：20°C\\n- 第二级供暖设定温度：16°C\\n- 第一级制冷设定温度：22°C\\n\\n冷冻水单速水泵（冷水泵）主要参数：\\n- 额定流量：1000 kg/h\\n- 流体比热容：4.19 kJ/(kg·K)\\n- 额定功率：720 kJ/h（约0.2 kW）\\n- 电机热损失比例：0（无热量传递至流体）\\n- 进口流体温度：10°C\\n- 水泵总效率：0.6\\n- 电机效率：0.9\\n\\n热水单速水泵（热水泵）主要参数：\\n- 额定流量：1000 kg/h\\n- 流体比热容：4.19 kJ/(kg·K)\\n- 额定功率：720 kJ/h（约0.2 kW）\\n- 电机热损失比例：0（无热量传递至流体）\\n- 进口流体温度：50°C\\n- 水泵总效率：0.6\\n- 电机效率：0.9\\n\\n控制策略：\\n五级室内温控器监测区域温度并按以下方式控制系统：当区域温度降至供暖设定温度以下（20°C减去半个死区），温控器激活第一级供暖信号，启动热水泵和风机盘管加热模式；当区域温度升至制冷设定温度以上（22°C加上半个死区），温控器激活第一级制冷信号，启动冷冻水泵和风机盘管制冷模式。温控器还输出一个空调信号用于控制风机盘管风机运行。回风中混合的新风比例设定为0.15（15%新风）。\\n\\n输出要求：\\n- 绘制温度曲线，包括：环境干球温度、区域温度和风机盘管送风温度（左轴，范围-20至40°C）\\n- 绘制能量速率曲线，包括：风机盘管总制冷量和总制热量（右轴，范围0至80000 kJ/h）\\n- 所有曲线显示在一张图上，X轴设置7个网格点",
+        "task_id": "task02"
+      },
+      "name": "dck_generator",
+      "outputs": {
+        "agent_execution_snapshot": {},
+        "agent_execution_snapshot_agent": "",
+        "agent_retry_counts": {},
+        "agent_validation_failed": false,
+        "component_plan": [
+          {
+            "category": "weather",
+            "count": 1,
+            "description": "TMY3 weather data processor reading Madison, WI TMY3 file to provide ambient dry bulb temperature, humidity ratio, and other meteorological inputs"
+          },
+          {
+            "category": "building",
+            "count": 1,
+            "description": "Single-zone lumped-capacitance building model with thermal loss coefficient, heat capacity, air properties, surface area, and volume; provides zone temperature and humidity ratio feedback"
+          },
+          {
+            "category": "hvac",
+            "count": 1,
+            "description": "4-pipe performance map fan coil unit with separate cooling and heating coils, 11 fan speeds, humidity mode 2 (relative humidity), using external normalized performance data files for cooling, heating, and fan law corrections"
+          },
+          {
+            "category": "controller",
+            "count": 1,
+            "description": "5-stage indoor thermostat with 2°C deadband, 1st stage heating at 20°C, 2nd stage heating at 16°C, 1st stage cooling at 22°C, cascaded stage enabling, and 5 allowed oscillations; outputs heating/cooling control signals and air-conditioning fan signal"
+          },
+          {
+            "category": "pump",
+            "count": 2,
+            "description": "Two single-speed pumps: one for chilled water loop (inlet 10°C) and one for hot water loop (inlet 50°C), both rated at 1000 kg/h flow and 720 kJ/h power, with motor efficiency 0.9 and pump efficiency 0.6"
+          },
+          {
+            "category": "plotter",
+            "count": 1,
+            "description": "Online plotter displaying ambient dry bulb temperature, zone temperature, and fan coil supply air temperature on the left Y-axis (-20 to 40°C), and total cooling and heating energy rates on the right Y-axis (0 to 80000 kJ/h), with 7 X-axis grid points"
+          },
+          {
+            "category": "equations",
+            "count": 1,
+            "description": "Equation component to compute the mixed air condition from return air and 15% outdoor fresh air before entering the fan coil, and possibly to derive control logic connections between thermostat and pumps/fan coil"
+          }
+        ],
+        "components": [
+          {
+            "category": "weather",
+            "external_files": [
+              {
+                "description": "Which file contains the TMY-2 weather data?",
+                "logical_unit": 30,
+                "path": "D:\\TRNSYS18_03\\Weather\\US-TMY3\\US_WI_MADISON_DANE_CO_REGIONAL_ARPT_[ISIS]_726410.tmy3"
+              }
+            ],
+            "initial_values": [],
+            "input_count": 0,
+            "inputs": [],
+            "layer": "Main",
+            "model_path": ".\\Weather Data Reading and Processing\\Standard Format\\TMY3\\Type15-TMY3.tmf",
+            "parameter_count": 21,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "File Type",
+                "value": 7
+              },
+              {
+                "index": 2,
+                "name": "Logical unit",
+                "value": 30
+              },
+              {
+                "index": 3,
+                "name": "Tilted Surface Radiation Mode",
+                "value": 3
+              },
+              {
+                "index": 4,
+                "name": "Ground reflectance: no albedo reported",
+                "value": 0.2
+              },
+              {
+                "index": 5,
+                "name": "Not used",
+                "value": 0.7
+              },
+              {
+                "index": 6,
+                "name": "Number of surfaces",
+                "value": 5
+              },
+              {
+                "index": 7,
+                "name": "Tracking mode-1",
+                "value": 1
+              },
+              {
+                "index": 8,
+                "name": "Slope of surface-1",
+                "value": 0
+              },
+              {
+                "index": 9,
+                "name": "Azimuth of surface-1",
+                "value": 0
+              },
+              {
+                "index": 10,
+                "name": "Tracking mode-2",
+                "value": 1
+              },
+              {
+                "index": 11,
+                "name": "Slope of surface-2",
+                "value": 90
+              },
+              {
+                "index": 12,
+                "name": "Azimuth of surface-2",
+                "value": 0
+              },
+              {
+                "index": 13,
+                "name": "Tracking mode-3",
+                "value": 1
+              },
+              {
+                "index": 14,
+                "name": "Slope of surface-3",
+                "value": 90
+              },
+              {
+                "index": 15,
+                "name": "Azimuth of surface-3",
+                "value": 90
+              },
+              {
+                "index": 16,
+                "name": "Tracking mode-4",
+                "value": 1
+              },
+              {
+                "index": 17,
+                "name": "Slope of surface-4",
+                "value": 90
+              },
+              {
+                "index": 18,
+                "name": "Azimuth of surface-4",
+                "value": 180
+              },
+              {
+                "index": 19,
+                "name": "Tracking mode-5",
+                "value": 1
+              },
+              {
+                "index": 20,
+                "name": "Slope of surface-5",
+                "value": 90
+              },
+              {
+                "index": 21,
+                "name": "Azimuth of surface-5",
+                "value": 270
+              }
+            ],
+            "position_x": 140,
+            "position_y": 323,
+            "purpose": "Reads TMY3 format weather data file for Madison, WI, providing ambient dry bulb temperature, humidity ratio, and other meteorological inputs at 0.125-hour time steps",
+            "type_number": "Type15-TMY3",
+            "unit_name": "Weather_Data",
+            "unit_number": 2
+          },
+          {
+            "category": "building",
+            "initial_values": [
+              20,
+              0.005,
+              0,
+              10,
+              0.006,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "input_count": 10,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Four_Pipe_Fan_Coil:Outlet Air Temperature -\u003eTemperature of ventilation air",
+                "source_output": 5,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 2,
+                "name": "Four_Pipe_Fan_Coil:Outlet Air Humidity Ratio -\u003eHumidity ratio of ventilation air",
+                "source_output": 6,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 3,
+                "name": "Four_Pipe_Fan_Coil:Outlet Air Flowrate -\u003eVentilation mass flow rate",
+                "source_output": 8,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 4,
+                "name": "Weather_Data:Dry bulb temperature -\u003eAmbient temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 5,
+                "name": "Unit_Converter_HumRat_Amb:HUMRAT_AMB -\u003eAmbient humidity ratio",
+                "source_output": 1,
+                "source_type": "equation",
+                "source_unit": 11,
+                "source_variable": "HUMRAT_AMB"
+              },
+              {
+                "index": 6,
+                "name": "[unconnected] Mass flow rate of infiltration air",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 7,
+                "name": "[unconnected] Rate of energy gain from lights",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 8,
+                "name": "[unconnected] Rate of energy from equipment",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 9,
+                "name": "[unconnected] Rate of sensible energy gain from people",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 10,
+                "name": "[unconnected] Rate of humidity gain",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Loads and Structures\\Single Zone Models\\Lumped Capacitance Building (Type 88)\\Type88.tmf",
+            "parameter_count": 10,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Building loss coefficient",
+                "value": 3
+              },
+              {
+                "index": 2,
+                "name": "Building capacitance",
+                "value": 2000
+              },
+              {
+                "index": 3,
+                "name": "Specific heat  of building air",
+                "value": 1.007
+              },
+              {
+                "index": 4,
+                "name": "Density of building air",
+                "value": 1.2
+              },
+              {
+                "index": 5,
+                "name": "Building surface area",
+                "value": 200
+              },
+              {
+                "index": 6,
+                "name": "Building volume",
+                "value": 300
+              },
+              {
+                "index": 7,
+                "name": "Humidity ratio multiplier",
+                "value": 1
+              },
+              {
+                "index": 8,
+                "name": "Initial temperature",
+                "value": 20
+              },
+              {
+                "index": 9,
+                "name": "Initial humidity ratio",
+                "value": 0.005
+              },
+              {
+                "index": 10,
+                "name": "Latent heat of vaporization",
+                "value": 2260
+              }
+            ],
+            "position_x": 472,
+            "position_y": 147,
+            "purpose": "Single-zone lumped-capacitance building model with thermal loss coefficient (3 kJ/h·m²·K), heat capacity (2000 kJ/K), surface area (200 m²), volume (300 m³); provides zone temperature and humidity ratio feedback",
+            "type_number": "Type88",
+            "unit_name": "Building",
+            "unit_number": 3
+          },
+          {
+            "category": "hvac",
+            "external_files": [
+              {
+                "description": "Which external file contains the cooling performance data?",
+                "logical_unit": 31,
+                "path": "D:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\4-Pipe Performance Map Fan Coil\\Normalized_FanCoil_Cooling.dat"
+              },
+              {
+                "description": "Which external file contains the heating performance data?",
+                "logical_unit": 32,
+                "path": "D:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\4-Pipe Performance Map Fan Coil\\Normalized_FanCoil_Heating.dat"
+              },
+              {
+                "description": "Which external file contains the fan performance data?",
+                "logical_unit": 33,
+                "path": "D:\\TRNSYS18_03\\Tess Models\\SampleCatalogData\\4-Pipe Performance Map Fan Coil\\FanLawPerformance.dat"
+              }
+            ],
+            "initial_values": [
+              10,
+              0,
+              10,
+              0,
+              20,
+              0.002,
+              50,
+              1,
+              0,
+              0,
+              20,
+              0.002,
+              50,
+              0,
+              0,
+              0,
+              0
+            ],
+            "input_count": 17,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Chilled_Water_Pump:Outlet fluid temperature -\u003eCooling Fluid Inlet Temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 6
+              },
+              {
+                "index": 2,
+                "name": "Chilled_Water_Pump:Outlet flow rate -\u003eCooling Fluid Flowrate",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 6
+              },
+              {
+                "index": 3,
+                "name": "Hot_Water_Pump:Outlet fluid temperature -\u003eHeating Fluid Inlet Temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 7
+              },
+              {
+                "index": 4,
+                "name": "Hot_Water_Pump:Outlet flow rate -\u003eHeating Fluid Flowrate",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 7
+              },
+              {
+                "index": 5,
+                "name": "Air_Mixer:Outlet Temperature -\u003eReturn Air Temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 6,
+                "name": "Air_Mixer:Outlet Humidity Ratio -\u003eReturn Air Humidity Ratio",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 7,
+                "name": "Air_Mixer:Outlet Relative Humidity -\u003eReturn Air % Relative Humidity",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 8,
+                "name": "Air_Mixer:Outlet Pressure -\u003eReturn Air Pressure",
+                "source_output": 5,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 9,
+                "name": "[unconnected] Air-Side Pressure Rise: Fan",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 10,
+                "name": "[unconnected] Air-Side Pressure Drop: Coils",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 11,
+                "name": "[unconnected] Fresh Air Temperature",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 12,
+                "name": "[unconnected] Fresh Air Humidity Ratio",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 13,
+                "name": "[unconnected] Fresh Air % Relative Humidity",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 14,
+                "name": "Thermostat:Control signal for 1st stage heating -\u003eHeating Control Signal",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 15,
+                "name": "Thermostat:Control signal for 1st stage cooling -\u003eCooling Control Signal",
+                "source_output": 4,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 16,
+                "name": "Thermostat:Conditioning Signal -\u003eFan Control Signal",
+                "source_output": 6,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 17,
+                "name": "System_Constants:FRAC_OA -\u003eFraction of Outside Air",
+                "source_output": 1,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "FRAC_OA"
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\HVAC Library (TESS)\\4-Pipe Fan Coil\\Performance Map Approach\\Type987.tmf",
+            "parameter_count": 25,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Humidity Mode",
+                "value": 2
+              },
+              {
+                "index": 2,
+                "name": "Cooling Fluid Specific Heat",
+                "value": 4.19
+              },
+              {
+                "index": 3,
+                "name": "Heating Fluid Specific Heat",
+                "value": 4.19
+              },
+              {
+                "index": 4,
+                "name": "Rated Volumetric Air Flowrate",
+                "value": 277.8
+              },
+              {
+                "index": 5,
+                "name": "Rated Liquid Flowrate: Cooling",
+                "value": 1000
+              },
+              {
+                "index": 6,
+                "name": "Rated Liquid Flowrate: Heating",
+                "value": 1000
+              },
+              {
+                "index": 7,
+                "name": "Logical Unit - Cooling Performance",
+                "value": 31
+              },
+              {
+                "index": 8,
+                "name": "Number of Dry-Bulb Temperatures - Cooling",
+                "value": 7
+              },
+              {
+                "index": 9,
+                "name": "Number of Wet-Bulb Temperatures - Cooling",
+                "value": 7
+              },
+              {
+                "index": 10,
+                "name": "Number of Air Flows - Cooling",
+                "value": 6
+              },
+              {
+                "index": 11,
+                "name": "Number of Liquid Temperatures - Cooling",
+                "value": 8
+              },
+              {
+                "index": 12,
+                "name": "Number of Liquid Flowrates - Cooling",
+                "value": 2
+              },
+              {
+                "index": 13,
+                "name": "Rated Total Cooling Capacity",
+                "value": 35000
+              },
+              {
+                "index": 14,
+                "name": "Rated Sensible Cooling Capacity",
+                "value": 28000
+              },
+              {
+                "index": 15,
+                "name": "Logical Unit - Heating Performance",
+                "value": 32
+              },
+              {
+                "index": 16,
+                "name": "Number of Air Temperatures - Heating",
+                "value": 7
+              },
+              {
+                "index": 17,
+                "name": "Number of Air Flows - Heating",
+                "value": 6
+              },
+              {
+                "index": 18,
+                "name": "Number of Liquid Temperatures - Heating",
+                "value": 11
+              },
+              {
+                "index": 19,
+                "name": "Number of Liquid Flowrates - Heating",
+                "value": 2
+              },
+              {
+                "index": 20,
+                "name": "Rated Total Heating Capacity",
+                "value": 30000
+              },
+              {
+                "index": 21,
+                "name": "Logical Unit - Fan Corrections",
+                "value": 33
+              },
+              {
+                "index": 22,
+                "name": "Number of Fan Speeds",
+                "value": 11
+              },
+              {
+                "index": 23,
+                "name": "Rated Fan Power",
+                "value": 1000
+              },
+              {
+                "index": 24,
+                "name": "Efficiency of Fan Motor",
+                "value": 0.9
+              },
+              {
+                "index": 25,
+                "name": "Fraction of Fan Heat to Air",
+                "value": 1
+              }
+            ],
+            "position_x": 952,
+            "position_y": 147,
+            "purpose": "4-pipe performance map fan coil unit with separate cooling and heating coils, humidity mode 2 (relative humidity), 11 fan speeds, using external normalized performance data files for cooling, heating, and fan law corrections; rated 277.8 l/s airflow, 35000 kJ/h total cooling, 30000 kJ/h total heating",
+            "type_number": "Type987",
+            "unit_name": "Four_Pipe_Fan_Coil",
+            "unit_number": 4
+          },
+          {
+            "category": "controller",
+            "initial_values": [
+              20,
+              20,
+              16,
+              16,
+              22,
+              26
+            ],
+            "input_count": 6,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Building:Zone temperature -\u003eMonitoring temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 2,
+                "name": "[unconnected] 1st stage heating setpoint",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 3,
+                "name": "[unconnected] 2nd stage heating setpoint",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 4,
+                "name": "[unconnected] 3rd stage heating setpoint",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 5,
+                "name": "[unconnected] 1st stage cooling setpoint",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 6,
+                "name": "[unconnected] 2nd stage cooling setpoint",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Controllers\\5-Stage Room Thermostat\\Type108.tmf",
+            "parameter_count": 6,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "No of oscillations permitted",
+                "value": 5
+              },
+              {
+                "index": 2,
+                "name": "1st stage heating in 2nd stage?",
+                "value": 1
+              },
+              {
+                "index": 3,
+                "name": "2nd stage heating in 3rd stage?",
+                "value": 1
+              },
+              {
+                "index": 4,
+                "name": "1st stage heating in 3rd stage?",
+                "value": 1
+              },
+              {
+                "index": 5,
+                "name": "1st stage cooling in 2nd stage?",
+                "value": 1
+              },
+              {
+                "index": 6,
+                "name": "Temperature dead band",
+                "value": 2
+              }
+            ],
+            "position_x": 632,
+            "position_y": 147,
+            "purpose": "5-stage indoor thermostat with 2°C deadband, 1st stage heating at 20°C, 2nd stage heating at 16°C, 1st stage cooling at 22°C, cascaded stage enabling, 5 allowed oscillations; outputs heating/cooling control signals and air-conditioning fan signal",
+            "type_number": "Type108",
+            "unit_name": "Thermostat",
+            "unit_number": 5
+          },
+          {
+            "category": "pump",
+            "initial_values": [
+              10,
+              1000,
+              0,
+              0.6,
+              0.9
+            ],
+            "input_count": 5,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "System_Constants:T_CHW_IN -\u003eInlet fluid temperature",
+                "source_output": 3,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "T_CHW_IN"
+              },
+              {
+                "index": 2,
+                "name": "[unconnected] Inlet fluid flow rate",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 3,
+                "name": "Thermostat:Control signal for 1st stage cooling -\u003eControl signal",
+                "source_output": 4,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 4,
+                "name": "[unconnected] Overall pump efficiency",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 5,
+                "name": "[unconnected] Motor efficiency",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Hydronics\\Pumps\\Single Speed\\Type114.tmf",
+            "parameter_count": 4,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Rated flow rate",
+                "value": 1000
+              },
+              {
+                "index": 2,
+                "name": "Fluid specific heat",
+                "value": 4.19
+              },
+              {
+                "index": 3,
+                "name": "Rated power",
+                "value": 720
+              },
+              {
+                "index": 4,
+                "name": "Motor heat loss fraction",
+                "value": 0
+              }
+            ],
+            "position_x": 792,
+            "position_y": 147,
+            "purpose": "Single-speed pump for chilled water loop; rated flow 1000 kg/h, rated power 720 kJ/h, fluid specific heat 4.19 kJ/(kg·K), inlet temperature 10°C, pump efficiency 0.6, motor efficiency 0.9, motor heat loss fraction 0",
+            "type_number": "Type114",
+            "unit_name": "Chilled_Water_Pump",
+            "unit_number": 6
+          },
+          {
+            "category": "pump",
+            "initial_values": [
+              50,
+              1000,
+              0,
+              0.6,
+              0.9
+            ],
+            "input_count": 5,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "System_Constants:T_HW_IN -\u003eInlet fluid temperature",
+                "source_output": 4,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "T_HW_IN"
+              },
+              {
+                "index": 2,
+                "name": "[unconnected] Inlet fluid flow rate",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 3,
+                "name": "Thermostat:Control signal for 1st stage heating -\u003eControl signal",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 4,
+                "name": "[unconnected] Overall pump efficiency",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 5,
+                "name": "[unconnected] Motor efficiency",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Hydronics\\Pumps\\Single Speed\\Type114.tmf",
+            "parameter_count": 4,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Rated flow rate",
+                "value": 1000
+              },
+              {
+                "index": 2,
+                "name": "Fluid specific heat",
+                "value": 4.19
+              },
+              {
+                "index": 3,
+                "name": "Rated power",
+                "value": 720
+              },
+              {
+                "index": 4,
+                "name": "Motor heat loss fraction",
+                "value": 0
+              }
+            ],
+            "position_x": 792,
+            "position_y": 323,
+            "purpose": "Single-speed pump for hot water loop; rated flow 1000 kg/h, rated power 720 kJ/h, fluid specific heat 4.19 kJ/(kg·K), inlet temperature 50°C, pump efficiency 0.6, motor efficiency 0.9, motor heat loss fraction 0",
+            "type_number": "Type114",
+            "unit_name": "Hot_Water_Pump",
+            "unit_number": 7
+          },
+          {
+            "category": "air_mixer",
+            "initial_values": [
+              20,
+              0.008,
+              50,
+              100,
+              1,
+              25,
+              0.001,
+              30,
+              200,
+              1
+            ],
+            "input_count": 10,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Building:Zone temperature -\u003eInlet Air Temperature - 1",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 2,
+                "name": "Building:Zone humidity ratio -\u003eInlet Air Humidity Ratio - 1",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 3,
+                "name": "[unconnected] Inlet Air Relative Humidity - 1",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 4,
+                "name": "System_Constants:M_RA -\u003eInlet Air Flow Rate - 1",
+                "source_output": 6,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "M_RA"
+              },
+              {
+                "index": 5,
+                "name": "Weather_Data:Atmospheric pressure -\u003eInlet Air Pressure - 1",
+                "source_output": 10,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 6,
+                "name": "Weather_Data:Dry bulb temperature -\u003eInlet Air Temperature - 2",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 7,
+                "name": "Unit_Converter_HumRat_OA:HUMRAT_OA -\u003eInlet Air Humidity Ratio - 2",
+                "source_output": 1,
+                "source_type": "equation",
+                "source_unit": 12,
+                "source_variable": "HUMRAT_OA"
+              },
+              {
+                "index": 8,
+                "name": "Weather_Data:Percent relative humidity -\u003eInlet Air Relative Humidity - 2",
+                "source_output": 7,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 9,
+                "name": "System_Constants:M_OA -\u003eInlet Air Flow Rate - 2",
+                "source_output": 5,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "M_OA"
+              },
+              {
+                "index": 10,
+                "name": "Weather_Data:Atmospheric pressure -\u003eInlet Air Pressure - 2",
+                "source_output": 10,
+                "source_type": "component",
+                "source_unit": 2
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Hydronics\\Tee-Piece Flow Mixer\\Moist Air\\Type148b.tmf",
+            "parameter_count": 2,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Humidity Mode",
+                "value": 1
+              },
+              {
+                "index": 2,
+                "name": "Mode",
+                "value": 1
+              }
+            ],
+            "position_x": 632,
+            "position_y": 323,
+            "purpose": "Moist air flow mixer combining return air from building zone with 15% outdoor fresh air before entering the fan coil; two inlet air streams mixed into a single outlet air stream with temperature, humidity ratio, relative humidity, flow rate, and pressure outputs",
+            "type_number": "Type148b",
+            "unit_name": "Air_Mixer",
+            "unit_number": 8
+          },
+          {
+            "category": "plotter",
+            "initial_values": [
+              "Dry_bulb_temperature",
+              "Zone_temperature",
+              "Outlet_Air_Temperature",
+              "Total_Cooling_Rate",
+              "Total_Heating_Rate"
+            ],
+            "input_count": 5,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Weather_Data:Dry bulb temperature -\u003eLeft axis variable-1",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 2,
+                "name": "Building:Zone temperature -\u003eLeft axis variable-2",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 3,
+                "name": "Four_Pipe_Fan_Coil:Outlet Air Temperature -\u003eLeft axis variable-3",
+                "source_output": 5,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 4,
+                "name": "Four_Pipe_Fan_Coil:Total Cooling Rate -\u003eRight axis variable-1",
+                "source_output": 10,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 5,
+                "name": "Four_Pipe_Fan_Coil:Total Heating Rate -\u003eRight axis variable-2",
+                "source_output": 12,
+                "source_type": "component",
+                "source_unit": 4
+              }
+            ],
+            "layer": "Main",
+            "model_path": ".\\Output\\Online Plotter\\Online Plotter Without File\\Type65d.tmf",
+            "parameter_count": 12,
+            "parameters": [
+              {
+                "index": 1,
+                "name": "Nb. of left-axis variables",
+                "value": 3
+              },
+              {
+                "index": 2,
+                "name": "Nb. of right-axis variables",
+                "value": 2
+              },
+              {
+                "index": 3,
+                "name": "Left axis minimum",
+                "value": -20
+              },
+              {
+                "index": 4,
+                "name": "Left axis maximum",
+                "value": 40
+              },
+              {
+                "index": 5,
+                "name": "Right axis minimum",
+                "value": 0
+              },
+              {
+                "index": 6,
+                "name": "Right axis maximum",
+                "value": 80000
+              },
+              {
+                "index": 7,
+                "name": "Number of plots per simulation",
+                "value": 1
+              },
+              {
+                "index": 8,
+                "name": "X-axis gridpoints",
+                "value": 7
+              },
+              {
+                "index": 9,
+                "name": "Shut off Online w/o removing",
+                "value": 0
+              },
+              {
+                "index": 10,
+                "name": "Logical unit for output file",
+                "value": -1
+              },
+              {
+                "index": 11,
+                "name": "Output file units",
+                "value": 0
+              },
+              {
+                "index": 12,
+                "name": "Output file delimiter",
+                "value": 0
+              }
+            ],
+            "position_x": 1112,
+            "position_y": 147,
+            "purpose": "Online plotter displaying ambient dry bulb temperature, zone temperature, and fan coil supply air temperature on left Y-axis (-20 to 40°C), and total cooling and heating energy rates on right Y-axis (0 to 80000 kJ/h), with 7 X-axis grid points; no output file generated",
+            "specific_properties": [
+              {
+                "note": "LABELS",
+                "property": "Labels used by this online plotter (leave set to 3)",
+                "value": "3"
+              },
+              {
+                "property": "Left axis title (enclose in double quotes)",
+                "value": "\"Temperature [C]\""
+              },
+              {
+                "property": "Right axis title (enclose in double quotes)",
+                "value": "\"Energy Rate [kJ/h]\""
+              },
+              {
+                "property": "Plot title (tab name if several plotters are used)",
+                "value": "\"Fan Coil Performance\""
+              }
+            ],
+            "type_number": "Type65d",
+            "unit_name": "Online_Plotter",
+            "unit_number": 9
+          }
+        ],
+        "connections": [
+          {
+            "initial_values": [],
+            "input_count": 0,
+            "inputs": [],
+            "specific_properties": [],
+            "type_number": "Type15-TMY3",
+            "unit_name": "Weather_Data",
+            "unit_number": 2
+          },
+          {
+            "initial_values": [
+              20,
+              0.005,
+              0,
+              10,
+              0.006,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "input_count": 10,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Four_Pipe_Fan_Coil:Outlet Air Temperature -\u003eTemperature of ventilation air",
+                "source_output": 5,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 2,
+                "name": "Four_Pipe_Fan_Coil:Outlet Air Humidity Ratio -\u003eHumidity ratio of ventilation air",
+                "source_output": 6,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 3,
+                "name": "Four_Pipe_Fan_Coil:Outlet Air Flowrate -\u003eVentilation mass flow rate",
+                "source_output": 8,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 4,
+                "name": "Weather_Data:Dry bulb temperature -\u003eAmbient temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 5,
+                "name": "Unit_Converter_HumRat_Amb:HUMRAT_AMB -\u003eAmbient humidity ratio",
+                "source_output": 1,
+                "source_type": "equation",
+                "source_unit": 11,
+                "source_variable": "HUMRAT_AMB"
+              },
+              {
+                "index": 6,
+                "name": "[unconnected] Mass flow rate of infiltration air",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 7,
+                "name": "[unconnected] Rate of energy gain from lights",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 8,
+                "name": "[unconnected] Rate of energy from equipment",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 9,
+                "name": "[unconnected] Rate of sensible energy gain from people",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 10,
+                "name": "[unconnected] Rate of humidity gain",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type88",
+            "unit_name": "Building",
+            "unit_number": 3
+          },
+          {
+            "initial_values": [
+              10,
+              0,
+              10,
+              0,
+              20,
+              0.002,
+              50,
+              1,
+              0,
+              0,
+              20,
+              0.002,
+              50,
+              0,
+              0,
+              0,
+              0
+            ],
+            "input_count": 17,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Chilled_Water_Pump:Outlet fluid temperature -\u003eCooling Fluid Inlet Temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 6
+              },
+              {
+                "index": 2,
+                "name": "Chilled_Water_Pump:Outlet flow rate -\u003eCooling Fluid Flowrate",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 6
+              },
+              {
+                "index": 3,
+                "name": "Hot_Water_Pump:Outlet fluid temperature -\u003eHeating Fluid Inlet Temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 7
+              },
+              {
+                "index": 4,
+                "name": "Hot_Water_Pump:Outlet flow rate -\u003eHeating Fluid Flowrate",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 7
+              },
+              {
+                "index": 5,
+                "name": "Air_Mixer:Outlet Temperature -\u003eReturn Air Temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 6,
+                "name": "Air_Mixer:Outlet Humidity Ratio -\u003eReturn Air Humidity Ratio",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 7,
+                "name": "Air_Mixer:Outlet Relative Humidity -\u003eReturn Air % Relative Humidity",
+                "source_output": 3,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 8,
+                "name": "Air_Mixer:Outlet Pressure -\u003eReturn Air Pressure",
+                "source_output": 5,
+                "source_type": "component",
+                "source_unit": 8
+              },
+              {
+                "index": 9,
+                "name": "[unconnected] Air-Side Pressure Rise: Fan",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 10,
+                "name": "[unconnected] Air-Side Pressure Drop: Coils",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 11,
+                "name": "[unconnected] Fresh Air Temperature",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 12,
+                "name": "[unconnected] Fresh Air Humidity Ratio",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 13,
+                "name": "[unconnected] Fresh Air % Relative Humidity",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 14,
+                "name": "Thermostat:Control signal for 1st stage heating -\u003eHeating Control Signal",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 15,
+                "name": "Thermostat:Control signal for 1st stage cooling -\u003eCooling Control Signal",
+                "source_output": 4,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 16,
+                "name": "Thermostat:Conditioning Signal -\u003eFan Control Signal",
+                "source_output": 6,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 17,
+                "name": "System_Constants:FRAC_OA -\u003eFraction of Outside Air",
+                "source_output": 1,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "FRAC_OA"
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type987",
+            "unit_name": "Four_Pipe_Fan_Coil",
+            "unit_number": 4
+          },
+          {
+            "initial_values": [
+              20,
+              20,
+              16,
+              16,
+              22,
+              26
+            ],
+            "input_count": 6,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Building:Zone temperature -\u003eMonitoring temperature",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 2,
+                "name": "[unconnected] 1st stage heating setpoint",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 3,
+                "name": "[unconnected] 2nd stage heating setpoint",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 4,
+                "name": "[unconnected] 3rd stage heating setpoint",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 5,
+                "name": "[unconnected] 1st stage cooling setpoint",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 6,
+                "name": "[unconnected] 2nd stage cooling setpoint",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type108",
+            "unit_name": "Thermostat",
+            "unit_number": 5
+          },
+          {
+            "initial_values": [
+              10,
+              1000,
+              0,
+              0.6,
+              0.9
+            ],
+            "input_count": 5,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "System_Constants:T_CHW_IN -\u003eInlet fluid temperature",
+                "source_output": 3,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "T_CHW_IN"
+              },
+              {
+                "index": 2,
+                "name": "[unconnected] Inlet fluid flow rate",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 3,
+                "name": "Thermostat:Control signal for 1st stage cooling -\u003eControl signal",
+                "source_output": 4,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 4,
+                "name": "[unconnected] Overall pump efficiency",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 5,
+                "name": "[unconnected] Motor efficiency",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type114",
+            "unit_name": "Chilled_Water_Pump",
+            "unit_number": 6
+          },
+          {
+            "initial_values": [
+              50,
+              1000,
+              0,
+              0.6,
+              0.9
+            ],
+            "input_count": 5,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "System_Constants:T_HW_IN -\u003eInlet fluid temperature",
+                "source_output": 4,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "T_HW_IN"
+              },
+              {
+                "index": 2,
+                "name": "[unconnected] Inlet fluid flow rate",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 3,
+                "name": "Thermostat:Control signal for 1st stage heating -\u003eControl signal",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 5
+              },
+              {
+                "index": 4,
+                "name": "[unconnected] Overall pump efficiency",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 5,
+                "name": "[unconnected] Motor efficiency",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type114",
+            "unit_name": "Hot_Water_Pump",
+            "unit_number": 7
+          },
+          {
+            "initial_values": [
+              20,
+              0.008,
+              50,
+              100,
+              1,
+              25,
+              0.001,
+              30,
+              200,
+              1
+            ],
+            "input_count": 10,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Building:Zone temperature -\u003eInlet Air Temperature - 1",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 2,
+                "name": "Building:Zone humidity ratio -\u003eInlet Air Humidity Ratio - 1",
+                "source_output": 2,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 3,
+                "name": "[unconnected] Inlet Air Relative Humidity - 1",
+                "source_output": 0,
+                "source_type": "component",
+                "source_unit": 0
+              },
+              {
+                "index": 4,
+                "name": "System_Constants:M_RA -\u003eInlet Air Flow Rate - 1",
+                "source_output": 6,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "M_RA"
+              },
+              {
+                "index": 5,
+                "name": "Weather_Data:Atmospheric pressure -\u003eInlet Air Pressure - 1",
+                "source_output": 10,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 6,
+                "name": "Weather_Data:Dry bulb temperature -\u003eInlet Air Temperature - 2",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 7,
+                "name": "Unit_Converter_HumRat_OA:HUMRAT_OA -\u003eInlet Air Humidity Ratio - 2",
+                "source_output": 1,
+                "source_type": "equation",
+                "source_unit": 12,
+                "source_variable": "HUMRAT_OA"
+              },
+              {
+                "index": 8,
+                "name": "Weather_Data:Percent relative humidity -\u003eInlet Air Relative Humidity - 2",
+                "source_output": 7,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 9,
+                "name": "System_Constants:M_OA -\u003eInlet Air Flow Rate - 2",
+                "source_output": 5,
+                "source_type": "equation",
+                "source_unit": 10,
+                "source_variable": "M_OA"
+              },
+              {
+                "index": 10,
+                "name": "Weather_Data:Atmospheric pressure -\u003eInlet Air Pressure - 2",
+                "source_output": 10,
+                "source_type": "component",
+                "source_unit": 2
+              }
+            ],
+            "specific_properties": [],
+            "type_number": "Type148b",
+            "unit_name": "Air_Mixer",
+            "unit_number": 8
+          },
+          {
+            "initial_values": [
+              "Dry_bulb_temperature",
+              "Zone_temperature",
+              "Outlet_Air_Temperature",
+              "Total_Cooling_Rate",
+              "Total_Heating_Rate"
+            ],
+            "input_count": 5,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "Weather_Data:Dry bulb temperature -\u003eLeft axis variable-1",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 2
+              },
+              {
+                "index": 2,
+                "name": "Building:Zone temperature -\u003eLeft axis variable-2",
+                "source_output": 1,
+                "source_type": "component",
+                "source_unit": 3
+              },
+              {
+                "index": 3,
+                "name": "Four_Pipe_Fan_Coil:Outlet Air Temperature -\u003eLeft axis variable-3",
+                "source_output": 5,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 4,
+                "name": "Four_Pipe_Fan_Coil:Total Cooling Rate -\u003eRight axis variable-1",
+                "source_output": 10,
+                "source_type": "component",
+                "source_unit": 4
+              },
+              {
+                "index": 5,
+                "name": "Four_Pipe_Fan_Coil:Total Heating Rate -\u003eRight axis variable-2",
+                "source_output": 12,
+                "source_type": "component",
+                "source_unit": 4
+              }
+            ],
+            "specific_properties": [
+              {
+                "note": "LABELS",
+                "property": "Labels used by this online plotter (leave set to 3)",
+                "value": "3"
+              },
+              {
+                "property": "Left axis title (enclose in double quotes)",
+                "value": "\"Temperature [C]\""
+              },
+              {
+                "property": "Right axis title (enclose in double quotes)",
+                "value": "\"Energy Rate [kJ/h]\""
+              },
+              {
+                "property": "Plot title (tab name if several plotters are used)",
+                "value": "\"Fan Coil Performance\""
+              }
+            ],
+            "type_number": "Type65d",
+            "unit_name": "Online_Plotter",
+            "unit_number": 9
+          },
+          {
+            "initial_values": [],
+            "input_count": 0,
+            "inputs": [],
+            "type_number": "EQUATIONS",
+            "unit_name": "System_Constants",
+            "unit_number": 10
+          },
+          {
+            "initial_values": [],
+            "input_count": 1,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "[2,6] -\u003eHUMRAT_AMB",
+                "source_output": 6,
+                "source_type": "component",
+                "source_unit": 2,
+                "target_equation_index": 1,
+                "target_variable": "HUMRAT_AMB"
+              }
+            ],
+            "type_number": "EQUATIONS",
+            "unit_name": "Unit_Converter_HumRat_Amb",
+            "unit_number": 11
+          },
+          {
+            "initial_values": [],
+            "input_count": 1,
+            "inputs": [
+              {
+                "index": 1,
+                "name": "[2,6] -\u003eHUMRAT_OA",
+                "source_output": 6,
+                "source_type": "component",
+                "source_unit": 2,
+                "target_equation_index": 1,
+                "target_variable": "HUMRAT_OA"
+              }
+            ],
+            "type_number": "EQUATIONS",
+            "unit_name": "Unit_Converter_HumRat_OA",
+            "unit_number": 12
+          }
+        ],
+        "constants": [],
+        "current_agent": "validator",
+        "dck_content": "\u003cfiltered: str, 15593 chars\u003e",
+        "equations": [
+          {
+            "connection_inputs": [],
+            "equation_count": 6,
+            "equations": [
+              {
+                "comment": "Fresh air fraction for mixing with return air. FRAC_OA [-]",
+                "expression": "0.15",
+                "variable": "FRAC_OA"
+              },
+              {
+                "comment": "Rated supply air mass flow rate calculated from rated volumetric flow (277.8 l/s) and air density (1.2 kg/m³). M_RATED_AIR [kg/hr]",
+                "expression": "277.8*3.6*1.2",
+                "variable": "M_RATED_AIR"
+              },
+              {
+                "comment": "Chilled water pump inlet fluid temperature. T_CHW_IN [°C]; to -\u003e [6,1] Inlet fluid temperature [°C]",
+                "expression": "10",
+                "variable": "T_CHW_IN"
+              },
+              {
+                "comment": "Hot water pump inlet fluid temperature. T_HW_IN [°C]; to -\u003e [7,1] Inlet fluid temperature [°C]",
+                "expression": "50",
+                "variable": "T_HW_IN"
+              },
+              {
+                "comment": "Outdoor fresh air mass flow rate (15% of rated supply air flow). M_OA [kg/hr]; to -\u003e [8,9] Inlet Air Flow Rate - 2 [kg/hr]",
+                "expression": "FRAC_OA * M_RATED_AIR",
+                "variable": "M_OA"
+              },
+              {
+                "comment": "Return air mass flow rate (85% of rated supply air flow). M_RA [kg/hr]; to -\u003e [8,4] Inlet Air Flow Rate - 1 [kg/hr]",
+                "expression": "(1-FRAC_OA) * M_RATED_AIR",
+                "variable": "M_RA"
+              }
+            ],
+            "layer": "Main",
+            "position_x": 140,
+            "position_y": 147,
+            "unit_name": "System_Constants",
+            "unit_number": 10
+          },
+          {
+            "connection_inputs": [
+              {
+                "index": 1,
+                "name": "[2,6] -\u003eHUMRAT_AMB",
+                "source_output": 6,
+                "source_type": "component",
+                "source_unit": 2,
+                "target_equation_index": 1,
+                "target_variable": "HUMRAT_AMB"
+              }
+            ],
+            "equation_count": 1,
+            "equations": [
+              {
+                "comment": "Pass-through converter for humidity ratio from Fraction to dimensionless (same physical quantity, factor=1.0). HUMRAT_AMB [-]; from [2,6] Humidity ratio [Fraction]; to -\u003e [3,5] Ambient humidity ratio",
+                "expression": "[2,6] * 1.0",
+                "variable": "HUMRAT_AMB"
+              }
+            ],
+            "layer": "Main",
+            "position_x": 312,
+            "position_y": 147,
+            "unit_name": "Unit_Converter_HumRat_Amb",
+            "unit_number": 11
+          },
+          {
+            "connection_inputs": [
+              {
+                "index": 1,
+                "name": "[2,6] -\u003eHUMRAT_OA",
+                "source_output": 6,
+                "source_type": "component",
+                "source_unit": 2,
+                "target_equation_index": 1,
+                "target_variable": "HUMRAT_OA"
+              }
+            ],
+            "equation_count": 1,
+            "equations": [
+              {
+                "comment": "Pass-through converter for humidity ratio from Fraction to dimensionless (same physical quantity, factor=1.0). HUMRAT_OA [-]; from [2,6] Humidity ratio [Fraction]; to -\u003e [8,7] Inlet Air Humidity Ratio - 2",
+                "expression": "[2,6] * 1.0",
+                "variable": "HUMRAT_OA"
+              }
+            ],
+            "layer": "Main",
+            "position_x": 312,
+            "position_y": 323,
+            "unit_name": "Unit_Converter_HumRat_OA",
+            "unit_number": 12
+          }
+        ],
+        "expert_output_status": "layout_designer output successfully",
+        "human_expert_error_analysis": {},
+        "iteration": 7,
+        "last_dispatched_expert": "",
+        "last_validator_snapshot": {
+          "current_round_repair_notes": [],
+          "error_analysis": {},
+          "validation_errors": [],
+          "validation_result": "success",
+          "validator_round": 1
+        },
+        "layout_styles": [
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                160,
+                333
+              ],
+              [
+                244,
+                333
+              ],
+              [
+                244,
+                403
+              ],
+              [
+                364,
+                403
+              ],
+              [
+                364,
+                157
+              ],
+              [
+                452,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 2,
+            "input_indices": [
+              4
+            ],
+            "start_dir": "40:40",
+            "style": 0,
+            "to_unit": 3,
+            "user_path": 0,
+            "width": 2
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                160,
+                333
+              ],
+              [
+                260,
+                333
+              ],
+              [
+                260,
+                403
+              ],
+              [
+                556,
+                403
+              ],
+              [
+                556,
+                333
+              ],
+              [
+                612,
+                333
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 2,
+            "input_indices": [
+              5,
+              6,
+              8,
+              10
+            ],
+            "start_dir": "40:40",
+            "style": 0,
+            "to_unit": 8,
+            "user_path": 0,
+            "width": 2
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                160,
+                333
+              ],
+              [
+                276,
+                333
+              ],
+              [
+                276,
+                403
+              ],
+              [
+                996,
+                403
+              ],
+              [
+                996,
+                157
+              ],
+              [
+                1092,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 2,
+            "input_indices": [
+              1
+            ],
+            "start_dir": "40:40",
+            "style": 4,
+            "to_unit": 9,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                160,
+                293
+              ],
+              [
+                180,
+                293
+              ],
+              [
+                180,
+                137
+              ],
+              [
+                292,
+                137
+              ]
+            ],
+            "end_dir": "0:20",
+            "from_unit": 2,
+            "input_indices": [
+              1
+            ],
+            "start_dir": "40:0",
+            "style": 0,
+            "to_unit": 11,
+            "user_path": 0,
+            "width": 2
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                160,
+                293
+              ],
+              [
+                180,
+                293
+              ],
+              [
+                180,
+                293
+              ],
+              [
+                292,
+                293
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 2,
+            "input_indices": [
+              1
+            ],
+            "start_dir": "40:0",
+            "style": 0,
+            "to_unit": 12,
+            "user_path": 0,
+            "width": 2
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                160,
+                157
+              ],
+              [
+                196,
+                157
+              ],
+              [
+                196,
+                189
+              ],
+              [
+                836,
+                189
+              ],
+              [
+                836,
+                157
+              ],
+              [
+                932,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 10,
+            "input_indices": [
+              17
+            ],
+            "start_dir": "40:40",
+            "style": 1,
+            "to_unit": 4,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                160,
+                157
+              ],
+              [
+                212,
+                157
+              ],
+              [
+                212,
+                205
+              ],
+              [
+                676,
+                205
+              ],
+              [
+                676,
+                157
+              ],
+              [
+                772,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 10,
+            "input_indices": [
+              1
+            ],
+            "start_dir": "40:40",
+            "style": 1,
+            "to_unit": 6,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                160,
+                157
+              ],
+              [
+                212,
+                157
+              ],
+              [
+                212,
+                205
+              ],
+              [
+                676,
+                205
+              ],
+              [
+                676,
+                333
+              ],
+              [
+                772,
+                333
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 10,
+            "input_indices": [
+              1
+            ],
+            "start_dir": "40:40",
+            "style": 1,
+            "to_unit": 7,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                160,
+                157
+              ],
+              [
+                228,
+                157
+              ],
+              [
+                228,
+                221
+              ],
+              [
+                540,
+                221
+              ],
+              [
+                540,
+                333
+              ],
+              [
+                612,
+                333
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 10,
+            "input_indices": [
+              4,
+              9
+            ],
+            "start_dir": "40:40",
+            "style": 1,
+            "to_unit": 8,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                332,
+                117
+              ],
+              [
+                348,
+                117
+              ],
+              [
+                348,
+                117
+              ],
+              [
+                452,
+                117
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 11,
+            "input_indices": [
+              5
+            ],
+            "start_dir": "40:0",
+            "style": 0,
+            "to_unit": 3,
+            "user_path": 0,
+            "width": 2
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                332,
+                333
+              ],
+              [
+                228,
+                333
+              ],
+              [
+                228,
+                221
+              ],
+              [
+                540,
+                221
+              ],
+              [
+                540,
+                333
+              ],
+              [
+                612,
+                333
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 12,
+            "input_indices": [
+              7
+            ],
+            "start_dir": "40:40",
+            "style": 0,
+            "to_unit": 8,
+            "user_path": 0,
+            "width": 2
+          },
+          {
+            "color": 8851335,
+            "coordinates": [
+              [
+                492,
+                117
+              ],
+              [
+                508,
+                117
+              ],
+              [
+                508,
+                117
+              ],
+              [
+                612,
+                117
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 3,
+            "input_indices": [
+              1
+            ],
+            "start_dir": "40:0",
+            "style": 0,
+            "to_unit": 5,
+            "user_path": 0,
+            "width": 5
+          },
+          {
+            "color": 8851335,
+            "coordinates": [
+              [
+                492,
+                137
+              ],
+              [
+                524,
+                137
+              ],
+              [
+                524,
+                293
+              ],
+              [
+                612,
+                293
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 3,
+            "input_indices": [
+              1,
+              2
+            ],
+            "start_dir": "40:20",
+            "style": 0,
+            "to_unit": 8,
+            "user_path": 0,
+            "width": 5
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                492,
+                157
+              ],
+              [
+                572,
+                157
+              ],
+              [
+                572,
+                237
+              ],
+              [
+                1012,
+                237
+              ],
+              [
+                1012,
+                157
+              ],
+              [
+                1092,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 3,
+            "input_indices": [
+              2
+            ],
+            "start_dir": "40:40",
+            "style": 4,
+            "to_unit": 9,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 8851335,
+            "coordinates": [
+              [
+                932,
+                157
+              ],
+              [
+                884,
+                157
+              ],
+              [
+                884,
+                269
+              ],
+              [
+                588,
+                269
+              ],
+              [
+                588,
+                157
+              ],
+              [
+                492,
+                157
+              ]
+            ],
+            "end_dir": "40:40",
+            "from_unit": 4,
+            "input_indices": [
+              1,
+              2,
+              3
+            ],
+            "start_dir": "0:40",
+            "style": 0,
+            "to_unit": 3,
+            "user_path": 0,
+            "width": 5
+          },
+          {
+            "color": 0,
+            "coordinates": [
+              [
+                972,
+                117
+              ],
+              [
+                980,
+                117
+              ],
+              [
+                980,
+                117
+              ],
+              [
+                1092,
+                117
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 4,
+            "input_indices": [
+              3,
+              4,
+              5
+            ],
+            "start_dir": "40:0",
+            "style": 4,
+            "to_unit": 9,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                652,
+                157
+              ],
+              [
+                692,
+                157
+              ],
+              [
+                692,
+                253
+              ],
+              [
+                852,
+                253
+              ],
+              [
+                852,
+                157
+              ],
+              [
+                932,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 5,
+            "input_indices": [
+              14,
+              15,
+              16
+            ],
+            "start_dir": "40:40",
+            "style": 1,
+            "to_unit": 4,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                652,
+                117
+              ],
+              [
+                660,
+                117
+              ],
+              [
+                660,
+                117
+              ],
+              [
+                772,
+                117
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 5,
+            "input_indices": [
+              3
+            ],
+            "start_dir": "40:0",
+            "style": 1,
+            "to_unit": 6,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 14783312,
+            "coordinates": [
+              [
+                652,
+                137
+              ],
+              [
+                660,
+                137
+              ],
+              [
+                660,
+                293
+              ],
+              [
+                772,
+                293
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 5,
+            "input_indices": [
+              3
+            ],
+            "start_dir": "40:20",
+            "style": 1,
+            "to_unit": 7,
+            "user_path": 0,
+            "width": 1
+          },
+          {
+            "color": 8851335,
+            "coordinates": [
+              [
+                812,
+                117
+              ],
+              [
+                820,
+                117
+              ],
+              [
+                820,
+                117
+              ],
+              [
+                932,
+                117
+              ]
+            ],
+            "end_dir": "0:0",
+            "from_unit": 6,
+            "input_indices": [
+              1,
+              2
+            ],
+            "start_dir": "40:0",
+            "style": 0,
+            "to_unit": 4,
+            "user_path": 0,
+            "width": 5
+          },
+          {
+            "color": 8851335,
+            "coordinates": [
+              [
+                812,
+                293
+              ],
+              [
+                820,
+                293
+              ],
+              [
+                820,
+                137
+              ],
+              [
+                932,
+                137
+              ]
+            ],
+            "end_dir": "0:20",
+            "from_unit": 7,
+            "input_indices": [
+              3,
+              4
+            ],
+            "start_dir": "40:0",
+            "style": 0,
+            "to_unit": 4,
+            "user_path": 0,
+            "width": 5
+          },
+          {
+            "color": 8851335,
+            "coordinates": [
+              [
+                652,
+                333
+              ],
+              [
+                708,
+                333
+              ],
+              [
+                708,
+                403
+              ],
+              [
+                868,
+                403
+              ],
+              [
+                868,
+                157
+              ],
+              [
+                932,
+                157
+              ]
+            ],
+            "end_dir": "0:40",
+            "from_unit": 8,
+            "input_indices": [
+              5,
+              6,
+              7,
+              8
+            ],
+            "start_dir": "40:40",
+            "style": 0,
+            "to_unit": 4,
+            "user_path": 0,
+            "width": 5
+          }
+        ],
+        "link_style_lines": [
+          {
+            "CONNECTION_SET": "40:40:0:40:4:0:0:2:0:160,333:244,333:244,403:364,403:364,157:452,157",
+            "LINK": "2:3"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:5,6,8,10:0:0:2:0:160,333:260,333:260,403:556,403:556,333:612,333",
+            "LINK": "2:8"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:1:0:4:1:0:160,333:276,333:276,403:996,403:996,157:1092,157",
+            "LINK": "2:9"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:20:1:0:0:2:0:160,293:180,293:180,137:292,137",
+            "LINK": "2:11"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:0:1:0:0:2:0:160,293:180,293:180,293:292,293",
+            "LINK": "2:12"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:17:14783312:1:1:0:160,157:196,157:196,189:836,189:836,157:932,157",
+            "LINK": "10:4"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:1:14783312:1:1:0:160,157:212,157:212,205:676,205:676,157:772,157",
+            "LINK": "10:6"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:1:14783312:1:1:0:160,157:212,157:212,205:676,205:676,333:772,333",
+            "LINK": "10:7"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:4,9:14783312:1:1:0:160,157:228,157:228,221:540,221:540,333:612,333",
+            "LINK": "10:8"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:0:5:0:0:2:0:332,117:348,117:348,117:452,117",
+            "LINK": "11:3"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:7:0:0:2:0:332,333:228,333:228,221:540,221:540,333:612,333",
+            "LINK": "12:8"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:0:1:8851335:0:5:0:492,117:508,117:508,117:612,117",
+            "LINK": "3:5"
+          },
+          {
+            "CONNECTION_SET": "40:20:0:0:1,2:8851335:0:5:0:492,137:524,137:524,293:612,293",
+            "LINK": "3:8"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:2:0:4:1:0:492,157:572,157:572,237:1012,237:1012,157:1092,157",
+            "LINK": "3:9"
+          },
+          {
+            "CONNECTION_SET": "0:40:40:40:1,2,3:8851335:0:5:0:932,157:884,157:884,269:588,269:588,157:492,157",
+            "LINK": "4:3"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:0:3,4,5:0:4:1:0:972,117:980,117:980,117:1092,117",
+            "LINK": "4:9"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:14,15,16:14783312:1:1:0:652,157:692,157:692,253:852,253:852,157:932,157",
+            "LINK": "5:4"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:0:3:14783312:1:1:0:652,117:660,117:660,117:772,117",
+            "LINK": "5:6"
+          },
+          {
+            "CONNECTION_SET": "40:20:0:0:3:14783312:1:1:0:652,137:660,137:660,293:772,293",
+            "LINK": "5:7"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:0:1,2:8851335:0:5:0:812,117:820,117:820,117:932,117",
+            "LINK": "6:4"
+          },
+          {
+            "CONNECTION_SET": "40:0:0:20:3,4:8851335:0:5:0:812,293:820,293:820,137:932,137",
+            "LINK": "7:4"
+          },
+          {
+            "CONNECTION_SET": "40:40:0:40:5,6,7,8:8851335:0:5:0:652,333:708,333:708,403:868,403:868,157:932,157",
+            "LINK": "8:4"
+          }
+        ],
+        "next_agent": "FINISH",
+        "repair_execution_chain": [],
+        "repair_targets": [],
+        "simulation_settings": {
+          "start_time": 2550,
+          "stop_time": 2730,
+          "time_step": 0.125
+        },
+        "status": "completed",
+        "system_analysis": "Good, I have retrieved similar systems. System 3 (Type996 - 2-Pipe Fan Coil Performance Map) and System 1 (4-pipe fan coil) are particularly relevant. Let me now analyze the task thoroughly and produce the planning result.\n\n**Analysis of the task:**\n\n1. **System type**: HVAC — a 4-pipe performance map fan coil unit serving a single-zone building with heating and cooling.\n\n2. **Component categories needed**:\n   - Weather data processor (TMY3)\n   - Single-zone lumped capacitance building model\n   - 4-pipe performance map fan coil\n   - 5-stage indoor thermostat\n   - Two single-speed pumps (chilled water + hot water)\n   - Online plotter (for temperature and energy rate curves)\n   - Possibly an equation component for the 15% fresh air mixing\n\n3. **Simulation settings**: \n   - Start: 2550 hr, Stop: 2730 hr, Step: 0.125 hr\n   - No explicit mention of tolerances, solver, relaxation, DFQ, debug switches — so I'll omit those.\n\n4. **Key outputs**: Temperature curves (ambient dry bulb, zone temperature, supply air temperature) and energy rate curves (total cooling, total heating).\n\nNow let me produce the JSON:\n\n```json\n{\n    \"system_type\": \"hvac\",\n    \"system_description\": \"A 4-pipe performance map fan coil unit serving a single-zone lumped-capacitance building for heating and cooling performance evaluation under variable weather conditions. The system includes a TMY3 weather processor, a 5-stage indoor thermostat for on/off control, two single-speed pumps (chilled water and hot water loops), and an online plotter. Fresh air is mixed with return air at a 15% ratio before entering the fan coil. Simulation runs from hour 2550 to 2730 (mid-April, ~7.5 days) at a 0.125-hour time step.\",\n    \"component_categories\": [\n        {\n            \"category\": \"weather\",\n            \"count\": 1,\n            \"description\": \"TMY3 weather data processor reading Madison, WI TMY3 file to provide ambient dry bulb temperature, humidity ratio, and other meteorological inputs\"\n        },\n        {\n            \"category\": \"building\",\n            \"count\": 1,\n            \"description\": \"Single-zone lumped-capacitance building model with thermal loss coefficient, heat capacity, air properties, surface area, and volume; provides zone temperature and humidity ratio feedback\"\n        },\n        {\n            \"category\": \"hvac\",\n            \"count\": 1,\n            \"description\": \"4-pipe performance map fan coil unit with separate cooling and heating coils, 11 fan speeds, humidity mode 2 (relative humidity), using external normalized performance data files for cooling, heating, and fan law corrections\"\n        },\n        {\n            \"category\": \"controller\",\n            \"count\": 1,\n            \"description\": \"5-stage indoor thermostat with 2°C deadband, 1st stage heating at 20°C, 2nd stage heating at 16°C, 1st stage cooling at 22°C, cascaded stage enabling, and 5 allowed oscillations; outputs heating/cooling control signals and air-conditioning fan signal\"\n        },\n        {\n            \"category\": \"pump\",\n            \"count\": 2,\n            \"description\": \"Two single-speed pumps: one for chilled water loop (inlet 10°C) and one for hot water loop (inlet 50°C), both rated at 1000 kg/h flow and 720 kJ/h power, with motor efficiency 0.9 and pump efficiency 0.6\"\n        },\n        {\n            \"category\": \"plotter\",\n            \"count\": 1,\n            \"description\": \"Online plotter displaying ambient dry bulb temperature, zone temperature, and fan coil supply air temperature on the left Y-axis (-20 to 40°C), and total cooling and heating energy rates on the right Y-axis (0 to 80000 kJ/h), with 7 X-axis grid points\"\n        },\n        {\n            \"category\": \"equations\",\n            \"count\": 1,\n            \"description\": \"Equation component to compute the mixed air condition from return air and 15% outdoor fresh air before entering the fan coil, and possibly to derive control logic connections between thermostat and pumps/fan coil\"\n        }\n    ],\n    \"simulation_settings\": {\n        \"start_time\": 2550,\n        \"stop_time\": 2730,\n        \"time_step\": 0.125\n    },\n    \"key_outputs\": [\n        \"Ambient dry bulb temperature\",\n        \"Zone temperature\",\n        \"Fan coil supply air temperature\",\n        \"Fan coil total cooling rate\",\n        \"Fan coil total heating rate\"\n    ],\n    \"reference_systems\": [\n        \"Type996 2-Pipe Fan Coil Performance Map with TMY3, Type88 building, Type108 thermostat (similar HVAC configuration)\",\n        \"4-Pipe Performance Map Fan Coil with chilled water, hot water, thermostat control, and TMY3 weather\"\n    ]\n}\n```\n\nThis planning scheme captures:\n\n- **System type**: HVAC — a fan coil based heating/cooling system\n- **7 component categories**: weather, building, hvac (fan coil), controller (thermostat), pump (×2), plotter, and equations for the fresh air mixing logic\n- **Simulation settings**: Only the three time parameters explicitly stated in the task (start=2550, stop=2730, step=0.125). No tolerances, solver, relaxation, DFQ, or debug parameters are mentioned or implied, so they are omitted to let defaults apply.\n- **Key outputs**: The five variables needed for the dual-axis plot\n- **Reference systems**: The two most relevant retrieved designs (Type996 2-pipe fan coil and 4-pipe fan coil patterns)",
+        "task_description": "您是TRNSYS能源系统仿真领域的专家。请您建立一个基于TRNSYS的四管制性能映射风机盘管单区建筑空调系统仿真模型，用于评估风机盘管系统在变化气象条件下的供暖和制冷性能。\\n\\n仿真时间从第2550小时运行至第2730小时（约7.5天，对应4月中旬），仿真步长为0.125小时（7.5分钟）。天气文件已为您准备好，位于\\\"D:\\\\TRNSYS18_03\\\\Weather\\\\US-TMY3\\\\US_WI_MADISON_DANE_CO_REGIONAL_ARPT_[ISIS]_726410.tmy3\\\"。\\n\\n系统包含一台四管制性能映射风机盘管（可同时供暖和制冷）、一个集总参数单区建筑模型、一个气象数据处理器、一个五级室内温控器以及两台单速水泵（一台用于冷冻水回路，一台用于热水回路）。风机盘管接收来自建筑区域的回风，并与一定比例的室外新风混合，然后通过冷却盘管和/或加热盘管对混合空气进行处理后送回区域。温控器监测区域温度，并向风机盘管和两台水泵发送开/关控制信号。\\n\\n四管制性能映射风机盘管主要参数：\\n- 湿度模式：2（相对湿度模式）\\n- 冷却流体比热容：4.19 kJ/(kg·K)\\n- 加热流体比热容：4.19 kJ/(kg·K)\\n- 额定容积风量：277.8 l/s\\n- 额定冷却液体流量：1000 kg/h\\n- 额定加热液体流量：1000 kg/h\\n- 额定总制冷量：35000 kJ/h（约9.72 kW）\\n- 额定显热制冷量：28000 kJ/h（约7.78 kW）\\n- 额定总制热量：30000 kJ/h（约8.33 kW）\\n- 额定风机功率：1000 kJ/h（约0.278 kW）\\n- 风机电机效率：0.9\\n- 风机热量传递至空气的比例：1.0\\n- 风机转速级数：11\\n- 制冷性能数据文件：\\\"D:\\\\TRNSYS18_03\\\\Tess Models\\\\SampleCatalogData\\\\4-Pipe Performance Map Fan Coil\\\\Normalized_FanCoil_Cooling.dat\\\"（7个干球温度、7个湿球温度、6个风量、8个液体温度、2个液体流量）\\n- 制热性能数据文件：\\\"D:\\\\TRNSYS18_03\\\\Tess Models\\\\SampleCatalogData\\\\4-Pipe Performance Map Fan Coil\\\\Normalized_FanCoil_Heating.dat\\\"（7个空气温度、6个风量、11个液体温度、2个液体流量）\\n- 风机修正数据文件：\\\"D:\\\\TRNSYS18_03\\\\Tess Models\\\\SampleCatalogData\\\\4-Pipe Performance Map Fan Coil\\\\FanLawPerformance.dat\\\"\\n\\n集总参数单区建筑模型主要参数：\\n- 建筑热损失系数：3 kJ/(h·m²·K)\\n- 建筑热容量：2000 kJ/K\\n- 建筑空气比热容：1.007 kJ/(kg·K)\\n- 建筑空气密度：1.2 kg/m³\\n- 建筑外表面积：200 m²\\n- 建筑体积：300 m³\\n- 湿度比乘数：1\\n- 初始区域温度：20°C\\n- 初始湿度比：0.005\\n- 汽化潜热：2260 kJ/kg\\n\\n五级室内温控器主要参数：\\n- 允许振荡次数：5\\n- 第二级供暖时启用第一级供暖：是\\n- 第三级供暖时启用第二级供暖：是\\n- 第三级供暖时启用第一级供暖：是\\n- 第二级制冷时启用第一级制冷：是\\n- 温度死区：2°C\\n- 第一级供暖设定温度：20°C\\n- 第二级供暖设定温度：16°C\\n- 第一级制冷设定温度：22°C\\n\\n冷冻水单速水泵（冷水泵）主要参数：\\n- 额定流量：1000 kg/h\\n- 流体比热容：4.19 kJ/(kg·K)\\n- 额定功率：720 kJ/h（约0.2 kW）\\n- 电机热损失比例：0（无热量传递至流体）\\n- 进口流体温度：10°C\\n- 水泵总效率：0.6\\n- 电机效率：0.9\\n\\n热水单速水泵（热水泵）主要参数：\\n- 额定流量：1000 kg/h\\n- 流体比热容：4.19 kJ/(kg·K)\\n- 额定功率：720 kJ/h（约0.2 kW）\\n- 电机热损失比例：0（无热量传递至流体）\\n- 进口流体温度：50°C\\n- 水泵总效率：0.6\\n- 电机效率：0.9\\n\\n控制策略：\\n五级室内温控器监测区域温度并按以下方式控制系统：当区域温度降至供暖设定温度以下（20°C减去半个死区），温控器激活第一级供暖信号，启动热水泵和风机盘管加热模式；当区域温度升至制冷设定温度以上（22°C加上半个死区），温控器激活第一级制冷信号，启动冷冻水泵和风机盘管制冷模式。温控器还输出一个空调信号用于控制风机盘管风机运行。回风中混合的新风比例设定为0.15（15%新风）。\\n\\n输出要求：\\n- 绘制温度曲线，包括：环境干球温度、区域温度和风机盘管送风温度（左轴，范围-20至40°C）\\n- 绘制能量速率曲线，包括：风机盘管总制冷量和总制热量（右轴，范围0至80000 kJ/h）\\n- 所有曲线显示在一张图上，X轴设置7个网格点",
+        "task_id": "task02",
+        "validation_errors": [],
+        "validation_file_versions": [
+          {
+            "dck_content": "\u003cfiltered: str, 15593 chars\u003e",
+            "dck_path": "/deps/trnsys_dck_generator/validation_runs/task02/V1_20260617_080818/V1_20260617_080818.dck",
+            "log_path": "/deps/trnsys_dck_generator/validation_runs/task02/V1_20260617_080818/V1_20260617_080818.log",
+            "lst_path": "/deps/trnsys_dck_generator/validation_runs/task02/V1_20260617_080818/V1_20260617_080818.lst",
+            "version_tag": "V1_20260617_080818"
+          }
+        ],
+        "validation_result": "success",
+        "validator_round": 1
+      },
+      "parent_run_id": null,
+      "run_id": "019ed2df-da73-7402-9d50-2f699934b19f",
+      "run_type": "chain",
+      "start_time": "2026-06-16T23:59:06.39274Z",
+      "status": "success",
+      "tags": null,
+      "token_usage": {
+        "completion_tokens": 59061,
+        "prompt_tokens": 2280650,
+        "total_tokens": 2339711
+      },
+      "trace_id": "019ed2df-da73-7402-9d50-2f699934b19f"
+    }
+  ],
+  "thread_id": "019ed2df-da00-7073-9c89-0521b45b76e2"
+}
