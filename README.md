@@ -2,7 +2,7 @@
 
 <p align="center">
   <strong>Domain knowledge-enhanced building energy modeling</strong><br>
-  A multi-agent collaborative framework powered by LLMs for automated system-level modeling
+  A multi-agent collaborative framework powered by LLMs for automated system-level TRNSYS modeling
 </p>
 
 <p align="center">
